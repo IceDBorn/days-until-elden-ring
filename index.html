@@ -58,7 +58,13 @@
         document.body.style.backgroundRepeat = "no-repeat";
         document.body.style.backgroundAttachment = "fixed";
         document.body.style.backgroundPosition = "50% 50%";
-        document.body.style.backgroundSize = "cover";
+        if( /Android|webOS|iPhone|iPad|iPod|BlackBerry/i.test(navigator.userAgent) ) {
+            document.body.style.backgroundSize = "auto";
+        }
+        else {
+            document.body.style.backgroundSize = "cover";
+        }
+        
 
         // Set the date we're counting down to
         var countDownDate = new Date("Jan 21, 2022 00:00:00").getTime();
