@@ -2,6 +2,8 @@
 <html>
 <head>
     <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Days until Elden Ring release</title>
     <link rel="shortcut icon" type="image/png" href="resources/fav.png"/>
     <style type="text/css">
@@ -57,12 +59,14 @@
         document.body.style.backgroundColor = "black";
         document.body.style.backgroundRepeat = "no-repeat";
         document.body.style.backgroundAttachment = "fixed";
-        document.body.style.backgroundPosition = "50% 50%";
+        
         if( /Android|webOS|iPhone|iPad|iPod|BlackBerry/i.test(navigator.userAgent) ) {
-            document.body.style.backgroundSize = "auto";
+            document.body.style.backgroundSize = "cover";
+            document.body.style.backgroundPosition = "center center";
         }
         else {
             document.body.style.backgroundSize = "cover";
+            document.body.style.backgroundPosition = "50% 50%";
         }
         
 
@@ -86,7 +90,7 @@
             
             if (distance < 0) {
                 clearInterval(x);
-                document.getElementById("until").innerHTML = "0";
+                document.getElementById("until").innerHTML = "it is finally time!";
             }
             else {
                 // Display the result in the element with id="until"
