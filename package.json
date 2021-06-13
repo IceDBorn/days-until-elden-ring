@@ -17,6 +17,10 @@
   },
   "homepage": "https://github.com/IceDBorn/days-until-elden-ring#readme",
   "devDependencies": {
+    "eslint-plugin-html": "^6.1.2",
     "standard": "^16.0.3"
+  },
+  "standard": {
+    "plugins": ["html"]
   }
 }
