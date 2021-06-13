@@ -6,12 +6,12 @@
   const cw = c.width = window.innerWidth
   const ch = c.height = window.innerHeight
   const rand = function (a, b) { return ~~((Math.random() * (b - a + 1)) + a) }
-  const plusses = []
+  const pluses = []
   const count = 300
   let tick = 10
   const tickMax = 10
 
-  let plussesToCreate = 20
+  let plusesToCreate = 20
 
   const Plus = function () {
     this.init()
@@ -19,7 +19,7 @@
 
   Plus.prototype.init = function () {
     this.x = cw * Math.random()
-    this.y = ch * 1
+    this.y = ch
     this.vx = (rand(0, 100) - 50) / 12
     this.vy = -(rand(50, 100)) / 90
     this.lightness = Math.random() < 0.7 ? rand(45, 50) : rand(65, 70)
@@ -31,7 +31,7 @@
     this.spin = (rand(0, 100) - 50) / 3000
   }
 
-  Plus.prototype.update = function (i) {
+  Plus.prototype.update = function () {
     this.x += this.vx
     this.y -= this.vy
     this.vy += 0.15 * this.scale
@@ -46,11 +46,7 @@
       this.init()
     }
 
-    if (this.y < 0) {
-      return false
-    }
-
-    return true
+    return this.y >= 0
   }
 
   Plus.prototype.render = function () {
@@ -66,10 +62,10 @@
     ctx.restore()
   }
 
-  const createPlusses = function () {
-    if (plussesToCreate > 1 || plusses.length < count) {
+  const createPluses = function () {
+    if (plusesToCreate > 1 || pluses.length < count) {
       if (tick >= tickMax) {
-        plusses.push(...[...Array(plussesToCreate)].map(_ => new Plus()))
+        pluses.push(...[...Array(plusesToCreate)].map(_ => new Plus()))
         tick = 0
       } else {
         tick++
@@ -77,31 +73,31 @@
     }
   }
 
-  const updatePlusses = function () {
-    let i = plusses.length
+  const updatePluses = function () {
+    let i = pluses.length
     while (i--) {
-      plusses[i].update(i) || plusses.splice(i, 1)
+      pluses[i].update() || pluses.splice(i, 1)
     }
   }
 
-  const renderPlusses = function () {
-    let i = plusses.length
+  const renderPluses = function () {
+    let i = pluses.length
     while (i--) {
-      plusses[i].render()
+      pluses[i].render()
     }
   }
 
   const loop = function () {
     window.requestAnimFrame(loop)
     ctx.clearRect(0, 0, cw, ch)
-    createPlusses()
-    updatePlusses()
-    renderPlusses()
+    createPluses()
+    updatePluses()
+    renderPluses()
 
-    if (plussesToCreate > 1) {
-      plussesToCreate -= 1
-      if (plussesToCreate < 1) {
-        plussesToCreate = 1
+    if (plusesToCreate > 1) {
+      plusesToCreate -= 1
+      if (plusesToCreate < 1) {
+        plusesToCreate = 1
       }
     }
   }
