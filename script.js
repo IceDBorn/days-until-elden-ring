@@ -1,6 +1,8 @@
 ;(() => {
+  const content = document.getElementById('content')
   const until = document.getElementById('until')
 
+  document.body.style.background = 'black url(resources/backgrounds/' + new Date().getDay() + '.jpg)'
   document.body.style.backgroundRepeat = 'no-repeat'
   document.body.style.backgroundAttachment = 'fixed'
 
@@ -13,18 +15,13 @@
     document.body.style.backgroundPosition = '50% 50%'
   }
 
-  // Set the date we're counting down to
   const countDownDate = new Date('Jan 21, 2022 00:00:00').getTime()
 
-  // Update the count down every 1 second
   const x = setInterval((function loop () {
-    // Get today's date and time
     const now = new Date().getTime()
 
-    // Find the distance between now and the count down date
     const distance = countDownDate - now
 
-    // Time calculations for days, hours, minutes and seconds
     const days = Math.floor(distance / (1000 * 60 * 60 * 24))
     const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60))
     const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60))
@@ -34,10 +31,30 @@
       clearInterval(x)
       until.innerText = 'it is finally time!'
     } else {
-      // Display the result in the element with id="until"
       until.innerHTML = `${days}&nbsp;days ${hours}&nbsp;hours ${minutes}&nbsp;minutes ${seconds}&nbsp;seconds`
     }
 
     return loop
   })(), 1000)
+
+  function fading () {
+    const increment = 0.007
+    let opacity = 0
+
+    function fadingLoop () {
+      if (opacity > 1) {
+        opacity = 1
+      } else {
+        window.requestAnimFrame(fadingLoop)
+      }
+
+      document.getElementById('text').style.opacity = opacity
+      content.style.backgroundColor = `rgba(0,0,0,${1 - opacity})`
+      opacity += increment
+    }
+
+    window.requestAnimFrame(fadingLoop)
+  }
+
+  setTimeout(fading, 100)
 })()

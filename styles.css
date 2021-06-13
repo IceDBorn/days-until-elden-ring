@@ -9,6 +9,15 @@
 
 body {
   margin: 0;
+  height: 100vh;
+  bottom: 0;
+  position: absolute;
+}
+
+#content {
+  width: 100vw;
+  height: 100vh;
+  position: fixed;
 }
 
 #text {
@@ -17,6 +26,7 @@ body {
   color: #e6c98e;
   font-family: Mantinia;
   text-align: center;
+  opacity: 0;
 }
 
 .multiply-bg {
@@ -38,7 +48,7 @@ h1 {
 
 .center {
   margin: 0;
-  position: absolute;
+  position: fixed;
   top: 50%;
   left: 50%;
   -ms-transform: translate(-50%, -50%);
@@ -50,4 +60,5 @@ h1 {
   height: 100%;
   -webkit-filter: blur(2px);
   position: fixed;
+  top: 0;
 }
