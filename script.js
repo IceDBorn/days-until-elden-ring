@@ -35,7 +35,7 @@
       until.innerText = 'it is finally time!'
     } else {
       // Display the result in the element with id="until"
-      until.innerText = `${days} days ${hours} hours ${minutes} minutes ${seconds} seconds`
+      until.innerHTML = `${days}&nbsp;days ${hours}&nbsp;hours ${minutes}&nbsp;minutes ${seconds}&nbsp;seconds`
     }
 
     return loop
