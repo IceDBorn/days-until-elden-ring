@@ -29,11 +29,13 @@
     const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60))
     const seconds = Math.floor((distance % (1000 * 60)) / 1000)
 
+    const formatValue = (value, name) => `${value}&nbsp;${name}${value === 1 ? '' : 's'}`
+
     if (distance < 0) {
       clearInterval(x)
       until.innerText = 'it is finally time!'
     } else {
-      until.innerHTML = `${days}&nbsp;days ${hours}&nbsp;hours ${minutes}&nbsp;minutes ${seconds}&nbsp;seconds`
+      until.innerHTML = `${formatValue(days, 'day')} ${formatValue(hours, 'hour')} ${formatValue(minutes, 'minute')} ${formatValue(seconds, 'second')}`
     }
 
     return loop
@@ -68,7 +70,7 @@
       })
 
       mc.on('swipeup', () => {
-        window.open('https://www.youtube.com/playlist?list=PLEvjQXUVNXtLaInE60PML5EF49jI8qw9_')
+        window.open('https://m.youtube.com/playlist?list=PLEvjQXUVNXtLaInE60PML5EF49jI8qw9_', '_blank')
       })
     } else {
       const bottomHiddenBar = document.getElementById('bottom-hidden-bar')
