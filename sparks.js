@@ -11,6 +11,8 @@
   let tick = 10
   const tickMax = 10
 
+  let plussesToCreate = 20
+
   const Plus = function () {
     this.init()
   }
@@ -65,9 +67,9 @@
   }
 
   const createPlusses = function () {
-    if (plusses.length < count) {
+    if (plussesToCreate > 1 || plusses.length < count) {
       if (tick >= tickMax) {
-        plusses.push(new Plus())
+        plusses.push(...[...Array(plussesToCreate)].map(_ => new Plus()))
         tick = 0
       } else {
         tick++
@@ -95,6 +97,13 @@
     createPlusses()
     updatePlusses()
     renderPlusses()
+
+    if (plussesToCreate > 1) {
+      plussesToCreate -= 1
+      if (plussesToCreate < 1) {
+        plussesToCreate = 1
+      }
+    }
   }
 
   loop()
