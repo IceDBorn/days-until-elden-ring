@@ -18,11 +18,24 @@
                 <span class="multiply-bg">release<br></span>
                 <div class="multiply-bg" id="until"></div>
             </h1>
+
+            <div id="latest-news"></div>
+            <template id="latest-news-template">
+                <iframe width="560" height="315" src="about:blank" title="latest news" frameborder="0"
+                    allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                    allowfullscreen></iframe>
+            </template>
         </div>
+    </div>
+
+    <div id="bottom-hidden-bar">
+        <button id="latest-news-button" class="multiply-bg">latest news</button>
     </div>
 
     <canvas id="sparks"></canvas>
 
+    <script src="/lib/sweetalert2.all.min.js"></script>
+    <script src="/lib/hammer.min.js"></script>
     <script src="/sparks.js"></script>
     <script src="/script.js"></script>
 </body>
