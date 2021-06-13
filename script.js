@@ -88,7 +88,7 @@
 
       latestNewsButton.onclick = () => window.Swal.fire({
         html: /* html */ `
-          <iframe class="center" width="560" height="315" src="https://www.youtube.com/embed/+lastest?list=PLEvjQXUVNXtLaInE60PML5EF49jI8qw9_" title="latest news" frameborder="0"
+          <iframe class="center" width="560" height="315" src="https://www.youtube.com/embed/+lastest?list=PLEvjQXUVNXtLaInE60PML5EF49jI8qw9_" title="latest news" border="0"
             allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
             allowfullscreen></iframe>
         `,
