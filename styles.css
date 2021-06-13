@@ -18,11 +18,12 @@ body {
   width: 100vw;
   height: 100vh;
   position: fixed;
+  user-select: none;
 }
 
 #text {
   padding-top: 20px;
-  padding-bottom: 100px;
+  padding-bottom: 20;
   color: #e6c98e;
   font-family: Mantinia;
   text-align: center;
@@ -61,4 +62,24 @@ h1 {
   -webkit-filter: blur(2px);
   position: fixed;
   top: 0;
+  z-index: -999;
+}
+
+#bottom-hidden-bar {
+  width: 100%;
+  position: fixed;
+  bottom: 0;
+  text-align: center;
+  display: none;
+  padding: 16px;
+}
+
+#latest-news-button {
+  font-family: 'Mantinia';
+  font-size: 42px;
+  border-style: none;
+}
+
+#latest-news-button:hover {
+  text-shadow: 0 0 5px rgba(60, 60, 60, 1);
 }
