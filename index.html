@@ -9,15 +9,20 @@
     <link rel="stylesheet" href="/styles.css">
 </head>
 
-<body class="center">
+<body>
     <script>document.body.style.background = 'black url(resources/backgrounds/' + new Date().getDay() + '.jpg)'</script>
-    <h1>
-        days until<br>
-        <img src="/resources/logo.png" width="600px"><br>
-        release<br>
-        <div id="until"></div>
-    </h1>
+    <div class="center" id="text">
+        <h1>
+            days until<br>
+            <img src="/resources/logo.png" width="600px"><br>
+            release<br>
+            <div id="until"></div>
+        </h1>
+    </div>
 
+    <canvas id="sparks"></canvas>
+
+    <script src="/sparks.js"></script>
     <script src="/script.js"></script>
 </body>
 

@@ -1,8 +1,8 @@
 ;(() => {
+  const until = document.getElementById('until')
+
   document.body.style.backgroundRepeat = 'no-repeat'
   document.body.style.backgroundAttachment = 'fixed'
-
-  const until = document.getElementById('until')
 
   if (/Android|webOS|iPhone|iPad|iPod|BlackBerry/i.test(navigator.userAgent)) {
     document.body.style.backgroundSize = 'auto'
