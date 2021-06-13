@@ -1,7 +1,4 @@
 ;(() => {
-  // Set background based on day
-  document.body.style.background = 'url(resources/backgrounds/' + new Date().getDay() + '.jpg)'
-  document.body.style.backgroundColor = 'black'
   document.body.style.backgroundRepeat = 'no-repeat'
   document.body.style.backgroundAttachment = 'fixed'
 
