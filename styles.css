@@ -23,9 +23,9 @@ body {
 
 #text {
   padding-top: 20px;
-  padding-bottom: 20;
+  padding-bottom: 20px;
   color: #e6c98e;
-  font-family: Mantinia;
+  font-family: Mantinia, serif;
   text-align: center;
   opacity: 0;
 }
@@ -75,7 +75,7 @@ h1 {
 }
 
 #latest-news-button {
-  font-family: 'Mantinia';
+  font-family: Mantinia, serif;
   font-size: 42px;
   border-style: none;
 }
