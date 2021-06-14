@@ -2,14 +2,13 @@
   const content = document.getElementById('content')
   const until = document.getElementById('until')
   const toast = document.getElementById('toast')
-  const isMobile = /Mobi|Tablet|iPad|iPhone/i.test(navigator.userAgent) || window.matchMedia('only screen and (max-width: 760px)').matches
 
   document.body.style.background = 'black url(resources/backgrounds/' + new Date().getDay() + '.jpg)'
   document.body.style.backgroundRepeat = 'no-repeat'
   document.body.style.backgroundAttachment = 'fixed'
   toast.className = 'show'
 
-  if (isMobile) {
+  if (isTouch()) {
     document.body.style.backgroundSize = 'auto'
     document.body.style.backgroundPosition = '50% 0%'
     until.style.maxWidth = '600px'
@@ -82,7 +81,7 @@
   setTimeout(fading, 100)
 
   function fadeCompleted () {
-    if (isMobile) {
+    if (isTouch()) {
       const mc = new window.Hammer.Manager(document.body, {
         recognizers: [[window.Hammer.Swipe, { direction: window.Hammer.DIRECTION_VERTICAL }]]
       })
@@ -118,5 +117,9 @@
         background: 'rgba(0,0,0,0)'
       })
     }
+  }
+
+  function isTouch () {
+    try { document.createEvent('TouchEvent'); return true } catch (e) { return false }
   }
 })()
