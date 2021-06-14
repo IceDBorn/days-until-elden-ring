@@ -1,20 +1,34 @@
 ;(() => {
   const content = document.getElementById('content')
   const until = document.getElementById('until')
-
+  const toast = document.getElementById('toast')
   const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry/i.test(navigator.userAgent)
 
   document.body.style.background = 'black url(resources/backgrounds/' + new Date().getDay() + '.jpg)'
   document.body.style.backgroundRepeat = 'no-repeat'
   document.body.style.backgroundAttachment = 'fixed'
+  toast.className = 'show'
 
   if (isMobile) {
     document.body.style.backgroundSize = 'auto'
     document.body.style.backgroundPosition = '50% 0%'
     until.style.maxWidth = '600px'
+    toast.style.left = '48%'
+    toast.innerText = 'Swipe  up for the latest news!'
+    setTimeout(function () {
+      toast.className = toast.className.replace('show', '')
+      fadeCompleted()
+    }, 2000)
   } else {
     document.body.style.backgroundSize = 'cover'
     document.body.style.backgroundPosition = '50% 50%'
+    toast.style.left = '50%'
+    toast.style.fontSize = '20px'
+    toast.innerText = 'Move the mouse cursor here for the latest news!'
+    setTimeout(function () {
+      toast.className = toast.className.replace('show', '')
+      fadeCompleted()
+    }, 2000)
   }
 
   const countDownDate = new Date('Jan 21, 2022 00:00:00').getTime()
@@ -48,7 +62,6 @@
     function fadingLoop () {
       if (opacity > 1) {
         opacity = 1
-        fadeCompleted()
       } else {
         window.requestAnimFrame(fadingLoop)
       }
@@ -78,7 +91,7 @@
 
       document.body.onmousemove = e => {
         const pos = { x: e.clientX, y: e.clientY }
-        if (pos.y < window.innerHeight - 74) {
+        if (pos.y < window.innerHeight - 100) {
           bottomHiddenBar.style.display = 'none'
           return
         }
@@ -88,7 +101,7 @@
 
       latestNewsButton.onclick = () => window.Swal.fire({
         html: /* html */ `
-          <iframe class="center" width="560" height="315" src="https://www.youtube.com/embed/+lastest?list=PLEvjQXUVNXtLaInE60PML5EF49jI8qw9_" title="latest news" border="0"
+          <iframe class="center" width="1280" height="720" src="https://www.youtube.com/embed/+lastest?list=PLEvjQXUVNXtLaInE60PML5EF49jI8qw9_" title="latest news" frameborder="0"
             allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
             allowfullscreen></iframe>
         `,
