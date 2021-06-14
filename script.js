@@ -2,8 +2,7 @@
   const content = document.getElementById('content')
   const until = document.getElementById('until')
   const toast = document.getElementById('toast')
-  // const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry/i.test(navigator.userAgent)
-  const isMobile = navigator.userAgent.toLowerCase().match(/mobile/i)
+  const isMobile = /Mobi|Tablet|iPad|iPhone/i.test(navigator.userAgent) || window.matchMedia('only screen and (max-width: 760px)').matches
   document.body.style.background = 'black url(resources/backgrounds/' + new Date().getDay() + '.jpg)'
   document.body.style.backgroundRepeat = 'no-repeat'
   document.body.style.backgroundAttachment = 'fixed'
