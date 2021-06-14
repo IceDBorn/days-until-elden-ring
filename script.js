@@ -2,8 +2,8 @@
   const content = document.getElementById('content')
   const until = document.getElementById('until')
   const toast = document.getElementById('toast')
-  const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry/i.test(navigator.userAgent)
-
+  // const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry/i.test(navigator.userAgent)
+  const isMobile = navigator.userAgent.toLowerCase().match(/mobile/i)
   document.body.style.background = 'black url(resources/backgrounds/' + new Date().getDay() + '.jpg)'
   document.body.style.backgroundRepeat = 'no-repeat'
   document.body.style.backgroundAttachment = 'fixed'
