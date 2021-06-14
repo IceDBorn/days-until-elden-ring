@@ -3,31 +3,6 @@
   const until = document.getElementById('until')
   const toast = document.getElementById('toast')
 
-  document.body.style.background = 'black url(resources/backgrounds/' + new Date().getDay() + '.jpg)'
-  document.body.style.backgroundRepeat = 'no-repeat'
-  document.body.style.backgroundAttachment = 'fixed'
-  toast.className = 'show'
-
-  if (isTouch()) {
-    document.body.style.backgroundSize = 'auto'
-    document.body.style.backgroundPosition = '50% 0%'
-    until.style.maxWidth = '600px'
-    toast.style.left = '48%'
-    toast.innerText = 'Swipe  up for the latest news!'
-    setTimeout(function () {
-      toast.className = toast.className.replace('show', '')
-    }, 5000)
-  } else {
-    document.body.style.backgroundSize = 'cover'
-    document.body.style.backgroundPosition = '50% 50%'
-    toast.style.left = '50%'
-    toast.style.fontSize = '20px'
-    toast.innerText = 'Move the mouse cursor here for the latest news!'
-    setTimeout(function () {
-      toast.className = toast.className.replace('show', '')
-    }, 5000)
-  }
-
   let countDownDate
 
   if (new Date().getTime() > new Date('Oct 31, 2021 04:00:00').getTime()) {
