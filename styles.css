@@ -1,6 +1,6 @@
 @font-face {
   font-family: Mantinia;
-  src: url(/resources/font.otf);
+  src: url(resources/font.otf);
 }
 
 * {
@@ -31,7 +31,7 @@ body {
 }
 
 .multiply-bg {
-  background-image: url(/resources/dirt.jpg);
+  background-image: url(resources/dirt.jpg);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 }
