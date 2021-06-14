@@ -20,7 +20,7 @@
   } else {
     document.body.style.backgroundSize = 'cover'
     document.body.style.backgroundPosition = '50% 50%'
-    toast.style.left = '50%'
+    toast.style.left = '49%'
     toast.style.fontSize = '20px'
     toast.innerText = 'move the mouse cursor here for the latest news'
     setTimeout(function () {
