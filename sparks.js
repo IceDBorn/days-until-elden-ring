@@ -25,7 +25,7 @@
     this.lightness = Math.random() < 0.7 ? rand(45, 50) : rand(65, 70)
     this.alpha = 1
     this.fade = 1
-    this.scale = 0.01
+    this.scale = 1
     this.growth = 0.01
     this.rotation = 8
     this.spin = (rand(0, 100) - 50) / 3000

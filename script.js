@@ -3,6 +3,7 @@
   const until = document.getElementById('until')
   const toast = document.getElementById('toast')
   const isMobile = /Mobi|Tablet|iPad|iPhone/i.test(navigator.userAgent) || window.matchMedia('only screen and (max-width: 760px)').matches
+
   document.body.style.background = 'black url(resources/backgrounds/' + new Date().getDay() + '.jpg)'
   document.body.style.backgroundRepeat = 'no-repeat'
   document.body.style.backgroundAttachment = 'fixed'
@@ -30,7 +31,13 @@
     }, 2000)
   }
 
-  const countDownDate = new Date('Jan 21, 2022 00:00:00').getTime()
+  let countDownDate
+
+  if (new Date().getTime() > new Date('Oct 31, 2021 04:00:00').getTime()) {
+    countDownDate = new Date('Jan 21, 2022 00:00:00').getTime()
+  } else {
+    countDownDate = new Date('Jan 20, 2022 23:00:00').getTime()
+  }
 
   const x = setInterval((function loop () {
     const now = new Date().getTime()
@@ -100,7 +107,10 @@
 
       latestNewsButton.onclick = () => window.Swal.fire({
         html: /* html */ `
-          <iframe class="center" width="1280" height="720" src="https://www.youtube.com/embed/+lastest?list=PLEvjQXUVNXtLaInE60PML5EF49jI8qw9_" title="latest news" frameborder="0"
+          <iframe class="center" width="1280" height="720" 
+            src="https://www.youtube.com/embed/+lastest?list=PLEvjQXUVNXtLaInE60PML5EF49jI8qw9_"
+            title="latest news"
+            frameborder="0"
             allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
             allowfullscreen></iframe>
         `,
