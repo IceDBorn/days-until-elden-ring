@@ -17,8 +17,7 @@
     toast.innerText = 'Swipe  up for the latest news!'
     setTimeout(function () {
       toast.className = toast.className.replace('show', '')
-      fadeCompleted()
-    }, 2000)
+    }, 5000)
   } else {
     document.body.style.backgroundSize = 'cover'
     document.body.style.backgroundPosition = '50% 50%'
@@ -27,8 +26,7 @@
     toast.innerText = 'Move the mouse cursor here for the latest news!'
     setTimeout(function () {
       toast.className = toast.className.replace('show', '')
-      fadeCompleted()
-    }, 2000)
+    }, 5000)
   }
 
   let countDownDate
@@ -68,6 +66,7 @@
     function fadingLoop () {
       if (opacity > 1) {
         opacity = 1
+        fadeCompleted()
       } else {
         window.requestAnimFrame(fadingLoop)
       }
@@ -102,6 +101,7 @@
           return
         }
 
+        toast.style.display = 'none'
         bottomHiddenBar.style.display = 'block'
       }
 
