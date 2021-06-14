@@ -6,13 +6,14 @@
   document.body.style.background = 'black url(resources/backgrounds/' + new Date().getDay() + '.jpg)'
   document.body.style.backgroundRepeat = 'no-repeat'
   document.body.style.backgroundAttachment = 'fixed'
+  toast.style.fontFamily = 'Mantinia'
   toast.className = 'show'
 
   if (isTouch()) {
     document.body.style.backgroundSize = 'auto'
     document.body.style.backgroundPosition = '50% 0%'
     toast.style.left = '48%'
-    toast.innerText = 'Swipe  up for the latest news!'
+    toast.innerText = 'swipe  up for the latest news'
     setTimeout(function () {
       toast.className = toast.className.replace('show', '')
     }, 5000)
@@ -21,7 +22,7 @@
     document.body.style.backgroundPosition = '50% 50%'
     toast.style.left = '50%'
     toast.style.fontSize = '20px'
-    toast.innerText = 'Move the mouse cursor here for the latest news!'
+    toast.innerText = 'move the mouse cursor here for the latest news'
     setTimeout(function () {
       toast.className = toast.className.replace('show', '')
     }, 5000)
