@@ -3,7 +3,7 @@
 
   if (isTouch()) {
     const mc = new window.Hammer.Manager(document.body, {
-      recognizers: [[window.Hammer.Swipe, { direction: window.Hammer.DIRECTION_VERTICAL }]]
+      recognizers: [[window.Hammer.Swipe, { direction: window.Hammer.DIRECTION_ALL }]]
     })
 
     mc.on('swipeup', () => {
