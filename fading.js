@@ -1,29 +1,24 @@
 ;(() => {
   const content = document.getElementById('content')
-  const isApple = /iPhone|iPad|Mac|Macintosh|iPod/i.test(navigator.userAgent)
 
-  if (!isApple) {
-    setTimeout(fading, 100)
+  setTimeout(fading, 100)
 
-    function fading () {
-      const increment = 0.007
-      let opacity = 0
+  function fading () {
+    const increment = 0.007
+    let opacity = 0
 
-      function fadingLoop () {
-        if (opacity > 1) {
-          opacity = 1
-        } else {
-          window.requestAnimFrame(fadingLoop)
-        }
-
-        document.getElementById('text').style.opacity = opacity
-        content.style.backgroundColor = `rgba(0,0,0,${1 - opacity})`
-        opacity += increment
+    function fadingLoop () {
+      if (opacity > 1) {
+        opacity = 1
+      } else {
+        window.requestAnimFrame(fadingLoop)
       }
 
-      window.requestAnimFrame(fadingLoop)
+      document.getElementById('text').style.opacity = opacity
+      content.style.backgroundColor = `rgba(0,0,0,${1 - opacity})`
+      opacity += increment
     }
-  } else {
-    document.getElementById('text').style.opacity = '1'
+
+    window.requestAnimFrame(fadingLoop)
   }
 })()
