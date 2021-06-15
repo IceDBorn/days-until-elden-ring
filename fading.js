@@ -23,5 +23,7 @@
 
       window.requestAnimFrame(fadingLoop)
     }
+  } else {
+    document.getElementById('text').style.opacity = '1'
   }
 })()
