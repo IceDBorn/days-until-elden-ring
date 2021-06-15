@@ -1,44 +1,16 @@
 ;(() => {
   const content = document.getElementById('content')
-  const until = document.getElementById('until')
   const toast = document.getElementById('toast')
+  const isApple = /iPhone|iPad|Mac|Macintosh|iPod/i.test(navigator.userAgent)
 
-  let countDownDate
-
-  if (new Date().getTime() > new Date('Oct 31, 2021 04:00:00').getTime()) {
-    countDownDate = new Date('Jan 21, 2022 00:00:00').getTime()
-  } else {
-    countDownDate = new Date('Jan 20, 2022 23:00:00').getTime()
-  }
-
-  const x = setInterval((function loop () {
-    const now = new Date().getTime()
-
-    const distance = countDownDate - now
-
-    const days = Math.floor(distance / (1000 * 60 * 60 * 24))
-    const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60))
-    const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60))
-    const seconds = Math.floor((distance % (1000 * 60)) / 1000)
-
-    const formatValue = (value, name) => `${value}&nbsp;${name}${value === 1 ? '' : 's'}`
-
-    if (distance < 0) {
-      clearInterval(x)
-      until.innerText = 'it is finally time!'
-    } else {
-      until.innerHTML = `${formatValue(days, 'day')} ${formatValue(hours, 'hour')} ${formatValue(minutes, 'minute')} ${formatValue(seconds, 'second')}`
-    }
-
-    return loop
-  })(), 1000)
+  setTimeout(fading, 100)
 
   function fading () {
     const increment = 0.007
     let opacity = 0
 
     function fadingLoop () {
-      if (opacity > 1) {
+      if (opacity > 1 || isApple) {
         opacity = 1
         fadeCompleted()
       } else {
@@ -52,8 +24,6 @@
 
     window.requestAnimFrame(fadingLoop)
   }
-
-  setTimeout(fading, 100)
 
   function fadeCompleted () {
     if (isTouch()) {
@@ -84,7 +54,7 @@
           <iframe class="center" width="1280" height="720" 
             src="https://www.youtube.com/embed/+lastest?list=PLEvjQXUVNXtLaInE60PML5EF49jI8qw9_"
             title="latest news"
-            frameborder="0"
+            style="border:0"
             allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
             allowfullscreen></iframe>
         `,

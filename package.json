@@ -2,7 +2,7 @@
   "name": "days-until-elden-ring",
   "version": "1.0.0",
   "description": "",
-  "main": "script.js",
+  "main": "fading.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
