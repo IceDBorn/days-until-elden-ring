@@ -1,13 +1,14 @@
 ;(() => {
   const toast = document.getElementById('toast')
+  const isApple = /iPhone|iPad|Mac|Macintosh|iPod/i.test(navigator.userAgent)
 
   toast.style.fontFamily = 'Mantinia'
   toast.className = 'show'
 
-  if (isTouch()) {
+  if (isTouch() && !isApple) {
     toast.style.left = '48%'
-    toast.innerText = 'swipe right for the latest news'
-  } else {
+    toast.innerText = 'swipe up for the latest news'
+  } else if (!isApple) {
     toast.style.left = '49%'
     toast.style.fontSize = '20px'
     toast.innerText = 'move the mouse cursor here for the latest news'
