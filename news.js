@@ -23,7 +23,6 @@
         const pos = { x: e.clientX, y: e.clientY }
         if (pos.y < window.innerHeight - 100) {
           bottomHiddenBar.style.display = 'none'
-          console.log(window.Swal.getState())
           return
         }
 
