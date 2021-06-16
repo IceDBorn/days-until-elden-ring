@@ -1,5 +1,6 @@
 ;(() => {
   const toast = document.getElementById('toast')
+  let flag = true
 
   if (isTouch()) {
     const mc = new window.Hammer.Manager(document.body, {
@@ -18,18 +19,22 @@
     const latestNewsButton = document.getElementById('latest-news-button')
 
     document.body.onmousemove = e => {
-      const pos = { x: e.clientX, y: e.clientY }
-      if (pos.y < window.innerHeight - 100) {
-        bottomHiddenBar.style.display = 'none'
-        return
-      }
+      if (flag) {
+        const pos = { x: e.clientX, y: e.clientY }
+        if (pos.y < window.innerHeight - 100) {
+          bottomHiddenBar.style.display = 'none'
+          console.log(window.Swal.getState())
+          return
+        }
 
-      toast.style.display = 'none'
-      bottomHiddenBar.style.display = 'block'
+        toast.style.display = 'none'
+        bottomHiddenBar.style.display = 'block'
+      }
     }
 
-    latestNewsButton.onclick = () => window.Swal.fire({
-      html: /* html */ `
+    latestNewsButton.onclick = function swal () {
+      window.Swal.fire({
+        html: /* html */ `
           <iframe class="center" width="1280" height="720" 
             src="https://www.youtube.com/embed/+lastest?list=PLEvjQXUVNXtLaInE60PML5EF49jI8qw9_"
             title="latest news"
@@ -37,9 +42,12 @@
             allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
             allowfullscreen></iframe>
         `,
-      showConfirmButton: false,
-      background: 'rgba(0,0,0,0)'
-    })
+        showConfirmButton: false,
+        background: 'rgba(0,0,0,0)'
+      }).then(value => { flag = value })
+      bottomHiddenBar.style.display = 'none'
+      flag = false
+    }
   }
 
   function isTouch () {
