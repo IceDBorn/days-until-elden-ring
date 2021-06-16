@@ -1,20 +1,21 @@
 ;(() => {
   const toast = document.getElementById('toast')
+  const isApple = /iPhone|iPad|Mac|Macintosh|iPod/i.test(navigator.userAgent)
   let flag = true
 
-  if (isTouch()) {
+  if (isTouch() && !isApple) {
     const mc = new window.Hammer.Manager(document.body, {
       recognizers: [[window.Hammer.Swipe, { direction: window.Hammer.DIRECTION_ALL }]]
     })
 
-    mc.on('swiperight', () => {
+    mc.on('swipeup', () => {
       window.open('https://m.youtube.com/playlist?list=PLEvjQXUVNXtLaInE60PML5EF49jI8qw9_')
     })
 
     mc.on('swipedown', () => {
       document.location.reload()
     })
-  } else {
+  } else if (!isApple) {
     const bottomHiddenBar = document.getElementById('bottom-hidden-bar')
     const latestNewsButton = document.getElementById('latest-news-button')
 

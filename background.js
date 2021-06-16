@@ -36,7 +36,7 @@
     if (isMobile) {
       document.body.style.backgroundSize = 'auto'
       document.body.style.backgroundPosition = '50% 0%'
-      document.body.style.backgroundAttachment = 'local'
+      document.body.style.backgroundAttachment = 'scroll'
     } else {
       document.body.style.backgroundSize = 'cover'
       document.body.style.backgroundPosition = '50% 50%'
