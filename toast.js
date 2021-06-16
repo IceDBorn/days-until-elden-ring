@@ -6,7 +6,7 @@
 
   if (isTouch()) {
     toast.style.left = '48%'
-    toast.innerText = 'swipe  up for the latest news'
+    toast.innerText = 'swipe right for the latest news'
   } else {
     toast.style.left = '49%'
     toast.style.fontSize = '20px'

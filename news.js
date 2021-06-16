@@ -7,8 +7,8 @@
       recognizers: [[window.Hammer.Swipe, { direction: window.Hammer.DIRECTION_ALL }]]
     })
 
-    mc.on('swipeup', () => {
-      window.open('https://m.youtube.com/playlist?list=PLEvjQXUVNXtLaInE60PML5EF49jI8qw9_', '_blank')
+    mc.on('swiperight', () => {
+      window.open('https://m.youtube.com/playlist?list=PLEvjQXUVNXtLaInE60PML5EF49jI8qw9_')
     })
 
     mc.on('swipedown', () => {
