@@ -2,6 +2,7 @@
   window.requestAnimFrame = (function () { return window.requestAnimationFrame || window.webkitRequestAnimationFrame || window.mozRequestAnimationFrame || window.oRequestAnimationFrame || window.msRequestAnimationFrame || function (a) { window.setTimeout(a, 1E3 / 60) } }())
 
   const c = document.getElementById('sparks')
+  c.style.zIndex = '-1'
   const ctx = c.getContext('2d')
   const cw = c.width = window.innerWidth
   const ch = c.height = window.innerHeight

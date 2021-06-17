@@ -1,6 +1,5 @@
 ;(() => {
   const isMobile = /Android|webOS|iPhone|iPad|Mac|Macintosh|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)
-  const isApple = /iPhone|iPad|Mac|Macintosh|iPod/i.test(navigator.userAgent)
   const rand = function (a, b) { return ~~((Math.random() * (b - a + 1)) + a) }
   let today
 
@@ -32,18 +31,14 @@
   function SetBackground (url) {
     document.body.style.background = 'black url(' + url + ')'
     document.body.style.backgroundRepeat = 'no-repeat'
+    document.body.style.backgroundAttachment = 'fixed'
 
     if (isMobile) {
       document.body.style.backgroundSize = 'auto'
       document.body.style.backgroundPosition = '50% 0%'
-      document.body.style.backgroundAttachment = 'scroll'
     } else {
       document.body.style.backgroundSize = 'cover'
       document.body.style.backgroundPosition = '50% 50%'
-      document.body.style.backgroundAttachment = 'fixed'
     }
-
-    if (isApple) { return }
-    document.body.style.height = '100vh'
   }
 })()

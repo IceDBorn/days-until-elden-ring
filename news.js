@@ -1,9 +1,8 @@
 ;(() => {
   const toast = document.getElementById('toast')
-  const isApple = /iPhone|iPad|Mac|Macintosh|iPod/i.test(navigator.userAgent)
   let flag = true
 
-  if (isTouch() && !isApple) {
+  if (isTouch()) {
     const mc = new window.Hammer.Manager(document.body, {
       recognizers: [[window.Hammer.Swipe, { direction: window.Hammer.DIRECTION_ALL }]]
     })
@@ -15,7 +14,7 @@
     mc.on('swipedown', () => {
       document.location.reload()
     })
-  } else if (!isApple) {
+  } else {
     const bottomHiddenBar = document.getElementById('bottom-hidden-bar')
     const latestNewsButton = document.getElementById('latest-news-button')
 
