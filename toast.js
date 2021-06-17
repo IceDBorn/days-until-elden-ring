@@ -1,6 +1,5 @@
 ;(() => {
   const toast = document.getElementById('toast')
-  // const isApple = /iPhone|iPad|Mac|Macintosh|iPod/i.test(navigator.userAgent)
 
   toast.style.fontFamily = 'Mantinia'
   toast.className = 'show'
