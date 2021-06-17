@@ -31,14 +31,15 @@
   function SetBackground (url) {
     document.body.style.background = 'black url(' + url + ')'
     document.body.style.backgroundRepeat = 'no-repeat'
-    document.body.style.backgroundAttachment = 'fixed'
 
     if (isMobile) {
       document.body.style.backgroundSize = 'auto'
       document.body.style.backgroundPosition = '50% 0%'
+      document.body.style.backgroundAttachment = 'scroll'
     } else {
       document.body.style.backgroundSize = 'cover'
       document.body.style.backgroundPosition = '50% 50%'
+      document.body.style.backgroundAttachment = 'fixed'
     }
   }
 })()
