@@ -11,7 +11,7 @@ body {
   margin: 0;
   bottom: 0;
   position: absolute;
-  background-color: black;
+  height: 100vh;
 }
 
 #content {
@@ -62,7 +62,6 @@ h1 {
   -webkit-filter: blur(2px);
   position: fixed;
   top: 0;
-  z-index: -999;
 }
 
 #bottom-hidden-bar {
