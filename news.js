@@ -1,6 +1,13 @@
 ;(() => {
   const toast = document.getElementById('toast')
   let flag = true
+  let iframeWidth = window.innerWidth * 0.75
+  let iframeHeight = window.innerWidth * 0.75 * (9 / 16)
+
+  if (iframeHeight > window.innerHeight) {
+    iframeWidth = window.innerHeight * 0.75 / (9 / 16)
+    iframeHeight = window.innerHeight * 0.75
+  }
 
   if (isTouch()) {
     const mc = new window.Hammer.Manager(document.body, {
@@ -34,7 +41,7 @@
     latestNewsButton.onclick = function swal () {
       window.Swal.fire({
         html: /* html */ `
-          <iframe class="center" width="1280" height="720" 
+          <iframe class="center" width="${iframeWidth}" height="${iframeHeight}"
             src="https://www.youtube.com/embed/+lastest?list=PLEvjQXUVNXtLaInE60PML5EF49jI8qw9_"
             title="latest news"
             style="border:0"
