@@ -1,5 +1,5 @@
 ;(() => {
-  const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)
+  const isMobile = /Android|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)
   const rand = function (a, b) { return ~~((Math.random() * (b - a + 1)) + a) }
   let today
 
