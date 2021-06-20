@@ -14,7 +14,7 @@
 
   function getBackground () {
     today = new Date().getDay()
-    backgroundExists('resources/backgrounds/' + new Date().getDay() + '-' + rand(0, 1) + '.jpg')
+    backgroundExists('resources/backgrounds/' + new Date().getDay() + '-' + rand(0, 2) + '.jpg')
   }
 
   function backgroundExists (url) {
