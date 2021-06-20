@@ -34,7 +34,7 @@ body {
 }
 
 .multiply-bg {
-  background-image: url(resources/dirt.avif);
+  background-image: url(resources/dirt.jpg);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 }
