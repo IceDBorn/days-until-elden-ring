@@ -98,6 +98,7 @@ h1 {
   color: #e6c98e;
   text-align: center;
   font-size: 42px;
+  font-family: Mantinia, serif;
   border-radius: 20px;
   padding: 16px;
   position: fixed;
@@ -107,8 +108,8 @@ h1 {
 
 #toast.show {
   visibility: visible;
-  -webkit-animation: fadein 0.5s, fadeout 0.5s 4.5s;
-  animation: fadein 0.5s, fadeout 0.5s 4.5s;
+  -webkit-animation: fadein 0.5s, fadeout 0.5s 4.6s;
+  animation: fadein 0.5s, fadeout 0.5s 4.6s;
 }
 
 @-webkit-keyframes fadein {

@@ -1,11 +1,10 @@
 ;(() => {
-  window.requestAnimFrame = (function () { return window.requestAnimationFrame || window.webkitRequestAnimationFrame || window.mozRequestAnimationFrame || window.oRequestAnimationFrame || window.msRequestAnimationFrame || function (a) { window.setTimeout(a, 1E3 / 60) } }())
-
   const c = document.getElementById('sparks')
-  c.style.zIndex = '-1'
   const ctx = c.getContext('2d')
-  const cw = c.width = window.innerWidth
-  const ch = c.height = window.innerHeight
+
+  let cw = c.width = window.innerWidth
+  let ch = c.height = window.innerHeight
+
   const rand = function (a, b) { return ~~((Math.random() * (b - a + 1)) + a) }
   const pluses = []
   const count = 300
@@ -13,6 +12,8 @@
   const tickMax = 10
 
   let plusesToCreate = 20
+
+  let lastFrameTime = Date.now()
 
   const Plus = function () {
     this.init()
@@ -33,8 +34,10 @@
   }
 
   Plus.prototype.update = function () {
-    this.x += this.vx
-    this.y -= this.vy
+    const deltaTime = (Date.now() - lastFrameTime) / 16
+
+    this.x += this.vx * deltaTime
+    this.y -= this.vy * deltaTime
     this.vy += 0.15 * this.scale
     if (this.alpha < 1) {
       this.alpha += this.fade
@@ -90,10 +93,18 @@
 
   const loop = function () {
     window.requestAnimFrame(loop)
+    if (!c.getAttribute('data-sparks-playing')) return
+
     ctx.clearRect(0, 0, cw, ch)
+
+    cw = c.width = window.innerWidth
+    ch = c.height = window.innerHeight
+
     createPluses()
     updatePluses()
     renderPluses()
+
+    lastFrameTime = Date.now()
 
     if (plusesToCreate > 1) {
       plusesToCreate -= 1
