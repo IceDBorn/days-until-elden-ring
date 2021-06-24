@@ -76,7 +76,7 @@ h1 {
   padding: 16px;
 }
 
-#latest-news-button {
+#latest-news-button, #settings-button, #trailer-button {
   font-family: Mantinia, serif;
   font-size: 42px;
   border-style: none;
@@ -86,7 +86,7 @@ h1 {
   -ms-user-select: none;
 }
 
-#latest-news-button:hover {
+#latest-news-button:hover, #settings-button:hover, #trailer-button:hover {
   text-shadow: 0 0 5px rgba(60, 60, 60, 1);
 }
 
