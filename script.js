@@ -162,6 +162,9 @@
       },
       iframeClick (src) {
         if (this.isTouch) return
+        if (this.musicPlayer !== null) {
+          this.musicPlayer.pause()
+        }
 
         this.initIframe()
 
@@ -177,7 +180,12 @@
           html: iframe.outerHTML,
           showConfirmButton: false,
           background: 'rgba(0,0,0,0)'
-        }).then(value => { this.menuVisible = value })
+        }).then(value => {
+          this.menuVisible = value
+          if (this.musicPlayer !== null) {
+            this.musicPlayer.play()
+          }
+        })
 
         this.toastVisible = false
         this.bottomHiddenBarVisible = false
