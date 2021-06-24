@@ -29,7 +29,8 @@
 
       lastFrameTime: Date.now(),
 
-      background: null,
+      musicPlayer: null,
+
       contentOpacity: 0,
 
       untilInterval: null,
@@ -44,11 +45,14 @@
 
       toastVisible: true,
       toastStyle: {},
+      toastMessage: null,
 
       settings: {
-        version: 1,
+        version: 0,
         sparksPlaying: true,
-        backgroundImage: true
+        bottomBar: true,
+        backgroundImage: true,
+        music: 'none'
       }
     },
     mounted () {
@@ -57,7 +61,10 @@
       const savedSettings = JSON.parse(window.localStorage.getItem('settings'))
       if (savedSettings && savedSettings.version === this.settings.version) this.settings = savedSettings
 
-      try { document.createEvent('TouchEvent'); this.isTouch = true } catch { this.isTouch = false }
+      try {
+        document.createEvent('TouchEvent')
+        this.isTouch = true
+      } catch { this.isTouch = false }
       setTimeout(function () { self.toastVisible = false }, 5000)
 
       this.initCountDownDate()
@@ -67,6 +74,8 @@
 
       this.updateBackground()
       this.fadingLoop()
+      this.updateMusic()
+      this.initEscapeListener()
     },
     watch: {
       settings: {
@@ -81,6 +90,9 @@
         } else {
           document.body.style.background = 'black'
         }
+      },
+      'settings.music' () {
+        this.updateMusic()
       }
     },
     methods: {
@@ -96,6 +108,25 @@
 
             setBackground(url, this.isMobile)
           })
+      },
+      updateMusic () {
+        try {
+          this.musicPlayer.pause()
+          this.musicPlayer.currentTime = 0
+        } catch {}
+
+        if (!(this.settings.music === 'none')) {
+          this.musicPlayer = new window.Audio(this.settings.music)
+          this.musicPlayer.loop = true
+
+          document.body.addEventListener('mousemove', function () {
+            if (window.app.musicPlayer !== null && window.app.musicPlayer.currentTime === 0) {
+              window.app.musicPlayer.play()
+            }
+          })
+        } else {
+          this.musicPlayer = null
+        }
       },
       fadingLoop () {
         const deltaTime = Date.now() - this.lastFrameTime
@@ -157,10 +188,20 @@
 
         window.Swal.fire({
           html: /* html */ `
-          <input type="checkbox" ${this.settings.sparksPlaying ? 'checked' : ''} id="sparksToggle" onclick="window.app.settings.sparksPlaying = !window.app.settings.sparksPlaying">
-          <label for="sparksToggle" style="color: white">Sparks</label><br>
-          <input type="checkbox" ${this.settings.backgroundImage ? 'checked' : ''} id="sparksToggle" onclick="window.app.settings.backgroundImage = !window.app.settings.backgroundImage">
-          <label for="sparksToggle" style="color: white">Background</label>
+            <div style="text-align: left; color: white">
+              <input type="checkbox" ${this.settings.backgroundImage ? 'checked' : ''} id="background" onclick="window.app.settings.backgroundImage = !window.app.settings.backgroundImage">
+              <label for="background" style="color: white">Background</label><br>
+              <input type="checkbox" ${this.settings.bottomBar ? 'checked' : ''} id="bottomBar" onclick="window.app.settings.bottomBar = !window.app.settings.bottomBar">
+              <label for="bottomBar" style="color: white">Bottom bar (Re-enable by pressing ESC)</label><br>
+              <input type="checkbox" ${this.settings.sparksPlaying ? 'checked' : ''} id="sparksToggle" onclick="window.app.settings.sparksPlaying = !window.app.settings.sparksPlaying">
+              <label for="sparksToggle" style="color: white">Sparks</label><br>
+              <label for="music">Music:</label>
+              <select name="music" id="music" onchange="window.app.settings.music = value" style="background-color: gray; color: white">
+                <option ${this.settings.music === 'none' ? 'selected' : ''} value="none">None</option>
+                <option ${this.settings.music === 'resources/music/alex-roe.mp3' ? 'selected' : ''} value="resources/music/alex-roe.mp3">The Flame of Ambition by Alex Roe</option>
+                <option ${this.settings.music === 'resources/music/timothy-richards.mp3' ? 'selected' : ''} value="resources/music/timothy-richards.mp3">Debut Trailer by Timothy Richards</option>
+              </select>
+            </div>
         `,
           showConfirmButton: false,
           background: 'rgba(50,50,50,1)'
@@ -182,9 +223,11 @@
       initToastStyles () {
         if (this.isTouch) {
           this.toastStyle.left = '48%'
+          this.toastMessage = 'swipe up for the latest news'
         } else {
           this.toastStyle.left = '49%'
           this.toastStyle.fontSize = '20px'
+          this.toastMessage = 'move the mouse cursor here for info and settings'
         }
       },
       initIframe () {
@@ -222,7 +265,7 @@
           })
         } else {
           document.body.onmousemove = e => {
-            if (!this.menuVisible) return
+            if (!(this.menuVisible && window.app.settings.bottomBar)) return
 
             const pos = { x: e.clientX, y: e.clientY }
             if (pos.y < window.innerHeight - 100) {
@@ -234,6 +277,16 @@
             this.bottomHiddenBarVisible = true
           }
         }
+      },
+      initEscapeListener () {
+        if (!(this.settings.bottomBar || this.isTouch)) {
+          this.toastMessage = 'press esc to re-enable bottom bar'
+        }
+        document.addEventListener('keydown', e => {
+          if (e.code === 'Escape') {
+            this.settings.bottomBar = true
+          }
+        })
       }
     }
   })
