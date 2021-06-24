@@ -86,6 +86,16 @@ h1 {
   -ms-user-select: none;
 }
 
+#separator, #separator2 {
+  font-family: Mantinia, serif;
+  font-size: 35px;
+  border-style: none;
+  user-select: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+}
+
 #latest-news-button:hover, #settings-button:hover, #trailer-button:hover {
   text-shadow: 0 0 5px rgba(60, 60, 60, 1);
 }
