@@ -200,7 +200,7 @@
               <input type="checkbox" ${this.settings.backgroundImage ? 'checked' : ''} id="background" onclick="window.app.settings.backgroundImage = !window.app.settings.backgroundImage">
               <label for="background" style="color: white">Background</label><br>
               <input type="checkbox" ${this.settings.bottomBar ? 'checked' : ''} id="bottomBar" onclick="window.app.settings.bottomBar = !window.app.settings.bottomBar">
-              <label for="bottomBar" style="color: white">Bottom bar (Re-enable by pressing ESC)</label><br>
+              <label for="bottomBar" style="color: white">Bottom bar (Toggle by pressing ESC)</label><br>
               <input type="checkbox" ${this.settings.sparksPlaying ? 'checked' : ''} id="sparksToggle" onclick="window.app.settings.sparksPlaying = !window.app.settings.sparksPlaying">
               <label for="sparksToggle" style="color: white">Sparks</label><br>
               <label for="music">Music:</label>
@@ -292,7 +292,7 @@
         }
         document.addEventListener('keydown', e => {
           if (e.code === 'Escape') {
-            this.settings.bottomBar = true
+            this.settings.bottomBar = !this.settings.bottomBar
           }
         })
       }
