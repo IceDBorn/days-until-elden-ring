@@ -124,6 +124,11 @@
               window.app.musicPlayer.play()
             }
           })
+          document.body.addEventListener('keydown', function () {
+            if (window.app.musicPlayer !== null && window.app.musicPlayer.currentTime === 0) {
+              window.app.musicPlayer.play()
+            }
+          })
         } else {
           this.musicPlayer = null
         }
@@ -288,7 +293,7 @@
       },
       initEscapeListener () {
         if (!(this.settings.bottomBar || this.isTouch)) {
-          this.toastMessage = 'press esc to re-enable bottom bar'
+          this.toastMessage = 'press esc to re-enable the bottom bar'
         }
         document.addEventListener('keydown', e => {
           if (e.code === 'Escape') {
