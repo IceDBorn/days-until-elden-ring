@@ -120,17 +120,18 @@
 
         return this.countdownLoop
       },
-      iframeClick (iframeClicked) {
+      iframeClick (src) {
         if (this.isTouch) return
 
         this.initIframe()
 
         const html = document.createElement('div')
-        html.innerHTML = document.getElementById(iframeClicked).innerHTML
+        html.innerHTML = document.getElementById('iframe').innerHTML
 
         const iframe = html.querySelector('iframe')
         iframe.setAttribute('width', this.iframeWidth)
         iframe.setAttribute('height', this.iframeHeight)
+        iframe.setAttribute('src', src)
 
         window.Swal.fire({
           html: iframe.outerHTML,
