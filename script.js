@@ -37,7 +37,8 @@
 
       iframeWidth: 0,
       iframeHeight: 0,
-      iframeVisible: true,
+
+      menuVisible: true,
 
       bottomHiddenBarVisible: false,
 
@@ -45,14 +46,16 @@
       toastStyle: {},
 
       settings: {
-        sparksPlaying: true
+        version: 1,
+        sparksPlaying: true,
+        backgroundImage: true
       }
     },
     mounted () {
       const self = this
 
       const savedSettings = JSON.parse(window.localStorage.getItem('settings'))
-      if (savedSettings) this.settings = savedSettings
+      if (savedSettings && savedSettings.version === this.settings.version) this.settings = savedSettings
 
       try { document.createEvent('TouchEvent'); this.isTouch = true } catch { this.isTouch = false }
       setTimeout(function () { self.toastVisible = false }, 5000)
@@ -67,17 +70,23 @@
     },
     watch: {
       settings: {
-        handler (newSettings) {
+        handler () {
           window.localStorage.setItem('settings', JSON.stringify(this.settings))
         },
         deep: true
       },
-      'settings.sparksPlaying' (newStatus) {
-        console.log(newStatus)
+      'settings.backgroundImage' () {
+        if (this.settings.backgroundImage) {
+          this.updateBackground()
+        } else {
+          document.body.style.background = 'black'
+        }
       }
     },
     methods: {
       updateBackground () {
+        if (!this.settings.backgroundImage) return
+
         let url = 'resources/backgrounds/' + this.today + '-' + rand(0, 2) + '.jpg'
         window.fetch(url, { method: 'HEAD' })
           .then(res => {
@@ -137,11 +146,29 @@
           html: iframe.outerHTML,
           showConfirmButton: false,
           background: 'rgba(0,0,0,0)'
-        }).then(value => { this.iframeVisible = value })
+        }).then(value => { this.menuVisible = value })
 
         this.toastVisible = false
         this.bottomHiddenBarVisible = false
-        this.iframeVisible = false
+        this.menuVisible = false
+      },
+      settingsClick () {
+        if (this.isTouch) return
+
+        window.Swal.fire({
+          html: /* html */ `
+          <input type="checkbox" ${this.settings.sparksPlaying ? 'checked' : ''} id="sparksToggle" onclick="window.app.settings.sparksPlaying = !window.app.settings.sparksPlaying">
+          <label for="sparksToggle" style="color: white">Sparks</label><br>
+          <input type="checkbox" ${this.settings.backgroundImage ? 'checked' : ''} id="sparksToggle" onclick="window.app.settings.backgroundImage = !window.app.settings.backgroundImage">
+          <label for="sparksToggle" style="color: white">Background</label>
+        `,
+          showConfirmButton: false,
+          background: 'rgba(50,50,50,1)'
+        }).then(value => { this.menuVisible = value })
+
+        this.toastVisible = false
+        this.bottomHiddenBarVisible = false
+        this.menuVisible = false
       },
       initCountDownDate () {
         if (new Date().getTime() > new Date('Oct 31, 2021 04:00:00').getTime()) {
@@ -195,7 +222,7 @@
           })
         } else {
           document.body.onmousemove = e => {
-            if (!this.iframeVisible) return
+            if (!this.menuVisible) return
 
             const pos = { x: e.clientX, y: e.clientY }
             if (pos.y < window.innerHeight - 100) {
@@ -210,4 +237,5 @@
       }
     }
   })
+  window.app = app
 })()
