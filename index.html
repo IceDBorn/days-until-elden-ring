@@ -28,13 +28,15 @@
             <div id="toast" :class="{ show: toastVisible }" :style="toastStyle">
                 {{ isTouch
                 ? 'swipe up for the latest news'
-                : 'move the mouse cursor here for the latest news'
+                : 'move the mouse cursor here for info and settings'
                 }}
             </div>
         </div>
 
         <div id="bottom-hidden-bar" :style="{ display: bottomHiddenBarVisible ? 'block' : 'none' }">
+            <button id="settings-button" class="multiply-bg" @click="">settings</button>
             <button id="latest-news-button" class="multiply-bg" @click="latestNewsClick">latest news</button>
+            <button id="trailer-button" class="multiply-bg" @click="trailerClick">trailer</button>
         </div>
 
         <canvas id="sparks" :style="{ zIndex: -1, display: settings.sparksPlaying ? 'unset' : 'none' }"
@@ -46,6 +48,13 @@
             title="latest news" style="border:0"
             allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
             allowfullscreen></iframe>
+    </template>
+
+    <template id="trailer-iframe">
+        <iframe class="center" src="https://www.youtube.com/embed/E3Huy2cdih0"
+                title="trailer" style="border:0"
+                allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allowfullscreen></iframe>
     </template>
 
     <script src='https://cdnjs.cloudflare.com/ajax/libs/hammer.js/2.0.8/hammer.min.js'

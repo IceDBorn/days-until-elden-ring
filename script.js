@@ -142,6 +142,28 @@
         this.bottomHiddenBarVisible = false
         this.iframeVisible = false
       },
+      trailerClick () {
+        if (this.isTouch) return
+
+        this.initIframe()
+
+        const html = document.createElement('div')
+        html.innerHTML = document.getElementById('trailer-iframe').innerHTML
+
+        const iframe = html.querySelector('iframe')
+        iframe.setAttribute('width', this.iframeWidth)
+        iframe.setAttribute('height', this.iframeHeight)
+
+        window.Swal.fire({
+          html: iframe.outerHTML,
+          showConfirmButton: false,
+          background: 'rgba(0,0,0,0)'
+        }).then(value => { this.iframeVisible = value })
+
+        this.toastVisible = false
+        this.bottomHiddenBarVisible = false
+        this.iframeVisible = false
+      },
       initCountDownDate () {
         if (new Date().getTime() > new Date('Oct 31, 2021 04:00:00').getTime()) {
           this.countDownDate = new Date('Jan 21, 2022 00:00:00').getTime()
