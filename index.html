@@ -35,26 +35,19 @@
 
         <div id="bottom-hidden-bar" :style="{ display: bottomHiddenBarVisible ? 'block' : 'none' }">
             <button id="settings-button" class="multiply-bg" @click="">settings</button>
-            <button id="latest-news-button" class="multiply-bg" @click="iframeClick('news-iframe')">latest news</button>
-            <button id="trailer-button" class="multiply-bg" @click="iframeClick('trailer-iframe')">trailer</button>
+            <button id="latest-news-button" class="multiply-bg" @click="iframeClick('https://www.youtube.com/embed/+lastest?list=PLEvjQXUVNXtLaInE60PML5EF49jI8qw9_')">latest news</button>
+            <button id="trailer-button" class="multiply-bg" @click="iframeClick('https://www.youtube.com/embed/E3Huy2cdih0')">trailer</button>
         </div>
 
         <canvas id="sparks" :style="{ zIndex: -1, display: settings.sparksPlaying ? 'unset' : 'none' }"
             :data-sparks-playing="settings.sparksPlaying"></canvas>
     </div>
 
-    <template id="news-iframe">
-        <iframe class="center" src="https://www.youtube.com/embed/+lastest?list=PLEvjQXUVNXtLaInE60PML5EF49jI8qw9_"
+    <template id="iframe">
+        <iframe class="center" src=""
             title="latest news" style="border:0"
             allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
             allowfullscreen></iframe>
-    </template>
-
-    <template id="trailer-iframe">
-        <iframe class="center" src="https://www.youtube.com/embed/E3Huy2cdih0"
-                title="trailer" style="border:0"
-                allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                allowfullscreen></iframe>
     </template>
 
     <script src='https://cdnjs.cloudflare.com/ajax/libs/hammer.js/2.0.8/hammer.min.js'
