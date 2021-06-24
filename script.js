@@ -120,35 +120,13 @@
 
         return this.countdownLoop
       },
-      latestNewsClick () {
+      iframeClick (iframeClicked) {
         if (this.isTouch) return
 
         this.initIframe()
 
         const html = document.createElement('div')
-        html.innerHTML = document.getElementById('news-iframe').innerHTML
-
-        const iframe = html.querySelector('iframe')
-        iframe.setAttribute('width', this.iframeWidth)
-        iframe.setAttribute('height', this.iframeHeight)
-
-        window.Swal.fire({
-          html: iframe.outerHTML,
-          showConfirmButton: false,
-          background: 'rgba(0,0,0,0)'
-        }).then(value => { this.iframeVisible = value })
-
-        this.toastVisible = false
-        this.bottomHiddenBarVisible = false
-        this.iframeVisible = false
-      },
-      trailerClick () {
-        if (this.isTouch) return
-
-        this.initIframe()
-
-        const html = document.createElement('div')
-        html.innerHTML = document.getElementById('trailer-iframe').innerHTML
+        html.innerHTML = document.getElementById(iframeClicked).innerHTML
 
         const iframe = html.querySelector('iframe')
         iframe.setAttribute('width', this.iframeWidth)

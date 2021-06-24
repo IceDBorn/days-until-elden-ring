@@ -35,8 +35,8 @@
 
         <div id="bottom-hidden-bar" :style="{ display: bottomHiddenBarVisible ? 'block' : 'none' }">
             <button id="settings-button" class="multiply-bg" @click="">settings</button>
-            <button id="latest-news-button" class="multiply-bg" @click="latestNewsClick">latest news</button>
-            <button id="trailer-button" class="multiply-bg" @click="trailerClick">trailer</button>
+            <button id="latest-news-button" class="multiply-bg" @click="iframeClick('news-iframe')">latest news</button>
+            <button id="trailer-button" class="multiply-bg" @click="iframeClick('trailer-iframe')">trailer</button>
         </div>
 
         <canvas id="sparks" :style="{ zIndex: -1, display: settings.sparksPlaying ? 'unset' : 'none' }"
