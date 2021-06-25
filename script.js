@@ -48,11 +48,12 @@
       toastMessage: null,
 
       settings: {
-        version: 0,
+        version: 1,
         sparksPlaying: true,
         bottomBar: true,
         backgroundImage: true,
-        music: 'none'
+        music: 'none',
+        volume: 50
       }
     },
     mounted () {
@@ -118,6 +119,7 @@
         if (!(this.settings.music === 'none')) {
           this.musicPlayer = new window.Audio(this.settings.music)
           this.musicPlayer.loop = true
+          this.musicPlayer.volume = (this.settings.volume / 100)
 
           document.body.addEventListener('mousemove', function () {
             if (window.app.musicPlayer !== null && window.app.musicPlayer.currentTime === 0) {
@@ -132,6 +134,10 @@
         } else {
           this.musicPlayer = null
         }
+      },
+      updateVolume (value) {
+        this.settings.volume = value
+        this.musicPlayer.volume = (this.settings.volume / 100)
       },
       fadingLoop () {
         const deltaTime = Date.now() - this.lastFrameTime
@@ -213,7 +219,9 @@
                 <option ${this.settings.music === 'none' ? 'selected' : ''} value="none">None</option>
                 <option ${this.settings.music === 'resources/music/alex-roe.mp3' ? 'selected' : ''} value="resources/music/alex-roe.mp3">The Flame of Ambition by Alex Roe</option>
                 <option ${this.settings.music === 'resources/music/timothy-richards.mp3' ? 'selected' : ''} value="resources/music/timothy-richards.mp3">Debut Trailer by Timothy Richards</option>
-              </select>
+              </select><br>
+              <label for="volume">Volume:</label>
+              <input type="range" min="0" max="100" value="${window.app.settings.volume}" id="volume" onchange="window.app.updateVolume(value)">
             </div>
         `,
           showConfirmButton: false,
