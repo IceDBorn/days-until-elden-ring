@@ -138,6 +138,7 @@
       updateVolume (value) {
         this.settings.volume = value
         this.musicPlayer.volume = (this.settings.volume / 100)
+        document.getElementById('volumeValue').innerText = this.settings.volume + '%'
       },
       fadingLoop () {
         const deltaTime = Date.now() - this.lastFrameTime
@@ -222,6 +223,7 @@
               </select><br>
               <label for="volume">Volume:</label>
               <input type="range" min="0" max="100" value="${window.app.settings.volume}" id="volume" onchange="window.app.updateVolume(value)">
+              <label id="volumeValue">${window.app.settings.volume + '%'}</label>
             </div>
         `,
           showConfirmButton: false,
