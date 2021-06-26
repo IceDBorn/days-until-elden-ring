@@ -118,8 +118,8 @@ h1 {
 
 #toast.show {
   visibility: visible;
-  -webkit-animation: fadein 0.5s, fadeout 0.5s 4.6s;
-  animation: fadein 0.5s, fadeout 0.5s 4.6s;
+  -webkit-animation: fadein 0.5s, fadeout 0.5s 5s;
+  animation: fadein 0.5s, fadeout 0.5s 5s;
 }
 
 @-webkit-keyframes fadein {
