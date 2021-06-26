@@ -76,7 +76,7 @@
       this.updateBackground()
       this.fadingLoop()
       this.updateMusic()
-      this.initEscapeListener()
+      this.initListeners()
     },
     watch: {
       settings: {
@@ -120,17 +120,6 @@
           this.musicPlayer = new window.Audio(this.settings.music)
           this.musicPlayer.loop = true
           this.musicPlayer.volume = (this.settings.volume / 100)
-
-          document.body.addEventListener('mousemove', function () {
-            if (window.app.musicPlayer !== null && window.app.musicPlayer.currentTime === 0) {
-              window.app.musicPlayer.play()
-            }
-          })
-          document.body.addEventListener('keydown', function () {
-            if (window.app.musicPlayer !== null && window.app.musicPlayer.currentTime === 0) {
-              window.app.musicPlayer.play()
-            }
-          })
         } else {
           this.musicPlayer = null
         }
@@ -187,6 +176,7 @@
         iframe.setAttribute('width', this.iframeWidth)
         iframe.setAttribute('height', this.iframeHeight)
         iframe.setAttribute('src', src)
+        iframe.setAttribute('id', 'lastIframe')
 
         window.Swal.fire({
           html: iframe.outerHTML,
@@ -288,7 +278,10 @@
           })
         } else {
           document.body.onmousemove = e => {
-            if (!(this.menuVisible && window.app.settings.bottomBar)) return
+            if (!(this.menuVisible && window.app.settings.bottomBar)) {
+              this.bottomHiddenBarVisible = false
+              return
+            }
 
             const pos = { x: e.clientX, y: e.clientY }
             if (pos.y < window.innerHeight - 100) {
@@ -301,7 +294,7 @@
           }
         }
       },
-      initEscapeListener () {
+      initListeners () {
         if (!(this.settings.bottomBar || this.isTouch)) {
           this.toastMessage = 'press esc to re-enable the bottom bar'
         }
@@ -309,6 +302,17 @@
           if (e.code === 'Escape') {
             this.settings.bottomBar = !this.settings.bottomBar
           }
+        })
+
+        document.body.addEventListener('mousemove', () => this.musicPlayer?.currentTime === 0 && this.musicPlayer?.play())
+        document.body.addEventListener('click', () => this.musicPlayer?.currentTime === 0 && this.musicPlayer?.play())
+        document.body.addEventListener('keydown', () => this.musicPlayer?.currentTime === 0 && this.musicPlayer?.play())
+
+        window.addEventListener('resize', () => {
+          this.initIframe()
+          const iframe = document.getElementById('lastIframe')
+          iframe?.setAttribute('width', this.iframeWidth)
+          iframe?.setAttribute('height', this.iframeHeight)
         })
       }
     }
