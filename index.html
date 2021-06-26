@@ -9,7 +9,7 @@
     <link rel="stylesheet" href="styles.css">
 </head>
 
-<body>
+<body style="background-color: black;">
     <div id="app">
         <div id="content" :style="{ backgroundColor: `rgba(0,0,0,${1 - contentOpacity})` }">
             <div id="text" class="center" :style="{ opacity: contentOpacity }">
@@ -33,9 +33,12 @@
         <div id="bottom-hidden-bar" :style="{ display: bottomHiddenBarVisible ? 'block' : 'none' }">
             <button id="settings-button" class="multiply-bg" @click="settingsClick">settings</button>
             <button id="separator" class="multiply-bg">*</button>
-            <button id="latest-news-button" class="multiply-bg" @click="iframeClick('https://www.youtube.com/embed/+lastest?list=PLEvjQXUVNXtLaInE60PML5EF49jI8qw9_')">latest news</button>
+            <button id="latest-news-button" class="multiply-bg"
+                @click="iframeClick('https://www.youtube.com/embed/+lastest?list=PLEvjQXUVNXtLaInE60PML5EF49jI8qw9_')">latest
+                news</button>
             <button id="separator2" class="multiply-bg">*</button>
-            <button id="trailer-button" class="multiply-bg" @click="iframeClick('https://www.youtube.com/embed/E3Huy2cdih0')">trailer</button>
+            <button id="trailer-button" class="multiply-bg"
+                @click="iframeClick('https://www.youtube.com/embed/E3Huy2cdih0')">trailer</button>
         </div>
 
         <canvas id="sparks" :style="{ zIndex: -1, display: settings.sparksPlaying ? 'unset' : 'none' }"
@@ -43,8 +46,7 @@
     </div>
 
     <template id="iframe">
-        <iframe class="center" src=""
-            title="latest news" style="border:0"
+        <iframe class="center" src="" title="latest news" style="border:0"
             allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
             allowfullscreen></iframe>
     </template>

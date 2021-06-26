@@ -3,8 +3,12 @@
 
   window.requestAnimFrame = (function () { return window.requestAnimationFrame || window.webkitRequestAnimationFrame || window.mozRequestAnimationFrame || window.oRequestAnimationFrame || window.msRequestAnimationFrame || function (a) { window.setTimeout(a, 1E3 / 60) } }())
 
-  function setBackground (url, isMobile) {
-    document.body.style.background = 'black url(' + url + ')'
+  async function setBackground (url, isMobile) {
+    const blobUrl = await window.fetch(url)
+      .then(res => res.blob())
+      .then(blob => URL.createObjectURL(blob))
+
+    document.body.style.background = 'black url(' + blobUrl + ')'
     document.body.style.backgroundRepeat = 'no-repeat'
 
     if (isMobile) {
@@ -27,7 +31,7 @@
       today: new Date().getDay(),
       isTouch: false,
 
-      lastFrameTime: Date.now(),
+      lastFrameTime: 0,
 
       musicPlayer: null,
 
@@ -56,7 +60,7 @@
         volume: 50
       }
     },
-    mounted () {
+    async mounted () {
       const self = this
 
       const savedSettings = JSON.parse(window.localStorage.getItem('settings'))
@@ -66,6 +70,8 @@
         document.createEvent('TouchEvent')
         this.isTouch = true
       } catch { this.isTouch = false }
+
+      await this.updateBackground()
       setTimeout(function () { self.toastVisible = false }, 5000)
 
       this.initCountDownDate()
@@ -73,7 +79,6 @@
       this.initBackgroundInterval()
       this.initBottomHiddenBar()
 
-      this.updateBackground()
       this.fadingLoop()
       this.updateMusic()
       this.initListeners()
@@ -97,18 +102,13 @@
       }
     },
     methods: {
-      updateBackground () {
+      async updateBackground () {
         if (!this.settings.backgroundImage) return
 
-        let url = 'resources/backgrounds/' + this.today + '-' + rand(0, 2) + '.jpg'
-        window.fetch(url, { method: 'HEAD' })
-          .then(res => {
-            if (!res.ok) {
-              url = 'resources/backgrounds/' + this.today + '-0.jpg'
-            }
-
-            setBackground(url, this.isMobile)
-          })
+        const url = 'resources/backgrounds/' + this.today + '-' + rand(0, 2) + '.jpg'
+        await window.fetch(url, { method: 'HEAD' })
+          .then(res => res.ok ? url : 'resources/backgrounds/' + this.today + '-0.jpg')
+          .then(url => setBackground(url, this.isMobile))
       },
       updateMusic () {
         try {
@@ -130,6 +130,8 @@
         document.getElementById('volumeValue').innerText = this.settings.volume + '%'
       },
       fadingLoop () {
+        if (!this.lastFrameTime) this.lastFrameTime = Date.now()
+
         const deltaTime = Date.now() - this.lastFrameTime
         const increment = 0.007 * deltaTime / 16
 
