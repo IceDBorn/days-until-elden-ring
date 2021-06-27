@@ -238,7 +238,7 @@
       initToastStyles () {
         if (this.isTouch) {
           this.toastStyle.left = '48%'
-          this.toastMessage = 'swipe up for the latest news'
+          this.toastMessage = 'swipe up for info and settings'
         } else {
           this.toastStyle.left = '49%'
           this.toastStyle.fontSize = '20px'
@@ -272,7 +272,36 @@
           })
 
           mc.on('swipeup', () => {
-            window.open('https://m.youtube.com/playlist?list=PLEvjQXUVNXtLaInE60PML5EF49jI8qw9_')
+            window.Swal.fire({
+              html: /* html */ `
+            <div style="text-align: left; color: white">
+              <input type="checkbox" ${this.settings.backgroundImage ? 'checked' : ''} id="background" onclick="window.app.settings.backgroundImage = !window.app.settings.backgroundImage">
+              <label for="background" style="color: white">Background</label><br>
+              <br>
+              <input type="checkbox" ${this.settings.sparksPlaying ? 'checked' : ''} id="sparksToggle" onclick="window.app.settings.sparksPlaying = !window.app.settings.sparksPlaying">
+              <label for="sparksToggle" style="color: white">Sparks</label><br>
+              <br>
+              <label for="music">Music:</label>
+              <select name="music" id="music" onchange="window.app.settings.music = value" style="background-color: gray; color: white">
+                <option ${this.settings.music === 'none' ? 'selected' : ''} value="none">None</option>
+                <option ${this.settings.music === 'resources/music/alex-roe.mp3' ? 'selected' : ''} value="resources/music/alex-roe.mp3">The Flame of Ambition by Alex Roe</option>
+                <option ${this.settings.music === 'resources/music/timothy-richards.mp3' ? 'selected' : ''} value="resources/music/timothy-richards.mp3">Debut Trailer by Timothy Richards</option>
+              </select><br>
+              <br>
+              <label for="volume">Volume:</label>
+              <input type="range" min="0" max="100" value="${window.app.settings.volume}" id="volume" onchange="window.app.updateVolume(value)">
+              <label id="volumeValue">${window.app.settings.volume + '%'}</label><br>
+              <br>
+              </div>
+              <div style="text-align: center; font-weight: bolder; font-size: 20px">
+              <a href="https://www.youtube.com/embed/E3Huy2cdih0" target="_blank">Trailer</a><br>
+              <br>
+              <a href="https://www.youtube.com/embed/+lastest?list=PLEvjQXUVNXtLaInE60PML5EF49jI8qw9_" target="_blank">Latest News</a>
+              </div>
+        `,
+              showConfirmButton: false,
+              background: 'rgba(50,50,50,1)'
+            })
           })
 
           mc.on('swipedown', () => {
