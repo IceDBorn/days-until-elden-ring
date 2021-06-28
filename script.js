@@ -293,10 +293,11 @@
               <label id="volumeValue">${window.app.settings.volume + '%'}</label><br>
               <br>
               </div>
-              <div style="text-align: center; font-weight: bolder; font-size: 20px">
-              <a href="https://www.youtube.com/embed/E3Huy2cdih0" target="_blank">Trailer</a><br>
               <br>
-              <a href="https://www.youtube.com/embed/+lastest?list=PLEvjQXUVNXtLaInE60PML5EF49jI8qw9_" target="_blank">Latest News</a>
+              <div style="text-align: center">
+              <a href="https://www.youtube.com/embed/E3Huy2cdih0" target="_blank" style="color: #e6c98e; text-decoration:none; font-family: Mantinia,serif; font-size: 30px">trailer</a><br>
+              <br>
+              <a href="https://www.youtube.com/embed/+lastest?list=PLEvjQXUVNXtLaInE60PML5EF49jI8qw9_" target="_blank" style="color: #e6c98e; text-decoration:none; font-family: Mantinia,serif; font-size: 30px">latest news</a>
               </div>
         `,
               showConfirmButton: false,
