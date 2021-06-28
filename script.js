@@ -164,47 +164,48 @@
         return this.countdownLoop
       },
       iframeClick (src) {
-        if (this.isTouch) return
-        if (this.musicPlayer !== null) {
-          this.musicPlayer.pause()
+        if (this.musicPlayer !== null) { this.musicPlayer.pause() }
+
+        if (this.isTouch) {
+          window.open(src)
+        } else {
+          this.initIframe()
+
+          const html = document.createElement('div')
+          html.innerHTML = document.getElementById('iframe').innerHTML
+
+          const iframe = html.querySelector('iframe')
+          iframe.setAttribute('width', this.iframeWidth)
+          iframe.setAttribute('height', this.iframeHeight)
+          iframe.setAttribute('src', src)
+          iframe.setAttribute('id', 'lastIframe')
+
+          window.Swal.fire({
+            html: iframe.outerHTML,
+            showConfirmButton: false,
+            background: 'rgba(0,0,0,0)'
+          }).then(value => {
+            this.menuVisible = value
+            if (this.musicPlayer !== null) {
+              this.musicPlayer.play()
+            }
+          })
+
+          this.toastVisible = false
+          this.bottomHiddenBarVisible = false
+          this.menuVisible = false
         }
-
-        this.initIframe()
-
-        const html = document.createElement('div')
-        html.innerHTML = document.getElementById('iframe').innerHTML
-
-        const iframe = html.querySelector('iframe')
-        iframe.setAttribute('width', this.iframeWidth)
-        iframe.setAttribute('height', this.iframeHeight)
-        iframe.setAttribute('src', src)
-        iframe.setAttribute('id', 'lastIframe')
-
-        window.Swal.fire({
-          html: iframe.outerHTML,
-          showConfirmButton: false,
-          background: 'rgba(0,0,0,0)'
-        }).then(value => {
-          this.menuVisible = value
-          if (this.musicPlayer !== null) {
-            this.musicPlayer.play()
-          }
-        })
-
-        this.toastVisible = false
-        this.bottomHiddenBarVisible = false
-        this.menuVisible = false
       },
       settingsClick () {
-        if (this.isTouch) return
-
         window.Swal.fire({
           html: /* html */ `
             <div style="text-align: left; color: white">
               <input type="checkbox" ${this.settings.backgroundImage ? 'checked' : ''} id="background" onclick="window.app.settings.backgroundImage = !window.app.settings.backgroundImage">
               <label for="background" style="color: white">Background</label><br>
-              <input type="checkbox" ${this.settings.bottomBar ? 'checked' : ''} id="bottomBar" onclick="window.app.settings.bottomBar = !window.app.settings.bottomBar">
-              <label for="bottomBar" style="color: white">Bottom bar (Toggle by pressing ESC)</label><br>
+              <div id="bottomBarDiv">
+                <input type="checkbox" ${this.settings.bottomBar ? 'checked' : ''} id="bottomBar" onclick="window.app.settings.bottomBar = !window.app.settings.bottomBar">
+                <label for="bottomBar" style="color: white">Bottom bar (Toggle by pressing ESC)</label><br>
+              </div>
               <input type="checkbox" ${this.settings.sparksPlaying ? 'checked' : ''} id="sparksToggle" onclick="window.app.settings.sparksPlaying = !window.app.settings.sparksPlaying">
               <label for="sparksToggle" style="color: white">Sparks</label><br>
               <label for="music">Music:</label>
@@ -223,8 +224,10 @@
         }).then(value => { this.menuVisible = value })
 
         this.toastVisible = false
-        this.bottomHiddenBarVisible = false
+        if (!this.isTouch) { this.bottomHiddenBarVisible = false }
         this.menuVisible = false
+
+        if (this.isTouch) { document.getElementById('bottomBarDiv').hidden = true }
       },
       initCountDownDate () {
         if (new Date().getTime() > new Date('Oct 31, 2021 04:00:00').getTime()) {
@@ -272,41 +275,14 @@
           })
 
           mc.on('swipeup', () => {
-            window.Swal.fire({
-              html: /* html */ `
-            <div style="text-align: left; color: white">
-              <input type="checkbox" ${this.settings.backgroundImage ? 'checked' : ''} id="background" onclick="window.app.settings.backgroundImage = !window.app.settings.backgroundImage">
-              <label for="background" style="color: white">Background</label><br>
-              <br>
-              <input type="checkbox" ${this.settings.sparksPlaying ? 'checked' : ''} id="sparksToggle" onclick="window.app.settings.sparksPlaying = !window.app.settings.sparksPlaying">
-              <label for="sparksToggle" style="color: white">Sparks</label><br>
-              <br>
-              <label for="music">Music:</label>
-              <select name="music" id="music" onchange="window.app.settings.music = value" style="background-color: gray; color: white">
-                <option ${this.settings.music === 'none' ? 'selected' : ''} value="none">None</option>
-                <option ${this.settings.music === 'resources/music/alex-roe.mp3' ? 'selected' : ''} value="resources/music/alex-roe.mp3">The Flame of Ambition by Alex Roe</option>
-                <option ${this.settings.music === 'resources/music/timothy-richards.mp3' ? 'selected' : ''} value="resources/music/timothy-richards.mp3">Debut Trailer by Timothy Richards</option>
-              </select><br>
-              <br>
-              <label for="volume">Volume:</label>
-              <input type="range" min="0" max="100" value="${window.app.settings.volume}" id="volume" onchange="window.app.updateVolume(value)">
-              <label id="volumeValue">${window.app.settings.volume + '%'}</label><br>
-              <br>
-              </div>
-              <br>
-              <div style="text-align: center">
-              <a href="https://www.youtube.com/embed/E3Huy2cdih0" target="_blank" style="color: #e6c98e; text-decoration:none; font-family: Mantinia,serif; font-size: 30px">trailer</a><br>
-              <br>
-              <a href="https://www.youtube.com/embed/+lastest?list=PLEvjQXUVNXtLaInE60PML5EF49jI8qw9_" target="_blank" style="color: #e6c98e; text-decoration:none; font-family: Mantinia,serif; font-size: 30px">latest news</a>
-              </div>
-        `,
-              showConfirmButton: false,
-              background: 'rgba(50,50,50,1)'
-            })
+            this.bottomHiddenBarVisible = true
+            this.toastVisible = false
           })
 
           mc.on('swipedown', () => {
-            document.location.reload()
+            if (!this.bottomHiddenBarVisible) {
+              window.location.reload()
+            } else { this.bottomHiddenBarVisible = false }
           })
         } else {
           document.body.onmousemove = e => {
