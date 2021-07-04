@@ -226,7 +226,7 @@
               </div>
               <div class="settings-items">
                 <label for="volume">Volume:</label>
-                <input type="range" min="0" max="100" value="${window.app.settings.volume}" id="volume" onchange="window.app.updateVolume(value)">
+                <input type="range" min="0" max="100" value="${window.app.settings.volume}" id="volume" oninput="window.app.updateVolume(value)">
                 <label id="volumeValue">${window.app.settings.volume + '%'}</label>
               </div>
               <hr class="settings-items"/>
