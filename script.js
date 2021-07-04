@@ -199,24 +199,39 @@
       settingsClick () {
         window.Swal.fire({
           html: /* html */ `
-            <div style="text-align: left; color: white">
-              <input type="checkbox" ${this.settings.backgroundImage ? 'checked' : ''} id="background" onclick="window.app.settings.backgroundImage = !window.app.settings.backgroundImage">
-              <label for="background" style="color: white">Background</label><br>
-              <div id="bottomBarDiv">
-                <input type="checkbox" ${this.settings.bottomBar ? 'checked' : ''} id="bottomBar" onclick="window.app.settings.bottomBar = !window.app.settings.bottomBar">
-                <label for="bottomBar" style="color: white">Bottom bar (Toggle by pressing ESC)</label><br>
+            <div id="settings">
+              <h2 style="text-align: center; font-weight: bold">Settings</h2>
+              <hr />
+              <div class="settings-items">
+                <input type="checkbox" ${this.settings.backgroundImage ? 'checked' : ''} id="background" onclick="window.app.settings.backgroundImage = !window.app.settings.backgroundImage">
+                <label for="background" style="color: white">Background</label>
               </div>
-              <input type="checkbox" ${this.settings.sparksPlaying ? 'checked' : ''} id="sparksToggle" onclick="window.app.settings.sparksPlaying = !window.app.settings.sparksPlaying">
-              <label for="sparksToggle" style="color: white">Sparks</label><br>
-              <label for="music">Music:</label>
-              <select name="music" id="music" onchange="window.app.settings.music = value" style="background-color: gray; color: white">
-                <option ${this.settings.music === 'none' ? 'selected' : ''} value="none">None</option>
-                <option ${this.settings.music === 'resources/music/alex-roe.mp3' ? 'selected' : ''} value="resources/music/alex-roe.mp3">The Flame of Ambition by Alex Roe</option>
-                <option ${this.settings.music === 'resources/music/timothy-richards.mp3' ? 'selected' : ''} value="resources/music/timothy-richards.mp3">Debut Trailer by Timothy Richards</option>
-              </select><br>
-              <label for="volume">Volume:</label>
-              <input type="range" min="0" max="100" value="${window.app.settings.volume}" id="volume" onchange="window.app.updateVolume(value)">
-              <label id="volumeValue">${window.app.settings.volume + '%'}</label>
+              <div class="settings-items" id="bottomBarDiv">
+                <input type="checkbox" ${this.settings.bottomBar ? 'checked' : ''} id="bottomBar" onclick="window.app.settings.bottomBar = !window.app.settings.bottomBar">
+                <label for="bottomBar" style="color: white">Bottom bar (Toggle by pressing ESC)</label>
+              </div>
+              <div class="settings-items">
+                <input type="checkbox" ${this.settings.sparksPlaying ? 'checked' : ''} id="sparksToggle" onclick="window.app.settings.sparksPlaying = !window.app.settings.sparksPlaying">
+                <label for="sparksToggle" style="color: white">Sparks</label>
+              </div>
+              <div class="settings-items">
+                <label for="music">Music:</label>
+                <select name="music" id="music" onchange="window.app.settings.music = value">
+                  <option ${this.settings.music === 'none' ? 'selected' : ''} value="none">None</option>
+                  <option ${this.settings.music === 'resources/music/alex-roe.mp3' ? 'selected' : ''} value="resources/music/alex-roe.mp3">The Flame of Ambition by Alex Roe</option>
+                  <option ${this.settings.music === 'resources/music/timothy-richards.mp3' ? 'selected' : ''} value="resources/music/timothy-richards.mp3">Debut Trailer by Timothy Richards</option>
+                </select>
+              </div>
+              <div class="settings-items">
+                <label for="volume">Volume:</label>
+                <input type="range" min="0" max="100" value="${window.app.settings.volume}" id="volume" onchange="window.app.updateVolume(value)">
+                <label id="volumeValue">${window.app.settings.volume + '%'}</label>
+              </div>
+              <hr class="settings-items"/>
+              <h2 style="text-align: center">
+                <img src="resources/github.png" alt="github logo" width="20px" height="20px" style="color: white">
+                <a id="github" href="https://github.com/IceDBorn" target="_blank">IceDBorn</a>
+              </h2>
             </div>
         `,
           showConfirmButton: false,
