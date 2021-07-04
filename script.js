@@ -126,8 +126,10 @@
       },
       updateVolume (value) {
         this.settings.volume = value
-        this.musicPlayer.volume = (this.settings.volume / 100)
         document.getElementById('volumeValue').innerText = this.settings.volume + '%'
+        if (this.musicPlayer != null) {
+          this.musicPlayer.volume = (this.settings.volume / 100)
+        }
       },
       fadingLoop () {
         if (!this.lastFrameTime) this.lastFrameTime = Date.now()
