@@ -232,7 +232,7 @@
               <hr class="settings-items"/>
               <h2 style="text-align: center">
                 <img src="resources/github.png" alt="github logo" width="20px" height="20px" style="color: white">
-                <a id="github" href="https://github.com/IceDBorn" target="_blank">IceDBorn</a>
+                <a id="github" href="https://github.com/IceDBorn/days-until-elden-ring" target="_blank">Github</a>
               </h2>
             </div>
         `,
