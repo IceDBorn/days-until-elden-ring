@@ -34,11 +34,11 @@
             <button id="settings-button" class="multiply-bg" @click="settingsClick">settings</button>
             <button id="separator" class="multiply-bg">*</button>
             <button id="latest-news-button" class="multiply-bg"
-                @click="iframeClick('https://www.youtube.com/embed/+lastest?list=PLEvjQXUVNXtLaInE60PML5EF49jI8qw9_')">latest
+                @click="iframeClick('https://www.youtube-nocookie.com/embed/+lastest?list=PLEvjQXUVNXtLaInE60PML5EF49jI8qw9_')">latest
                 news</button>
             <button id="separator2" class="multiply-bg">*</button>
             <button id="trailer-button" class="multiply-bg"
-                @click="iframeClick('https://www.youtube.com/embed/E3Huy2cdih0')">trailer</button>
+                @click="iframeClick('https://www.youtube-nocookie.com/embed/E3Huy2cdih0')">trailer</button>
         </div>
 
         <canvas id="sparks" :style="{ zIndex: -1, display: settings.sparksPlaying ? 'unset' : 'none' }"
