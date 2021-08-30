@@ -105,7 +105,7 @@
       async updateBackground () {
         if (!this.settings.backgroundImage) return
 
-        const url = 'resources/backgrounds/' + this.today + '-' + rand(0, 2) + '.jpg'
+        const url = 'resources/backgrounds/' + this.today + '-' + rand(0, 3) + '.jpg'
         await window.fetch(url, { method: 'HEAD' })
           .then(res => res.ok ? url : 'resources/backgrounds/' + this.today + '-0.jpg')
           .then(url => setBackground(url, this.isMobile))
