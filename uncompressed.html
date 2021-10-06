@@ -1,10 +1,12 @@
 <body onload="
-if (window.localStorage.getItem('settings')) {
+let savedSettings = JSON.parse(window.localStorage.getItem('settings'))
+
+if (savedSettings && savedSettings.uncompressedImages === false) {
 let savedSettings = JSON.parse(window.localStorage.getItem('settings'))
 savedSettings.uncompressedImages = true
 savedSettings = JSON.stringify(savedSettings)
 window.localStorage.setItem('settings', savedSettings)
-} else {
+} else if (!savedSettings) {
   const settings = {
         version: 2,
         sparksPlaying: true,
