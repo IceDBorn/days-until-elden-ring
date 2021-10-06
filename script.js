@@ -65,7 +65,11 @@
       const self = this
 
       const savedSettings = JSON.parse(window.localStorage.getItem('settings'))
-      if (savedSettings && savedSettings.version === this.settings.version) this.settings = savedSettings
+      if (savedSettings && savedSettings.version === this.settings.version) {
+        this.settings = savedSettings
+      } else {
+        window.localStorage.setItem('settings', JSON.stringify(this.settings))
+      }
 
       try {
         document.createEvent('TouchEvent')

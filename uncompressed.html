@@ -1,0 +1,21 @@
+<body onload="
+if (window.localStorage.getItem('settings')) {
+let savedSettings = JSON.parse(window.localStorage.getItem('settings'))
+savedSettings.uncompressedImages = true
+savedSettings = JSON.stringify(savedSettings)
+window.localStorage.setItem('settings', savedSettings)
+} else {
+  const settings = {
+        version: 2,
+        sparksPlaying: true,
+        bottomBar: true,
+        backgroundImage: true,
+        music: 'none',
+        volume: 50,
+        uncompressedImages: true
+      }
+  window.localStorage.setItem('settings', JSON.stringify(settings))
+}
+
+window.open('http://0.0.0.0:8000/', '_self')
+">
