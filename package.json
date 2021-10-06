@@ -1,8 +1,8 @@
 {
   "name": "days-until-elden-ring",
-  "version": "1.0.0",
-  "description": "",
-  "main": "fading.js",
+  "version": "1.1.0",
+  "description": "This fan-site isn't affiliated with or endorsed by FromSoftware or BANDAI NAMCO in any way.",
+  "main": "script.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -10,7 +10,7 @@
     "type": "git",
     "url": "git+https://github.com/IceDBorn/days-until-elden-ring.git"
   },
-  "author": "",
+  "author": "IceDBOrn",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/IceDBorn/days-until-elden-ring/issues"
