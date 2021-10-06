@@ -238,8 +238,8 @@
               </div>
               <hr class="settings-items"/>
               <a id="github" href="https://github.com/IceDBorn/days-until-elden-ring" target="_blank">
-                <h2 style="text-align: center">
-                  <img src="resources/github.png" alt="github logo" width="20px" height="20px" style="color: white">
+                <h2 id="github">
+                  <img src="resources/github.png" alt="github logo" width="20px" height="20px">
                   Github
                 </h2>
               </a>
