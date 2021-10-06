@@ -52,12 +52,13 @@
       toastMessage: null,
 
       settings: {
-        version: 1,
+        version: 2,
         sparksPlaying: true,
         bottomBar: true,
         backgroundImage: true,
         music: 'none',
-        volume: 50
+        volume: 50,
+        uncompressedImages: false
       }
     },
     async mounted () {
@@ -105,9 +106,10 @@
       async updateBackground () {
         if (!this.settings.backgroundImage) return
 
-        const url = 'resources/backgrounds/' + this.today + '-' + rand(0, 3) + '.jpg'
+        const uncompressed = this.settings.uncompressedImages ? '-u' : ''
+        const url = 'resources/backgrounds/' + this.today + '-' + rand(0, 3) + uncompressed + '.jpg'
         await window.fetch(url, { method: 'HEAD' })
-          .then(res => res.ok ? url : 'resources/backgrounds/' + this.today + '-0.jpg')
+          .then(res => res.ok ? url : 'resources/backgrounds/' + this.today + '-0' + uncompressed + '.jpg')
           .then(url => setBackground(url, this.isMobile))
       },
       updateMusic () {
@@ -215,6 +217,10 @@
               <div class="settings-items">
                 <input type="checkbox" ${this.settings.sparksPlaying ? 'checked' : ''} id="sparksToggle" onclick="window.app.settings.sparksPlaying = !window.app.settings.sparksPlaying">
                 <label for="sparksToggle" style="color: white">Sparks</label>
+              </div>
+              <div class="settings-items">
+                <input type="checkbox" ${this.settings.uncompressedImages ? 'checked' : ''} id="uncompressedToggle" onclick="window.app.settings.uncompressedImages = !window.app.settings.uncompressedImages">
+                <label for="uncompressedToggle" style="color: white">Uncompressed images</label>
               </div>
               <div class="settings-items">
                 <label for="music">Music:</label>
