@@ -52,13 +52,14 @@
       toastMessage: null,
 
       settings: {
-        version: 2,
+        version: 3,
         sparksPlaying: true,
         bottomBar: true,
         backgroundImage: true,
         music: 'none',
         volume: 50,
-        uncompressedImages: false
+        uncompressedImages: false,
+        bigTaskbar: false
       }
     },
     async mounted () {
@@ -225,6 +226,10 @@
               <div class="settings-items">
                 <input type="checkbox" ${this.settings.uncompressedImages ? 'checked' : ''} id="uncompressedToggle" onclick="window.app.settings.uncompressedImages = !window.app.settings.uncompressedImages">
                 <label for="uncompressedToggle" style="color: white">Uncompressed images</label>
+              </div>
+              <div class="settings-items">
+                <input type="checkbox" ${this.settings.bigTaskbar ? 'checked' : ''} id="taskbarToggle" onclick="window.app.settings.bigTaskbar = !window.app.settings.bigTaskbar">
+                <label for="taskbarToggle" style="color: white">Big taskbar</label>
               </div>
               <div class="settings-items">
                 <label for="music">Music:</label>
