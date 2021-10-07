@@ -227,7 +227,7 @@
                 <input type="checkbox" ${this.settings.uncompressedImages ? 'checked' : ''} id="uncompressedToggle" onclick="window.app.settings.uncompressedImages = !window.app.settings.uncompressedImages">
                 <label for="uncompressedToggle" style="color: white">Uncompressed images</label>
               </div>
-              <div class="settings-items">
+              <div class="settings-items" id="taskbarToggleDiv">
                 <input type="checkbox" ${this.settings.bigTaskbar ? 'checked' : ''} id="taskbarToggle" onclick="window.app.settings.bigTaskbar = !window.app.settings.bigTaskbar">
                 <label for="taskbarToggle" style="color: white">Big taskbar</label>
               </div>
@@ -263,6 +263,7 @@
         this.menuVisible = false
 
         if (this.isTouch) { document.getElementById('bottomBarDiv').hidden = true }
+        if (this.isTouch) { document.getElementById('taskbarToggleDiv').hidden = true }
       },
       initCountDownDate () {
         if (new Date().getTime() > new Date('Oct 31, 2021 04:00:00').getTime()) {
