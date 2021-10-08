@@ -112,7 +112,7 @@
         if (!this.settings.backgroundImage) return
 
         const uncompressed = this.settings.uncompressedImages ? '-u' : ''
-        const url = 'resources/backgrounds/' + this.today + '-' + rand(0, 3) + uncompressed + '.jpg'
+        const url = 'resources/backgrounds/' + this.today + '-' + rand(0, 4) + uncompressed + '.jpg'
         await window.fetch(url, { method: 'HEAD' })
           .then(res => res.ok ? url : 'resources/backgrounds/' + this.today + '-0' + uncompressed + '.jpg')
           .then(url => setBackground(url, this.isMobile))
