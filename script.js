@@ -22,6 +22,29 @@
     }
   }
 
+  function calcFPS (opts) {
+    const count = opts.count || 60
+    let index
+    const start = performance.now()
+    const requestFrame = window.requestAnimationFrame ||
+      window.webkitRequestAnimationFrame ||
+      window.mozRequestAnimationFrame
+    if (!requestFrame) return true
+    function checker () {
+      if (index--) requestFrame(checker)
+      else {
+        const result = count * 1000 / (performance.now() - start)
+        if (typeof opts.callback === 'function') opts.callback(result)
+        window.app.fps = Math.round(result)
+      }
+    }
+    if (!opts) opts = {}
+    index = count
+    checker()
+  }
+
+  calcFPS({ count: 144 })
+
   /* eslint-disable-next-line no-unused-vars */
   const app = new window.Vue({
     el: '#app',
@@ -30,6 +53,7 @@
       countDownDate: 0,
       today: new Date().getDay(),
       isTouch: false,
+      fps: 60,
 
       lastFrameTime: 0,
 
@@ -52,7 +76,7 @@
       toastMessage: null,
 
       settings: {
-        version: 5,
+        version: 6,
         sparksPlaying: true,
         bottomBar: true,
         backgroundImage: true,
@@ -147,21 +171,10 @@
         this.settings.sparksSpeed = value
         this.getFormattedSparksSpeed(value)
       },
-      getFormattedSparksSpeed (value) {
-        let formattedValue
-        if (value === 8) {
-          formattedValue = '2x'
-          document.getElementById('sparksSpeedValue').innerText = formattedValue
-          this.settings.formattedSparksSpeed = formattedValue
-        } else if (value >= 127) {
-          formattedValue = '0.01x'
-          document.getElementById('sparksSpeedValue').innerText = formattedValue
-          this.settings.formattedSparksSpeed = formattedValue
-        } else {
-          formattedValue = parseFloat(2.10713 - 0.016557 * this.settings.sparksSpeed + '').toFixed(2) + 'x'
-          document.getElementById('sparksSpeedValue').innerText = formattedValue
-          this.settings.formattedSparksSpeed = formattedValue
-        }
+      getFormattedSparksSpeed () {
+        const formattedValue = parseFloat(2.28262 - 0.0355357 * this.settings.sparksSpeed + '').toFixed(2) + 'x'
+        document.getElementById('sparksSpeedValue').innerText = formattedValue
+        this.settings.formattedSparksSpeed = formattedValue
       },
       fadingLoop () {
         if (!this.lastFrameTime) this.lastFrameTime = Date.now()
@@ -252,7 +265,7 @@
               </div>
               <div class="settings-items">
                 <label for="sparksSpeed">Speed:</label>
-                <input type="range" min="-128" max="-8" value="${-window.app.settings.sparksSpeed}" id="sparksSpeed" oninput="window.app.updateSparksSpeed(-value)">
+                <input type="range" min="-64" max="-8" value="${-window.app.settings.sparksSpeed}" id="sparksSpeed" oninput="window.app.updateSparksSpeed(-value)">
                 <label id="sparksSpeedValue">${window.app.settings.formattedSparksSpeed}</label>
               </div>
               <h3 style="text-align: center; font-weight: bold">Music</h3>
