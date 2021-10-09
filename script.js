@@ -52,7 +52,7 @@
       toastMessage: null,
 
       settings: {
-        version: 4,
+        version: 5,
         sparksPlaying: true,
         bottomBar: true,
         backgroundImage: true,
@@ -61,7 +61,7 @@
         uncompressedImages: false,
         bigTaskbar: false,
         sparksSpeed: 36,
-        formattedSparksSpeed: '1x'
+        formattedSparksSpeed: '1.51x'
       }
     },
     async mounted () {
@@ -153,16 +153,12 @@
           formattedValue = '2x'
           document.getElementById('sparksSpeedValue').innerText = formattedValue
           this.settings.formattedSparksSpeed = formattedValue
-        } else if (value === 36) {
-          formattedValue = '1x'
-          document.getElementById('sparksSpeedValue').innerText = formattedValue
-          this.settings.formattedSparksSpeed = formattedValue
-        } else if (value === 64) {
+        } else if (value >= 127) {
           formattedValue = '0.01x'
           document.getElementById('sparksSpeedValue').innerText = formattedValue
           this.settings.formattedSparksSpeed = formattedValue
         } else {
-          formattedValue = parseFloat(2.28571 - 0.0357143 * this.settings.sparksSpeed + '').toFixed(2) + 'x'
+          formattedValue = parseFloat(2.10713 - 0.016557 * this.settings.sparksSpeed + '').toFixed(2) + 'x'
           document.getElementById('sparksSpeedValue').innerText = formattedValue
           this.settings.formattedSparksSpeed = formattedValue
         }
@@ -256,7 +252,7 @@
               </div>
               <div class="settings-items">
                 <label for="sparksSpeed">Speed:</label>
-                <input type="range" min="-64" max="-8" value="${-window.app.settings.sparksSpeed}" id="sparksSpeed" oninput="window.app.updateSparksSpeed(-value)">
+                <input type="range" min="-128" max="-8" value="${-window.app.settings.sparksSpeed}" id="sparksSpeed" oninput="window.app.updateSparksSpeed(-value)">
                 <label id="sparksSpeedValue">${window.app.settings.formattedSparksSpeed}</label>
               </div>
               <h3 style="text-align: center; font-weight: bold">Music</h3>
