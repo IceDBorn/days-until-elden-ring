@@ -34,7 +34,7 @@
   }
 
   Plus.prototype.update = function () {
-    const deltaTime = (Date.now() - lastFrameTime) / 16
+    const deltaTime = (Date.now() - lastFrameTime) / window.app.settings.sparksSpeed
 
     this.x += this.vx * deltaTime
     this.y -= this.vy * deltaTime

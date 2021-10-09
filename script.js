@@ -52,14 +52,16 @@
       toastMessage: null,
 
       settings: {
-        version: 3,
+        version: 4,
         sparksPlaying: true,
         bottomBar: true,
         backgroundImage: true,
         music: 'none',
         volume: 50,
         uncompressedImages: false,
-        bigTaskbar: false
+        bigTaskbar: false,
+        sparksSpeed: 36,
+        formattedSparksSpeed: '1x'
       }
     },
     async mounted () {
@@ -105,6 +107,9 @@
       },
       'settings.music' () {
         this.updateMusic()
+      },
+      'settings.uncompressedImages' () {
+        this.updateBackground()
       }
     },
     methods: {
@@ -136,6 +141,30 @@
         document.getElementById('volumeValue').innerText = this.settings.volume + '%'
         if (this.musicPlayer != null) {
           this.musicPlayer.volume = (this.settings.volume / 100)
+        }
+      },
+      updateSparksSpeed (value) {
+        this.settings.sparksSpeed = value
+        this.getFormattedSparksSpeed(value)
+      },
+      getFormattedSparksSpeed (value) {
+        let formattedValue
+        if (value === 8) {
+          formattedValue = '2x'
+          document.getElementById('sparksSpeedValue').innerText = formattedValue
+          this.settings.formattedSparksSpeed = formattedValue
+        } else if (value === 36) {
+          formattedValue = '1x'
+          document.getElementById('sparksSpeedValue').innerText = formattedValue
+          this.settings.formattedSparksSpeed = formattedValue
+        } else if (value === 64) {
+          formattedValue = '0.01x'
+          document.getElementById('sparksSpeedValue').innerText = formattedValue
+          this.settings.formattedSparksSpeed = formattedValue
+        } else {
+          formattedValue = parseFloat(2.28571 - 0.0357143 * this.settings.sparksSpeed + '').toFixed(2) + 'x'
+          document.getElementById('sparksSpeedValue').innerText = formattedValue
+          this.settings.formattedSparksSpeed = formattedValue
         }
       },
       fadingLoop () {
@@ -209,30 +238,30 @@
         window.Swal.fire({
           html: /* html */ `
             <div id="settings">
-              <h2 style="text-align: center; font-weight: bold">Settings</h2>
+              <h1 style="text-align: center; font-weight: bold">Settings</h1>
               <hr />
+              <h3 style="text-align: center; font-weight: bold">Background</h3>
               <div class="settings-items">
                 <input type="checkbox" ${this.settings.backgroundImage ? 'checked' : ''} id="background" onclick="window.app.settings.backgroundImage = !window.app.settings.backgroundImage">
-                <label for="background" style="color: white">Background</label>
-              </div>
-              <div class="settings-items" id="bottomBarDiv">
-                <input type="checkbox" ${this.settings.bottomBar ? 'checked' : ''} id="bottomBar" onclick="window.app.settings.bottomBar = !window.app.settings.bottomBar">
-                <label for="bottomBar" style="color: white">Bottom bar (Toggle by pressing ESC)</label>
-              </div>
-              <div class="settings-items">
-                <input type="checkbox" ${this.settings.sparksPlaying ? 'checked' : ''} id="sparksToggle" onclick="window.app.settings.sparksPlaying = !window.app.settings.sparksPlaying">
-                <label for="sparksToggle" style="color: white">Sparks</label>
+                <label for="background" style="color: white">Enabled</label>
               </div>
               <div class="settings-items">
                 <input type="checkbox" ${this.settings.uncompressedImages ? 'checked' : ''} id="uncompressedToggle" onclick="window.app.settings.uncompressedImages = !window.app.settings.uncompressedImages">
                 <label for="uncompressedToggle" style="color: white">Uncompressed images</label>
               </div>
-              <div class="settings-items" id="taskbarToggleDiv">
-                <input type="checkbox" ${this.settings.bigTaskbar ? 'checked' : ''} id="taskbarToggle" onclick="window.app.settings.bigTaskbar = !window.app.settings.bigTaskbar">
-                <label for="taskbarToggle" style="color: white">Big taskbar</label>
+              <h3 style="text-align: center; font-weight: bold">Sparks</h3>
+              <div class="settings-items">
+                <input type="checkbox" ${this.settings.sparksPlaying ? 'checked' : ''} id="sparksToggle" onclick="window.app.settings.sparksPlaying = !window.app.settings.sparksPlaying">
+                <label for="sparksToggle" style="color: white">Enabled</label>
               </div>
               <div class="settings-items">
-                <label for="music">Music:</label>
+                <label for="sparksSpeed">Speed:</label>
+                <input type="range" min="-64" max="-8" value="${-window.app.settings.sparksSpeed}" id="sparksSpeed" oninput="window.app.updateSparksSpeed(-value)">
+                <label id="sparksSpeedValue">${window.app.settings.formattedSparksSpeed}</label>
+              </div>
+              <h3 style="text-align: center; font-weight: bold">Music</h3>
+              <div class="settings-items">
+                <label for="music">Track:</label>
                 <select name="music" id="music" onchange="window.app.settings.music = value">
                   <option ${this.settings.music === 'none' ? 'selected' : ''} value="none">None</option>
                   <option ${this.settings.music === 'resources/music/alex-roe.mp3' ? 'selected' : ''} value="resources/music/alex-roe.mp3">The Flame of Ambition by Alex Roe</option>
@@ -244,6 +273,15 @@
                 <label for="volume">Volume:</label>
                 <input type="range" min="0" max="100" value="${window.app.settings.volume}" id="volume" oninput="window.app.updateVolume(value)">
                 <label id="volumeValue">${window.app.settings.volume + '%'}</label>
+              </div>
+              <h3 style="text-align: center; font-weight: bold">Misc</h3>
+              <div class="settings-items" id="bottomBarDiv">
+                <input type="checkbox" ${this.settings.bottomBar ? 'checked' : ''} id="bottomBar" onclick="window.app.settings.bottomBar = !window.app.settings.bottomBar">
+                <label for="bottomBar" style="color: white">Bottom bar (Toggle by pressing ESC)</label>
+              </div>
+              <div class="settings-items" id="taskbarToggleDiv">
+                <input type="checkbox" ${this.settings.bigTaskbar ? 'checked' : ''} id="taskbarToggle" onclick="window.app.settings.bigTaskbar = !window.app.settings.bigTaskbar">
+                <label for="taskbarToggle" style="color: white">Big taskbar (Raises bottom bar height)</label>
               </div>
               <hr class="settings-items"/>
               <a id="github" href="https://github.com/IceDBorn/days-until-elden-ring" target="_blank">
