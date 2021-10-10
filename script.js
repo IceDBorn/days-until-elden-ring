@@ -343,6 +343,7 @@
         this.untilInterval = setInterval(this.countdownLoop(), 1000)
       },
       initToastStyles () {
+        if (this.settings.dropShadow) this.toastStyle.filter = 'brightness(1.25) drop-shadow(black 2px 2px 3px)'
         if (this.isTouch) {
           this.toastStyle.left = '48%'
           this.toastMessage = 'swipe up for info and settings'
