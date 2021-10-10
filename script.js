@@ -305,13 +305,13 @@
                 <input type="checkbox" ${this.settings.bottomBar ? 'checked' : ''} id="bottomBar" onclick="window.app.settings.bottomBar = !window.app.settings.bottomBar">
                 <label for="bottomBar" style="color: white">Bottom bar (Toggle by pressing ESC)</label>
               </div>
-              <div class="settings-items">
-                <input type="checkbox" ${this.settings.dropShadow ? 'checked' : ''} id="dropShadow" onclick="window.app.settings.dropShadow = !window.app.settings.dropShadow">
-                <label for="taskbarToggle" style="color: white">Drop shadow</label>
-              </div>
               <div class="settings-items" id="taskbarToggleDiv">
                 <input type="checkbox" ${this.settings.bigTaskbar ? 'checked' : ''} id="taskbarToggle" onclick="window.app.settings.bigTaskbar = !window.app.settings.bigTaskbar">
                 <label for="taskbarToggle" style="color: white">Big taskbar (Raises bottom bar height)</label>
+              </div>
+              <div class="settings-items">
+                <input type="checkbox" ${this.settings.dropShadow ? 'checked' : ''} id="dropShadow" onclick="window.app.settings.dropShadow = !window.app.settings.dropShadow">
+                <label for="dropShadow" style="color: white">Drop shadow</label>
               </div>
               <hr class="settings-items"/>
               <a id="github" href="https://github.com/IceDBorn/days-until-elden-ring" target="_blank">
