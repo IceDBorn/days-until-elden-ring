@@ -87,7 +87,8 @@
         sparksSpeed: 36,
         formattedSparksSpeed: '1.00x',
         sparksTick: 20,
-        formattedSparksTick: '1.00x'
+        formattedSparksTick: '1.00x',
+        dropShadow: false
       }
     },
     async mounted () {
@@ -303,6 +304,10 @@
               <div class="settings-items" id="bottomBarDiv">
                 <input type="checkbox" ${this.settings.bottomBar ? 'checked' : ''} id="bottomBar" onclick="window.app.settings.bottomBar = !window.app.settings.bottomBar">
                 <label for="bottomBar" style="color: white">Bottom bar (Toggle by pressing ESC)</label>
+              </div>
+              <div class="settings-items">
+                <input type="checkbox" ${this.settings.dropShadow ? 'checked' : ''} id="dropShadow" onclick="window.app.settings.dropShadow = !window.app.settings.dropShadow">
+                <label for="taskbarToggle" style="color: white">Drop shadow</label>
               </div>
               <div class="settings-items" id="taskbarToggleDiv">
                 <input type="checkbox" ${this.settings.bigTaskbar ? 'checked' : ''} id="taskbarToggle" onclick="window.app.settings.bigTaskbar = !window.app.settings.bigTaskbar">
