@@ -76,7 +76,7 @@
       toastMessage: null,
 
       settings: {
-        version: 6,
+        version: 0.1,
         sparksPlaying: true,
         bottomBar: true,
         backgroundImage: true,
@@ -85,7 +85,7 @@
         uncompressedImages: false,
         bigTaskbar: false,
         sparksSpeed: 36,
-        formattedSparksSpeed: '1.51x'
+        formattedSparksSpeed: '1.00x'
       }
     },
     async mounted () {
