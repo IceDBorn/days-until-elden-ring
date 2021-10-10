@@ -34,17 +34,17 @@
   }
 
   Plus.prototype.update = function () {
-    let deltaTime
-    if (window.app.fps && window.app.fps > 240) {
-      deltaTime = (Date.now() - lastFrameTime) / window.app.settings.sparksSpeed * 6
-    } else if (window.app.fps && window.app.fps > 160) {
-      deltaTime = (Date.now() - lastFrameTime) / window.app.settings.sparksSpeed * 4
-    } else if (window.app.fps && window.app.fps > 75) {
-      deltaTime = (Date.now() - lastFrameTime) / window.app.settings.sparksSpeed * 2.4
-    } else if (window.app.fps && window.app.fps <= 30) {
-      deltaTime = (Date.now() - lastFrameTime) / window.app.settings.sparksSpeed * 0.5
-    } else {
-      deltaTime = (Date.now() - lastFrameTime) / window.app.settings.sparksSpeed
+    let deltaTime = (Date.now() - lastFrameTime) / window.app.settings.sparksSpeed
+    if (window.app.fps) {
+      if (window.app.fps > 240) {
+        deltaTime = deltaTime / 6
+      } else if (window.app.fps > 160) {
+        deltaTime = deltaTime / 4
+      } else if (window.app.fps > 75) {
+        deltaTime = deltaTime / 2.4
+      } else if (window.app.fps <= 30) {
+        deltaTime = deltaTime * 2
+      }
     }
 
     this.x += this.vx * deltaTime
