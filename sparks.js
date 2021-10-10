@@ -9,7 +9,7 @@
   const pluses = []
   const count = 300
   let tick = 10
-  const tickMax = 10
+  const tickMax = window.app.settings.sparksTick
 
   let plusesToCreate = 20
 

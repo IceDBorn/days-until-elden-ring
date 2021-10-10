@@ -76,7 +76,7 @@
       toastMessage: null,
 
       settings: {
-        version: 0.1,
+        version: 0.2,
         sparksPlaying: true,
         bottomBar: true,
         backgroundImage: true,
@@ -85,7 +85,9 @@
         uncompressedImages: false,
         bigTaskbar: false,
         sparksSpeed: 36,
-        formattedSparksSpeed: '1.00x'
+        formattedSparksSpeed: '1.00x',
+        sparksTick: 20,
+        formattedSparksTick: '1.00x'
       }
     },
     async mounted () {
@@ -176,6 +178,15 @@
         document.getElementById('sparksSpeedValue').innerText = formattedValue
         this.settings.formattedSparksSpeed = formattedValue
       },
+      updateSparksTick (value) {
+        this.settings.sparksTick = value
+        this.getFormattedSparksTick(value)
+      },
+      getFormattedSparksTick () {
+        const formattedValue = parseFloat(2.33 - 0.0663333 * this.settings.sparksTick + '').toFixed(2) + 'x'
+        document.getElementById('sparksTickValue').innerText = formattedValue
+        this.settings.formattedSparksTick = formattedValue
+      },
       fadingLoop () {
         if (!this.lastFrameTime) this.lastFrameTime = Date.now()
 
@@ -262,6 +273,11 @@
               <div class="settings-items">
                 <input type="checkbox" ${this.settings.sparksPlaying ? 'checked' : ''} id="sparksToggle" onclick="window.app.settings.sparksPlaying = !window.app.settings.sparksPlaying">
                 <label for="sparksToggle" style="color: white">Enabled</label>
+              </div>
+              <div class="settings-items">
+                <label for="sparksTick">Amount:</label>
+                <input type="range" min="-35" max="-5" value="${-window.app.settings.sparksTick}" id="sparksTick" oninput="window.app.updateSparksTick(-value)">
+                <label id="sparksTickValue">${window.app.settings.formattedSparksTick}</label>
               </div>
               <div class="settings-items">
                 <label for="sparksSpeed">Speed:</label>
