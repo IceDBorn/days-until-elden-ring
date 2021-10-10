@@ -76,7 +76,7 @@
       toastMessage: null,
 
       settings: {
-        version: 0.2,
+        version: 0.3,
         sparksPlaying: true,
         bottomBar: true,
         backgroundImage: true,

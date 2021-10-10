@@ -8,7 +8,7 @@ savedSettings = JSON.stringify(savedSettings)
 window.localStorage.setItem('settings', savedSettings)
 } else if (!savedSettings) {
   const settings = {
-        version: 0.2,
+        version: 0.3,
         sparksPlaying: true,
         bottomBar: true,
         backgroundImage: true,
@@ -19,7 +19,8 @@ window.localStorage.setItem('settings', savedSettings)
         sparksSpeed: 36,
         formattedSparksSpeed: '1.00x',
         sparksTick: 20,
-        formattedSparksTick: '1.00x'
+        formattedSparksTick: '1.00x',
+        dropShadow: false
       }
   window.localStorage.setItem('settings', JSON.stringify(settings))
 }
