@@ -66,13 +66,13 @@
       menuVisible: true,
       musicPlayer: null,
       settings: {
-        version: 0.5,
+        version: 0.6,
         backgroundImage: true,
         bigTaskbar: false,
         bottomBar: true,
         dropShadow: false,
         dropShadowBlur: '0',
-        dropShadowBrightness: '1.25',
+        lettersBrightness: '1.25',
         dropShadowColor: '',
         dropShadowX: '0',
         dropShadowY: '0',
@@ -137,7 +137,7 @@
       'settings.dropShadowBlur' () {
         this.updateLettersStyle()
       },
-      'settings.dropShadowBrightness' () {
+      'settings.lettersBrightness' () {
         this.updateLettersStyle()
       },
       'settings.dropShadowColor' () {
@@ -160,6 +160,29 @@
       }
     },
     methods: {
+      applyLettersStylePreset (defaultPreset) {
+        this.settings.lettersBrightness = 1.25
+        this.settings.maxLetterOpacity = 1
+        this.letterOpacity = 1
+        if (defaultPreset) {
+          this.settings.dropShadowColor = ''
+          this.settings.dropShadowX = 0
+          this.settings.dropShadowY = 0
+          this.settings.dropShadowBlur = 0
+        } else {
+          this.settings.dropShadowColor = 'black'
+          this.settings.dropShadowX = 2
+          this.settings.dropShadowY = 2
+          this.settings.dropShadowBlur = 3
+        }
+
+        document.getElementById('lettersBrightness').value = this.settings.lettersBrightness
+        document.getElementById('dropShadowColor').value = this.settings.dropShadowColor
+        document.getElementById('dropShadowX').value = this.settings.dropShadowX
+        document.getElementById('dropShadowY').value = this.settings.dropShadowY
+        document.getElementById('letterOpacity').value = this.settings.maxLetterOpacity
+        document.getElementById('dropShadowBlur').value = this.settings.dropShadowBlur
+      },
       countdownLoop () {
         const distance = this.countDownDate - new Date().getTime()
 
@@ -332,7 +355,7 @@
         })
       },
       initToastStyles () {
-        this.toastStyle.filter = 'brightness(' + this.settings.dropShadowBrightness + ') drop-shadow(' +
+        this.toastStyle.filter = 'brightness(' + this.settings.lettersBrightness + ') drop-shadow(' +
           this.settings.dropShadowColor + ' ' + this.settings.dropShadowX + 'px ' +
           this.settings.dropShadowY + 'px ' + this.settings.dropShadowBlur + 'px'
 
@@ -346,46 +369,53 @@
         }
       },
       // TODO: Add reset button on letters editor
-      letterEditorClick () {
+      letterEditorClick (recall) {
         window.Swal.fire({
           html: /* html */ `
             <div class="settings-menu">
                 <h1 class="settings-headline" ">Editor</h1>
                 <hr />
                 <h3 class="settings-headline">Letters</h3>
-                    <div class="settings-menu-items">
-                      <label for="dropShadowBrightness" class="settings-label">Brightness:</label>
-                      <input class="custom-forms" type="number" id="dropShadowBrightness" step="0.25" oninput="window.app.settings.dropShadowBrightness = value" value="${window.app.settings.dropShadowBrightness}">
-                    </div>
-                    <div class="settings-menu-items">
-                      <label for="letterOpacity" class="settings-label">Opacity:</label>
-                      <input class="custom-forms" type="number" id="letterOpacity" min="0.1" max="1" step="0.1" onkeyup="window.app.enforceMinMax(this)" oninput="window.app.letterOpacity = value" value="${window.app.settings.maxLetterOpacity}">
-                    </div>
-                    <h3 class="settings-headline">Drop shadow</h3>
-                    <div class="settings-menu-items">
-                      <label for="dropShadowBlur" class="settings-label">Blur:</label>
-                      <input class="custom-forms" type="number" id="dropShadowBlur" min="0" max="50" onkeyup="window.app.enforceMinMax(this)" oninput="window.app.settings.dropShadowBlur = value" value="${window.app.settings.dropShadowBlur}">
-                    </div>
-                    <div class="settings-menu-items">
-                      <label for="color" class="settings-label">Color:</label>
-                      <input class="custom-forms" type="text" id="color" placeholder="Plain english or HEX" oninput="window.app.settings.dropShadowColor = value" value="${window.app.settings.dropShadowColor}">
-                    </div>
-                    <div class="settings-menu-items">
-                      <label for="dropShadowX" class="settings-label">Position X:</label>
-                      <input class="custom-forms" type="number" id="dropShadowX" oninput="window.app.settings.dropShadowX = value" value="${window.app.settings.dropShadowX}">
-                    </div>
-                    <div class="settings-menu-items">
-                      <label for="dropShadowY" class="settings-label">Position Y:</label>
-                      <input class="custom-forms" type="number" id="dropShadowY" oninput="window.app.settings.dropShadowY = value" value="${window.app.settings.dropShadowY}">
-                    </div>
+                <div class="settings-menu-items">
+                  <label for="lettersBrightness" class="settings-label">Brightness:</label>
+                  <input class="custom-forms" type="number" id="lettersBrightness" step="0.25" oninput="window.app.settings.lettersBrightness = value" value="${window.app.settings.lettersBrightness}">
+                </div>
+                <div class="settings-menu-items">
+                  <label for="letterOpacity" class="settings-label">Opacity:</label>
+                  <input class="custom-forms" type="number" id="letterOpacity" min="0.1" max="1" step="0.1" onkeyup="window.app.enforceMinMax(this)" oninput="window.app.letterOpacity = value" value="${window.app.settings.maxLetterOpacity}">
+                </div>
+                <h3 class="settings-headline">Drop shadow</h3>
+                <div class="settings-menu-items">
+                  <label for="dropShadowBlur" class="settings-label">Blur:</label>
+                  <input class="custom-forms" type="number" id="dropShadowBlur" min="0" max="50" onkeyup="window.app.enforceMinMax(this)" oninput="window.app.settings.dropShadowBlur = value" value="${window.app.settings.dropShadowBlur}">
+                </div>
+                <div class="settings-menu-items">
+                  <label for="dropShadowColor" class="settings-label">Color:</label>
+                  <input class="custom-forms" type="text" id="dropShadowColor" placeholder="Plain english or HEX" oninput="window.app.settings.dropShadowColor = value" value="${window.app.settings.dropShadowColor}">
+                </div>
+                <div class="settings-menu-items">
+                  <label for="dropShadowX" class="settings-label">Position X:</label>
+                  <input class="custom-forms" type="number" id="dropShadowX" oninput="window.app.settings.dropShadowX = value" value="${window.app.settings.dropShadowX}">
+                </div>
+                <div class="settings-menu-items">
+                  <label for="dropShadowY" class="settings-label">Position Y:</label>
+                  <input class="custom-forms" type="number" id="dropShadowY" oninput="window.app.settings.dropShadowY = value" value="${window.app.settings.dropShadowY}">
+                </div>
+                <div style="width: 75%; margin: auto;">
+                  <button class="custom-button-group" onclick="window.app.applyLettersStylePreset(true)"><span>Default</span></button>
+                  <span style="padding: 0.5rem"></span>
+                  <button class="custom-button-group" onclick="window.app.applyLettersStylePreset(false)"><span>Recommended</span></button>
+                </div>
             </div>
         `,
           showConfirmButton: false,
           background: 'rgba(50,50,50,1)',
-          position: 'top-end'
+          position: 'top-end',
+          showClass: {
+            popup: recall ? '' : 'swal2-show',
+            backdrop: ''
+          }
         }).then(value => { this.menuVisible = value })
-        // eslint-disable-next-line no-undef
-        $('.swal2-container.swal2-backdrop-show, .swal2-container.swal2-noanimation').css('background', 'rgba(0, 0, 0, 0)') // Remove swal2 backdrop with jQuery
       },
       setFormattedSparksSpeed () {
         const formattedValue = parseFloat(2.28262 - 0.0355357 * this.settings.sparksSpeed + '').toFixed(2) + 'x'
@@ -498,7 +528,7 @@
 
         if (!this.fading) this.settings.maxLetterOpacity = this.letterOpacity
         this.letterStyle.opacity = this.letterOpacity
-        this.letterStyle.filter = 'brightness(' + this.settings.dropShadowBrightness + ') drop-shadow(' +
+        this.letterStyle.filter = 'brightness(' + this.settings.lettersBrightness + ') drop-shadow(' +
           this.settings.dropShadowColor + ' ' + this.settings.dropShadowX + 'px ' +
           this.settings.dropShadowY + 'px ' + this.settings.dropShadowBlur + 'px'
       },
