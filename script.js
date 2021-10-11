@@ -113,7 +113,6 @@
       this.initBackgroundInterval()
       this.initHiddenBar()
       this.initCountDownDate()
-      this.initLettersStyle()
       this.initListeners()
       this.initToastStyles()
       this.updateMusic()
@@ -284,13 +283,6 @@
           this.iframeWidth = window.innerHeight * 0.75 / (9 / 16)
           this.iframeHeight = window.innerHeight * 0.75
         }
-      },
-      initLettersStyle () {
-        this.letterStyle.opacity = this.settings.letterOpacity
-        this.toastStyle.opacity = this.settings.letterOpacity
-        this.letterStyle.filter = 'brightness(' + this.settings.dropShadowBrightness + ') drop-shadow(' +
-          this.settings.dropShadowColor + ' ' + this.settings.dropShadowX + 'px ' +
-          this.settings.dropShadowY + 'px ' + this.settings.dropShadowBlur + 'px'
       },
       initListeners () {
         if (!(this.settings.bottomBar || this.isTouch)) this.toastMessage = 'press esc to re-enable the bottom bar'
