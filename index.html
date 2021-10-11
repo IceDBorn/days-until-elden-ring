@@ -12,8 +12,8 @@
 <body style="background-color: black;">
     <div id="app">
         <div id="content" :style="{ backgroundColor: `rgba(0,0,0,${1 - contentOpacity})` }">
-            <div id="text" class="center" :style="{ opacity: contentOpacity }">
-                <h1 style="filter: brightness(1.25)" :style="{ filter: settings.dropShadow ? 'brightness(1.25) drop-shadow(black 2px 2px 3px)' : 'brightness(1.25)'}">
+            <div id="text" class="center" :style="letterStyle">
+                <h1>
                     <span class="multiply-bg">days until<br></span>
                     <picture style="pointer-events: none;">
                         <source srcset="resources/logo.avif" type="image/avif">
@@ -30,7 +30,7 @@
             </div>
         </div>
 
-        <div id="bottom-hidden-bar" style="filter: brightness(1.25)" :style="{ display: bottomHiddenBarVisible ? 'block' : 'none', padding: settings.bigTaskbar ? '30px' : '15px', width: settings.bigTaskbar ? '96%' : '97%', filter: settings.dropShadow ? 'brightness(1.25) drop-shadow(black 2px 2px 3px)' : 'brightness(1.25)'}">
+        <div id="hidden-bar" :style="{ display: hiddenBarVisible ? 'block' : 'none', padding: settings.bigTaskbar ? '30px' : '15px', width: settings.bigTaskbar ? '96%' : '97%', opacity: letterStyle.opacity, filter: letterStyle.filter }">
             <button id="settings-button" class="multiply-bg" @click="settingsClick">settings</button>
             <button id="separator" class="multiply-bg">*</button>
             <button id="latest-news-button" class="multiply-bg"
@@ -56,6 +56,7 @@
         crossorigin='anonymous'></script>
     <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src='https://cdnjs.cloudflare.com/ajax/libs/vue/2.6.9/vue.js'></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="/script.js"></script>
     <script src="/sparks.js"></script>
 </body>
