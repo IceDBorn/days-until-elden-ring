@@ -1,26 +1,6 @@
-@-webkit-keyframes fadein {
-  from {bottom: 0;}
-  to {bottom: 30px;}
-}
-
-@-webkit-keyframes fadeout {
-  from {bottom: 30px;}
-  to {bottom: 0;}
-}
-
 @font-face {
   font-family: Mantinia;
   src: url(resources/font.otf);
-}
-
-@keyframes fadein {
-  from {bottom: 0;}
-  to {bottom: 30px;}
-}
-
-@keyframes fadeout {
-  from {bottom: 30px;}
-  to {bottom: 0;}
 }
 
 * {
@@ -176,7 +156,7 @@ h1 {
 }
 
 .toast {
-  visibility: hidden;
+  visibility: visible;
   min-width: 600px;
   margin-left: -300px;
   text-align: center;
@@ -188,12 +168,6 @@ h1 {
   z-index: 1;
   bottom: 30px;
   opacity: 0;
-}
-
-.toast.show {
-  visibility: visible;
-  -webkit-animation: fadein 0.5s, fadeout 0.5s 5s;
-  animation: fadein 0.5s, fadeout 0.5s 5s;
 }
 
 .untilText {

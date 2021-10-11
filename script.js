@@ -88,7 +88,6 @@
       },
       toastMessage: null,
       toastStyle: {},
-      toastVisible: true,
       today: new Date().getDay(),
       untilHtml: '',
       untilInterval: null
@@ -118,7 +117,7 @@
       this.updateMusic()
       this.fadingLoop()
 
-      setTimeout(function () { self.toastVisible = false }, 5000)
+      setTimeout(function () { self.toastStyle.visibility = 'hidden' }, 5000)
     },
     watch: {
       settings: {
@@ -235,7 +234,7 @@
             if (this.musicPlayer !== null) this.musicPlayer.play()
           })
 
-          this.toastVisible = false
+          this.toastStyle.visibility = 'hidden'
           this.hiddenBarVisible = false
           this.menuVisible = false
         }
@@ -268,7 +267,7 @@
 
           mc.on('swipeup', () => {
             this.hiddenBarVisible = true
-            this.toastVisible = false
+            this.toastStyle.visibility = 'hidden'
           })
 
           mc.on('swipedown', () => {
@@ -291,7 +290,7 @@
               return
             }
 
-            this.toastVisible = false
+            this.toastStyle.visibility = 'hidden'
             this.hiddenBarVisible = true
           }
         }
@@ -464,7 +463,7 @@
           background: 'rgba(50,50,50,1)'
         }).then(value => { this.menuVisible = value })
 
-        this.toastVisible = false
+        this.toastStyle.visibility = 'hidden'
         if (!this.isTouch) this.hiddenBarVisible = false
         this.menuVisible = false
 
