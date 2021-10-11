@@ -491,7 +491,7 @@
 
         if (this.letterOpacity > 1) {
           this.letterOpacity = 1
-        } else if (this.letterOpacity < 0.1) {
+        } else if (!this.fading && this.letterOpacity < 0.1) {
           this.letterOpacity = 0.1
         }
 
