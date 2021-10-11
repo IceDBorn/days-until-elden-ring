@@ -53,6 +53,7 @@
     data: {
       contentOpacity: 0,
       countDownDate: 0,
+      fading: true,
       fps: 60,
       hiddenBarVisible: false,
       iframeHeight: 0,
@@ -61,10 +62,11 @@
       isTouch: false,
       lastFrameTime: 0,
       letterStyle: {},
+      letterOpacity: 0,
       menuVisible: true,
       musicPlayer: null,
       settings: {
-        version: 0.4,
+        version: 0.5,
         backgroundImage: true,
         bigTaskbar: false,
         bottomBar: true,
@@ -76,7 +78,7 @@
         dropShadowY: '0',
         formattedSparksSpeed: '1.00x',
         formattedSparksTick: '1.00x',
-        letterOpacity: 1,
+        maxLetterOpacity: 1,
         music: 'none',
         sparksPlaying: true,
         sparksSpeed: 36,
@@ -101,6 +103,8 @@
         window.localStorage.setItem('settings', JSON.stringify(this.settings))
       }
 
+      this.initCountDownDate()
+
       try {
         document.createEvent('TouchEvent')
         this.isTouch = true
@@ -112,7 +116,6 @@
 
       this.initBackgroundInterval()
       this.initHiddenBar()
-      this.initCountDownDate()
       this.initListeners()
       this.initToastStyles()
       this.updateMusic()
@@ -147,7 +150,7 @@
       'settings.dropShadowY' () {
         this.updateLettersStyle()
       },
-      'settings.letterOpacity' () {
+      'letterOpacity' () {
         this.updateLettersStyle()
       },
       'settings.music' () {
@@ -181,7 +184,16 @@
 
         if (this.contentOpacity > 1) {
           this.contentOpacity = 1
+          this.fading = false
           return
+        }
+
+        if (this.letterOpacity >= this.settings.maxLetterOpacity) {
+          this.letterOpacity = this.settings.maxLetterOpacity
+          this.toastStyle.opacity = this.settings.maxLetterOpacity
+        } else {
+          this.letterOpacity = parseFloat(this.letterOpacity) + increment
+          this.toastStyle.opacity = parseFloat(this.letterOpacity) + increment
         }
 
         window.requestAnimFrame(this.fadingLoop)
@@ -325,7 +337,6 @@
         }
       },
       letterEditorClick () {
-        console.log('gay')
         window.Swal.fire({
           html: /* html */ `
             <div class="settings-menu">
@@ -338,7 +349,7 @@
                     </div>
                     <div class="settings-menu-items">
                       <label for="letterOpacity" class="settings-label">Opacity:</label>
-                      <input class="custom-forms" type="number" id="letterOpacity" min="0.1" max="1" step="0.1" oninput="window.app.settings.letterOpacity = value" value="${window.app.settings.letterOpacity}">
+                      <input class="custom-forms" type="number" id="letterOpacity" min="0.1" max="1" step="0.1" oninput="window.app.letterOpacity = value" value="${window.app.settings.maxLetterOpacity}">
                     </div>
                     <h3 class="settings-headline">Drop shadow</h3>
                     <div class="settings-menu-items">
@@ -468,13 +479,14 @@
           this.settings.dropShadowBlur = 50
         }
 
-        if (this.settings.letterOpacity > 1) {
-          this.settings.letterOpacity = 1
-        } else if (this.settings.letterOpacity < 0.1) {
-          this.settings.letterOpacity = 0.1
+        if (this.letterOpacity > 1) {
+          this.letterOpacity = 1
+        } else if (this.letterOpacity < 0.1) {
+          this.letterOpacity = 0.1
         }
 
-        this.letterStyle.opacity = this.settings.letterOpacity
+        if (!this.fading) this.settings.maxLetterOpacity = this.letterOpacity
+        this.letterStyle.opacity = this.letterOpacity
         this.letterStyle.filter = 'brightness(' + this.settings.dropShadowBrightness + ') drop-shadow(' +
           this.settings.dropShadowColor + ' ' + this.settings.dropShadowX + 'px ' +
           this.settings.dropShadowY + 'px ' + this.settings.dropShadowBlur + 'px'

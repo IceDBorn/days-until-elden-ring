@@ -86,8 +86,6 @@ h1 {
   visibility: hidden;
   min-width: 600px;
   margin-left: -300px;
-  background-color: #0000;
-  color: #e6c98e;
   text-align: center;
   font-size: 42px;
   font-family: Mantinia, serif;
@@ -96,6 +94,7 @@ h1 {
   position: fixed;
   z-index: 1;
   bottom: 30px;
+  opacity: 0;
 }
 
 #toast.show {
