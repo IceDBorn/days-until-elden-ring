@@ -39,7 +39,7 @@ h1 {
   line-height: 55px;
 }
 
-#latest-news-button, #settings-button, #trailer-button {
+.hidden-bar-button {
   font-family: Mantinia, serif;
   font-size: 42px;
   border-style: none;
@@ -49,13 +49,11 @@ h1 {
   -ms-user-select: none;
 }
 
-
-
-#latest-news-button:hover, #settings-button:hover, #trailer-button:hover {
+.hidden-bar-button:hover {
   text-shadow: 0 0 5px rgba(60, 60, 60, 1);
 }
 
-#separator, #separator2 {
+.hidden-bar-separator {
   font-family: Mantinia, serif;
   font-size: 35px;
   border-style: none;
