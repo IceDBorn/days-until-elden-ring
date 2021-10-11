@@ -177,6 +177,16 @@
 
         return this.countdownLoop
       },
+      enforceMinMax (el) {
+        if (el.value !== '') {
+          if (parseInt(el.value) < parseInt(el.min)) {
+            el.value = el.min
+          }
+          if (parseInt(el.value) > parseInt(el.max)) {
+            el.value = el.max
+          }
+        }
+      },
       fadingLoop () {
         if (!this.lastFrameTime) this.lastFrameTime = Date.now()
         const deltaTime = Date.now() - this.lastFrameTime
@@ -349,12 +359,12 @@
                     </div>
                     <div class="settings-menu-items">
                       <label for="letterOpacity" class="settings-label">Opacity:</label>
-                      <input class="custom-forms" type="number" id="letterOpacity" min="0.1" max="1" step="0.1" oninput="window.app.letterOpacity = value" value="${window.app.settings.maxLetterOpacity}">
+                      <input class="custom-forms" type="number" id="letterOpacity" min="0.1" max="1" step="0.1" onkeyup="window.app.enforceMinMax(this)" oninput="window.app.letterOpacity = value" value="${window.app.settings.maxLetterOpacity}">
                     </div>
                     <h3 class="settings-headline">Drop shadow</h3>
                     <div class="settings-menu-items">
                       <label for="dropShadowBlur" class="settings-label">Blur:</label>
-                      <input class="custom-forms" type="number" id="dropShadowBlur" min="0" max="50" oninput="window.app.settings.dropShadowBlur = value" value="${window.app.settings.dropShadowBlur}">
+                      <input class="custom-forms" type="number" id="dropShadowBlur" min="0" max="50" onkeyup="window.app.enforceMinMax(this)" oninput="window.app.settings.dropShadowBlur = value" value="${window.app.settings.dropShadowBlur}">
                     </div>
                     <div class="settings-menu-items">
                       <label for="color" class="settings-label">Color:</label>
