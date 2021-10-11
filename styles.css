@@ -5,7 +5,7 @@
 
 @-webkit-keyframes fadeout {
   from {bottom: 30px;}
-  to {bottom: 0; opacity: 0;}
+  to {bottom: 0;}
 }
 
 @font-face {

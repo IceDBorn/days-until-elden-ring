@@ -103,8 +103,6 @@
         window.localStorage.setItem('settings', JSON.stringify(this.settings))
       }
 
-      this.initCountDownDate()
-
       try {
         document.createEvent('TouchEvent')
         this.isTouch = true
@@ -112,14 +110,15 @@
 
       await this.updateBackground()
 
-      setTimeout(function () { self.toastVisible = false }, 5000)
-
       this.initBackgroundInterval()
+      this.initCountDownDate()
       this.initHiddenBar()
       this.initListeners()
       this.initToastStyles()
       this.updateMusic()
       this.fadingLoop()
+
+      setTimeout(function () { self.toastVisible = false }, 5000)
     },
     watch: {
       settings: {
