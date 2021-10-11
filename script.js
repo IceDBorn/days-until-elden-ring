@@ -12,12 +12,9 @@
     let index
     // eslint-disable-next-line no-undef
     const start = performance.now()
-    const requestFrame = window.requestAnimationFrame ||
-      window.webkitRequestAnimationFrame ||
-      window.mozRequestAnimationFrame
-    if (!requestFrame) return true
+    if (!window.requestAnimFrame) return true
     function checker () {
-      if (index--) requestFrame(checker)
+      if (index--) window.requestAnimFrame(checker)
       else {
         // eslint-disable-next-line no-undef
         const result = count * 1000 / (performance.now() - start)
@@ -172,18 +169,14 @@
 
         const formatValue = (value, name) => `${value}&nbsp;${name}${value === 1 ? '' : 's'}`
 
-        if (distance < 0) {
-          clearInterval(this.countdownLoop)
-          this.untilHtml = 'it is finally time!'
-        } else {
-          this.untilHtml = `${formatValue(days, 'day')} ${formatValue(hours, 'hour')} ${formatValue(minutes, 'minute')} ${formatValue(seconds, 'second')}`
-        }
+        if (distance < 0) clearInterval(this.countdownLoop)
+
+        this.untilHtml = `${formatValue(days, 'day')} ${formatValue(hours, 'hour')} ${formatValue(minutes, 'minute')} ${formatValue(seconds, 'second')}`
 
         return this.countdownLoop
       },
       fadingLoop () {
         if (!this.lastFrameTime) this.lastFrameTime = Date.now()
-
         const deltaTime = Date.now() - this.lastFrameTime
         const increment = 0.007 * deltaTime / 16
 
@@ -197,7 +190,7 @@
         this.lastFrameTime = Date.now()
       },
       iframeClick (src) {
-        if (this.musicPlayer !== null) { this.musicPlayer.pause() }
+        if (this.musicPlayer !== null) this.musicPlayer.pause()
 
         if (this.isTouch) {
           window.open(src)
@@ -219,9 +212,7 @@
             background: 'rgba(0,0,0,0)'
           }).then(value => {
             this.menuVisible = value
-            if (this.musicPlayer !== null) {
-              this.musicPlayer.play()
-            }
+            if (this.musicPlayer !== null) this.musicPlayer.play()
           })
 
           this.toastVisible = false
@@ -263,7 +254,9 @@
           mc.on('swipedown', () => {
             if (!this.hiddenBarVisible) {
               window.location.reload()
-            } else { this.hiddenBarVisible = false }
+            } else {
+              this.hiddenBarVisible = false
+            }
           })
         } else {
           document.body.onmousemove = e => {
@@ -295,22 +288,29 @@
       initLettersStyle () {
         this.letterStyle.opacity = this.settings.letterOpacity
         this.toastStyle.opacity = this.settings.letterOpacity
-        this.letterStyle.filter = 'brightness(' + this.settings.dropShadowBrightness + ') drop-shadow(' + this.settings.dropShadowColor + ' ' + this.settings.dropShadowX + 'px ' + this.settings.dropShadowY + 'px ' + this.settings.dropShadowBlur + 'px'
+        this.letterStyle.filter = 'brightness(' + this.settings.dropShadowBrightness + ') drop-shadow(' +
+          this.settings.dropShadowColor + ' ' + this.settings.dropShadowX + 'px ' +
+          this.settings.dropShadowY + 'px ' + this.settings.dropShadowBlur + 'px'
       },
       initListeners () {
-        if (!(this.settings.bottomBar || this.isTouch)) {
-          this.toastMessage = 'press esc to re-enable the bottom bar'
-        }
+        if (!(this.settings.bottomBar || this.isTouch)) this.toastMessage = 'press esc to re-enable the bottom bar'
+
+        // Toggle hidden bar with ESC
         document.addEventListener('keydown', e => {
           if (e.code === 'Escape') {
             this.settings.bottomBar = !this.settings.bottomBar
           }
         })
 
-        document.body.addEventListener('mousemove', () => this.musicPlayer?.currentTime === 0 && this.musicPlayer?.play())
-        document.body.addEventListener('click', () => this.musicPlayer?.currentTime === 0 && this.musicPlayer?.play())
-        document.body.addEventListener('keydown', () => this.musicPlayer?.currentTime === 0 && this.musicPlayer?.play())
+        // Play music upon user interaction
+        document.body.addEventListener('mousemove', () => this.musicPlayer?.currentTime === 0 &&
+          this.musicPlayer?.play())
+        document.body.addEventListener('click', () => this.musicPlayer?.currentTime === 0 &&
+          this.musicPlayer?.play())
+        document.body.addEventListener('keydown', () => this.musicPlayer?.currentTime === 0 &&
+          this.musicPlayer?.play())
 
+        // Resize iframes based on window resize
         window.addEventListener('resize', () => {
           this.initIframe()
           const iframe = document.getElementById('lastIframe')
@@ -319,7 +319,10 @@
         })
       },
       initToastStyles () {
-        this.toastStyle.filter = 'brightness(' + this.settings.dropShadowBrightness + ') drop-shadow(' + this.settings.dropShadowColor + ' ' + this.settings.dropShadowX + 'px ' + this.settings.dropShadowY + 'px ' + this.settings.dropShadowBlur + 'px'
+        this.toastStyle.filter = 'brightness(' + this.settings.dropShadowBrightness + ') drop-shadow(' +
+          this.settings.dropShadowColor + ' ' + this.settings.dropShadowX + 'px ' +
+          this.settings.dropShadowY + 'px ' + this.settings.dropShadowBlur + 'px'
+
         if (this.isTouch) {
           this.toastStyle.left = '48%'
           this.toastMessage = 'swipe up for info and settings'
@@ -333,33 +336,33 @@
         console.log('gay')
         window.Swal.fire({
           html: /* html */ `
-            <div id="lettersEditor">
-                <h1 style="text-align: center; font-weight: bold; color: white;">Editor</h1>
+            <div class="settings-menu">
+                <h1 class="settings-headline" ">Editor</h1>
                 <hr />
-                <h3 style="text-align: center; font-weight: bold; color: white;">Letters</h3>
-                    <div class="letter-editor-items">
-                      <label for="dropShadowBrightness" style="color: white">Brightness:</label>
+                <h3 class="settings-headline">Letters</h3>
+                    <div class="settings-menu-items">
+                      <label for="dropShadowBrightness" class="settings-label">Brightness:</label>
                       <input type="number" id="dropShadowBrightness" step="0.25" oninput="window.app.settings.dropShadowBrightness = value" value="${window.app.settings.dropShadowBrightness}">
                     </div>
-                    <div class="letter-editor-items">
-                      <label for="letterOpacity" style="color: white">Opacity:</label>
+                    <div class="settings-menu-items">
+                      <label for="letterOpacity" class="settings-label">Opacity:</label>
                       <input type="number" id="letterOpacity" min="0.1" max="1" step="0.1" oninput="window.app.settings.letterOpacity = value" value="${window.app.settings.letterOpacity}">
                     </div>
-                    <h3 style="text-align: center; font-weight: bold; color: white;">Drop shadow</h3>
-                    <div class="letter-editor-items">
-                      <label for="dropShadowBlur" style="color: white">Blur:</label>
+                    <h3 class="settings-headline">Drop shadow</h3>
+                    <div class="settings-menu-items">
+                      <label for="dropShadowBlur" class="settings-label">Blur:</label>
                       <input type="number" id="dropShadowBlur" min="0" max="50" oninput="window.app.settings.dropShadowBlur = value" value="${window.app.settings.dropShadowBlur}">
                     </div>
-                    <div class="letter-editor-items">
-                      <label for="color" style="color: white">Color:</label>
+                    <div class="settings-menu-items">
+                      <label for="color" class="settings-label">Color:</label>
                       <input type="text" id="color" placeholder="Plain english or HEX" oninput="window.app.settings.dropShadowColor = value" value="${window.app.settings.dropShadowColor}">
                     </div>
-                    <div class="letter-editor-items">
-                      <label for="dropShadowX" style="color: white">Position X:</label>
+                    <div class="settings-menu-items">
+                      <label for="dropShadowX" class="settings-label">Position X:</label>
                       <input type="number" id="dropShadowX" oninput="window.app.settings.dropShadowX = value" value="${window.app.settings.dropShadowX}">
                     </div>
-                    <div class="letter-editor-items">
-                      <label for="dropShadowY" style="color: white">Position Y:</label>
+                    <div class="settings-menu-items">
+                      <label for="dropShadowY" class="settings-label">Position Y:</label>
                       <input type="number" id="dropShadowY" oninput="window.app.settings.dropShadowY = value" value="${window.app.settings.dropShadowY}">
                     </div>
             </div>
@@ -368,9 +371,8 @@
           background: 'rgba(50,50,50,1)',
           position: 'top-end'
         }).then(value => { this.menuVisible = value })
-        // Remove swal2 backdrop with jQuery
         // eslint-disable-next-line no-undef
-        $('.swal2-container.swal2-backdrop-show, .swal2-container.swal2-noanimation').css('background', 'rgba(0, 0, 0, 0)')
+        $('.swal2-container.swal2-backdrop-show, .swal2-container.swal2-noanimation').css('background', 'rgba(0, 0, 0, 0)') // Remove swal2 backdrop with jQuery
       },
       setFormattedSparksSpeed () {
         const formattedValue = parseFloat(2.28262 - 0.0355357 * this.settings.sparksSpeed + '').toFixed(2) + 'x'
@@ -385,36 +387,36 @@
       settingsClick () {
         window.Swal.fire({
           html: /* html */ `
-            <div id="settings">
-              <h1 style="text-align: center; font-weight: bold">Settings</h1>
+            <div class="settings-menu">
+              <h1 class="settings-headline">Settings</h1>
               <hr />
-              <h3 style="text-align: center; font-weight: bold">Background</h3>
-              <div class="settings-items">
+              <h3 class="settings-headline">Background</h3>
+              <div class="settings-menu-items">
                 <input type="checkbox" ${this.settings.backgroundImage ? 'checked' : ''} id="background" onclick="window.app.settings.backgroundImage = !window.app.settings.backgroundImage">
-                <label for="background" style="color: white">Enabled</label>
+                <label for="background" class="settings-label">Enabled</label>
               </div>
-              <div class="settings-items">
+              <div class="settings-menu-items">
                 <input type="checkbox" ${this.settings.uncompressedImages ? 'checked' : ''} id="uncompressedToggle" onclick="window.app.settings.uncompressedImages = !window.app.settings.uncompressedImages">
-                <label for="uncompressedToggle" style="color: white">Uncompressed images</label>
+                <label for="uncompressedToggle" class="settings-label">Uncompressed images</label>
               </div>
-              <h3 style="text-align: center; font-weight: bold">Sparks</h3>
-              <div class="settings-items">
+              <h3 class="settings-headline">Sparks</h3>
+              <div class="settings-menu-items">
                 <input type="checkbox" ${this.settings.sparksPlaying ? 'checked' : ''} id="sparksToggle" onclick="window.app.settings.sparksPlaying = !window.app.settings.sparksPlaying">
-                <label for="sparksToggle" style="color: white">Enabled</label>
+                <label for="sparksToggle" class="settings-label">Enabled</label>
               </div>
-              <div class="settings-items">
-                <label for="sparksTick">Amount:</label>
+              <div class="settings-menu-items">
+                <label for="sparksTick" class="settings-label">Amount:</label>
                 <input type="range" min="-35" max="-5" value="${-window.app.settings.sparksTick}" id="sparksTick" oninput="window.app.updateSparksTick(-value)">
-                <label id="sparksTickValue">${window.app.settings.formattedSparksTick}</label>
+                <label id="sparksTickValue" class="settings-label">${window.app.settings.formattedSparksTick}</label>
               </div>
-              <div class="settings-items">
-                <label for="sparksSpeed">Speed:</label>
+              <div class="settings-menu-items">
+                <label for="sparksSpeed" class="settings-label">Speed:</label>
                 <input type="range" min="-64" max="-8" value="${-window.app.settings.sparksSpeed}" id="sparksSpeed" oninput="window.app.updateSparksSpeed(-value)">
-                <label id="sparksSpeedValue">${window.app.settings.formattedSparksSpeed}</label>
+                <label id="sparksSpeedValue" class="settings-label">${window.app.settings.formattedSparksSpeed}</label>
               </div>
-              <h3 style="text-align: center; font-weight: bold">Music</h3>
-              <div class="settings-items">
-                <label for="music">Track:</label>
+              <h3 class="settings-headline">Music</h3>
+              <div class="settings-menu-items">
+                <label for="music" class="settings-label">Track:</label>
                 <select id="music" onchange="window.app.settings.music = value">
                   <option ${this.settings.music === 'none' ? 'selected' : ''} value="none">None</option>
                   <option ${this.settings.music === 'resources/music/alex-roe.mp3' ? 'selected' : ''} value="resources/music/alex-roe.mp3">The Flame of Ambition by Alex Roe</option>
@@ -422,22 +424,22 @@
                   <option ${this.settings.music === 'resources/music/timothy-richards-2.mp3' ? 'selected' : ''} value="resources/music/timothy-richards-2.mp3">Trailer Soundtrack Medley by Timothy Richards</option>
                 </select>
               </div>
-              <div class="settings-items">
-                <label for="volume">Volume:</label>
+              <div class="settings-menu-items">
+                <label for="volume" class="settings-label">Volume:</label>
                 <input type="range" min="0" max="100" value="${window.app.settings.volume}" id="volume" oninput="window.app.updateVolume(value)">
-                <label id="volumeValue">${window.app.settings.volume + '%'}</label>
+                <label id="volumeValue" class="settings-label">${window.app.settings.volume + '%'}</label>
               </div>
-              <h3 style="text-align: center; font-weight: bold">Misc</h3>
-              <div class="settings-items" id="bottomBarDiv">
+              <h3 class="settings-headline">Misc</h3>
+              <div class="settings-menu-items" id="hiddenBarDiv">
                 <input type="checkbox" ${this.settings.bottomBar ? 'checked' : ''} id="bottomBar" onclick="window.app.settings.bottomBar = !window.app.settings.bottomBar">
-                <label for="bottomBar" style="color: white">Bottom bar (Toggle by pressing ESC)</label>
+                <label for="bottomBar" class="settings-label">Bottom bar (Toggle by pressing ESC)</label>
               </div>
-              <div class="settings-items" id="taskbarToggleDiv">
+              <div class="settings-menu-items" id="taskbarToggleDiv">
                 <input type="checkbox" ${this.settings.bigTaskbar ? 'checked' : ''} id="taskbarToggle" onclick="window.app.settings.bigTaskbar = !window.app.settings.bigTaskbar">
-                <label for="taskbarToggle" style="color: white">Big taskbar (Raises bottom bar height)</label>
+                <label for="taskbarToggle" class="settings-label">Big taskbar (Raises bottom bar height)</label>
               </div>
               <button id="editor-button" onclick="window.app.letterEditorClick()"><span>Letters editor</span></button>
-              <hr class="settings-items"/>
+              <hr class="settings-menu-items"/>
               <a id="github" href="https://github.com/IceDBorn/days-until-elden-ring" target="_blank">
                 <h2 id="github">
                   <img src="resources/github.png" alt="github logo" width="20px" height="20px">
@@ -451,17 +453,18 @@
         }).then(value => { this.menuVisible = value })
 
         this.toastVisible = false
-        if (!this.isTouch) { this.hiddenBarVisible = false }
+        if (!this.isTouch) this.hiddenBarVisible = false
         this.menuVisible = false
 
-        if (this.isTouch) { document.getElementById('bottomBarDiv').hidden = true }
-        if (this.isTouch) { document.getElementById('taskbarToggleDiv').hidden = true }
+        if (this.isTouch) document.getElementById('hiddenBarDiv').hidden = true
+        if (this.isTouch) document.getElementById('taskbarToggleDiv').hidden = true
       },
       async updateBackground () {
         if (!this.settings.backgroundImage) return
 
         const uncompressed = this.settings.uncompressedImages ? '-u' : ''
         const url = 'resources/backgrounds/' + this.today + '-' + rand(0, 4) + uncompressed + '.jpg'
+
         await window.fetch(url, { method: 'HEAD' })
           .then(res => res.ok ? url : 'resources/backgrounds/' + this.today + '-0' + uncompressed + '.jpg')
           .then(url => setBackground(url, this.isMobile))
@@ -472,13 +475,17 @@
         } else if (this.settings.dropShadowBlur > 50) {
           this.settings.dropShadowBlur = 50
         }
+
         if (this.settings.letterOpacity > 1) {
           this.settings.letterOpacity = 1
         } else if (this.settings.letterOpacity < 0.1) {
           this.settings.letterOpacity = 0.1
         }
+
         this.letterStyle.opacity = this.settings.letterOpacity
-        this.letterStyle.filter = 'brightness(' + this.settings.dropShadowBrightness + ') drop-shadow(' + this.settings.dropShadowColor + ' ' + this.settings.dropShadowX + 'px ' + this.settings.dropShadowY + 'px ' + this.settings.dropShadowBlur + 'px'
+        this.letterStyle.filter = 'brightness(' + this.settings.dropShadowBrightness + ') drop-shadow(' +
+          this.settings.dropShadowColor + ' ' + this.settings.dropShadowX + 'px ' +
+          this.settings.dropShadowY + 'px ' + this.settings.dropShadowBlur + 'px'
       },
       updateMusic () {
         try {
@@ -490,9 +497,7 @@
           this.musicPlayer = new window.Audio(this.settings.music)
           this.musicPlayer.loop = true
           this.musicPlayer.volume = (this.settings.volume / 100)
-        } else {
-          this.musicPlayer = null
-        }
+        } else this.musicPlayer = null
       },
       updateSparksSpeed (value) {
         this.settings.sparksSpeed = value
@@ -505,9 +510,7 @@
       updateVolume (value) {
         this.settings.volume = value
         document.getElementById('volumeValue').innerText = this.settings.volume + '%'
-        if (this.musicPlayer != null) {
-          this.musicPlayer.volume = (this.settings.volume / 100)
-        }
+        if (this.musicPlayer != null) this.musicPlayer.volume = (this.settings.volume / 100)
       }
     }
   })
