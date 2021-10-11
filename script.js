@@ -25,6 +25,7 @@
   function calcFPS (opts) {
     const count = opts.count || 60
     let index
+    // eslint-disable-next-line no-undef
     const start = performance.now()
     const requestFrame = window.requestAnimationFrame ||
       window.webkitRequestAnimationFrame ||
@@ -33,6 +34,7 @@
     function checker () {
       if (index--) requestFrame(checker)
       else {
+        // eslint-disable-next-line no-undef
         const result = count * 1000 / (performance.now() - start)
         if (typeof opts.callback === 'function') opts.callback(result)
         window.app.fps = Math.round(result)
@@ -45,8 +47,7 @@
 
   calcFPS({ count: 144 })
 
-  /* eslint-disable-next-line no-unused-vars */
-  const app = new window.Vue({
+  window.app = new window.Vue({
     el: '#app',
     data: {
       isMobile: /Android|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent),
@@ -117,7 +118,6 @@
       await this.updateBackground()
 
       setTimeout(function () { self.toastVisible = false }, 5000)
-
 
       this.initBackgroundInterval()
       this.initHiddenBar()
@@ -517,5 +517,4 @@
       }
     }
   })
-  window.app = app
 })()
