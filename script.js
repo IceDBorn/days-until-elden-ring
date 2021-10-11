@@ -342,28 +342,28 @@
                 <h3 class="settings-headline">Letters</h3>
                     <div class="settings-menu-items">
                       <label for="dropShadowBrightness" class="settings-label">Brightness:</label>
-                      <input type="number" id="dropShadowBrightness" step="0.25" oninput="window.app.settings.dropShadowBrightness = value" value="${window.app.settings.dropShadowBrightness}">
+                      <input class="custom-forms" type="number" id="dropShadowBrightness" step="0.25" oninput="window.app.settings.dropShadowBrightness = value" value="${window.app.settings.dropShadowBrightness}">
                     </div>
                     <div class="settings-menu-items">
                       <label for="letterOpacity" class="settings-label">Opacity:</label>
-                      <input type="number" id="letterOpacity" min="0.1" max="1" step="0.1" oninput="window.app.settings.letterOpacity = value" value="${window.app.settings.letterOpacity}">
+                      <input class="custom-forms" type="number" id="letterOpacity" min="0.1" max="1" step="0.1" oninput="window.app.settings.letterOpacity = value" value="${window.app.settings.letterOpacity}">
                     </div>
                     <h3 class="settings-headline">Drop shadow</h3>
                     <div class="settings-menu-items">
                       <label for="dropShadowBlur" class="settings-label">Blur:</label>
-                      <input type="number" id="dropShadowBlur" min="0" max="50" oninput="window.app.settings.dropShadowBlur = value" value="${window.app.settings.dropShadowBlur}">
+                      <input class="custom-forms" type="number" id="dropShadowBlur" min="0" max="50" oninput="window.app.settings.dropShadowBlur = value" value="${window.app.settings.dropShadowBlur}">
                     </div>
                     <div class="settings-menu-items">
                       <label for="color" class="settings-label">Color:</label>
-                      <input type="text" id="color" placeholder="Plain english or HEX" oninput="window.app.settings.dropShadowColor = value" value="${window.app.settings.dropShadowColor}">
+                      <input class="custom-forms" type="text" id="color" placeholder="Plain english or HEX" oninput="window.app.settings.dropShadowColor = value" value="${window.app.settings.dropShadowColor}">
                     </div>
                     <div class="settings-menu-items">
                       <label for="dropShadowX" class="settings-label">Position X:</label>
-                      <input type="number" id="dropShadowX" oninput="window.app.settings.dropShadowX = value" value="${window.app.settings.dropShadowX}">
+                      <input class="custom-forms" type="number" id="dropShadowX" oninput="window.app.settings.dropShadowX = value" value="${window.app.settings.dropShadowX}">
                     </div>
                     <div class="settings-menu-items">
                       <label for="dropShadowY" class="settings-label">Position Y:</label>
-                      <input type="number" id="dropShadowY" oninput="window.app.settings.dropShadowY = value" value="${window.app.settings.dropShadowY}">
+                      <input class="custom-forms" type="number" id="dropShadowY" oninput="window.app.settings.dropShadowY = value" value="${window.app.settings.dropShadowY}">
                     </div>
             </div>
         `,
@@ -416,8 +416,8 @@
               </div>
               <h3 class="settings-headline">Music</h3>
               <div class="settings-menu-items">
-                <label for="music" class="settings-label">Track:</label>
-                <select id="music" onchange="window.app.settings.music = value">
+                <label class="settings-label">Track:</label>
+                <select class="custom-forms" onchange="window.app.settings.music = value">
                   <option ${this.settings.music === 'none' ? 'selected' : ''} value="none">None</option>
                   <option ${this.settings.music === 'resources/music/alex-roe.mp3' ? 'selected' : ''} value="resources/music/alex-roe.mp3">The Flame of Ambition by Alex Roe</option>
                   <option ${this.settings.music === 'resources/music/timothy-richards.mp3' ? 'selected' : ''} value="resources/music/timothy-richards.mp3">Debut Trailer by Timothy Richards</option>
@@ -438,10 +438,10 @@
                 <input type="checkbox" ${this.settings.bigTaskbar ? 'checked' : ''} id="taskbarToggle" onclick="window.app.settings.bigTaskbar = !window.app.settings.bigTaskbar">
                 <label for="taskbarToggle" class="settings-label">Big taskbar (Raises bottom bar height)</label>
               </div>
-              <button id="editor-button" onclick="window.app.letterEditorClick()"><span>Letters editor</span></button>
+              <button class="custom-button" onclick="window.app.letterEditorClick()"><span>Letters editor</span></button>
               <hr class="settings-menu-items"/>
-              <a id="github" href="https://github.com/IceDBorn/days-until-elden-ring" target="_blank">
-                <h2 id="github">
+              <a class="github" href="https://github.com/IceDBorn/days-until-elden-ring" target="_blank">
+                <h2 class="github">
                   <img src="resources/github.png" alt="github logo" width="20px" height="20px">
                   Github
                 </h2>

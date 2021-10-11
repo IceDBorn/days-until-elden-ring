@@ -1,6 +1,26 @@
+@-webkit-keyframes fadein {
+  from {bottom: 0; opacity: 0;}
+  to {bottom: 30px; opacity: 1;}
+}
+
+@-webkit-keyframes fadeout {
+  from {bottom: 30px; opacity: 1;}
+  to {bottom: 0; opacity: 0;}
+}
+
 @font-face {
   font-family: Mantinia;
   src: url(resources/font.otf);
+}
+
+@keyframes fadein {
+  from {bottom: 0; opacity: 0;}
+  to {bottom: 30px; opacity: 1;}
+}
+
+@keyframes fadeout {
+  from {bottom: 30px; opacity: 1;}
+  to {bottom: 0; opacity: 0;}
 }
 
 * {
@@ -19,62 +39,6 @@ h1 {
   line-height: 55px;
 }
 
-#content {
-  width: 100vw;
-  height: 100vh;
-  position: fixed;
-  user-select: none;
-  -webkit-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
-}
-
-#text {
-  padding-top: 20px;
-  padding-bottom: 20px;
-  color: #e6c98e;
-  font-family: Mantinia, serif;
-  text-align: center;
-  opacity: 0;
-}
-
-#github {
-  text-align: center;
-  text-decoration: none;
-  color: white;
-  font-weight: bold;
-}
-
-#github:hover {
-  color: dodgerblue;
-}
-
-#music {
-  color: white;
-  background-color: gray;
-}
-
-#until {
-  margin-top: 60px;
-  font-size: 55px;
-  max-width: 750px;
-}
-
-#sparks {
-  width: 100%;
-  height: 100%;
-  -webkit-filter: blur(2px);
-  position: fixed;
-  top: 0;
-}
-
-#hidden-bar {
-  position: fixed;
-  bottom: 0;
-  text-align: center;
-  display: none;
-}
-
 #latest-news-button, #settings-button, #trailer-button {
   font-family: Mantinia, serif;
   font-size: 42px;
@@ -85,26 +49,7 @@ h1 {
   -ms-user-select: none;
 }
 
-#editor-button {
-  display: block;
-  margin: 30px auto;
-  border-width: 0;
-  border-radius: 5px;
-  box-shadow: 0 1px 4px rgba(0, 0, 0, .6);
-  background-color: #0075FF;
-  color: white;
-  font-size: 21px;
-  transition: background-color .3s;
-}
 
-#editor-button:hover, #editor-button:focus {
-  background-color: #005CC8;
-}
-
-#editor-button span {
-  display: block;
-  padding: 12px 24px;
-}
 
 #latest-news-button:hover, #settings-button:hover, #trailer-button:hover {
   text-shadow: 0 0 5px rgba(60, 60, 60, 1);
@@ -118,6 +63,23 @@ h1 {
   -webkit-user-select: none;
   -moz-user-select: none;
   -ms-user-select: none;
+}
+
+#sparks {
+  width: 100%;
+  height: 100%;
+  -webkit-filter: blur(2px);
+  position: fixed;
+  top: 0;
+}
+
+#text {
+  padding-top: 20px;
+  padding-bottom: 20px;
+  color: #e6c98e;
+  font-family: Mantinia, serif;
+  text-align: center;
+  opacity: 0;
 }
 
 #toast {
@@ -142,23 +104,10 @@ h1 {
   animation: fadein 0.5s, fadeout 0.5s 5s;
 }
 
-.multiply-bg {
-  background-image: url(resources/dirt.jpg);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-}
-
-.settings-menu {
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
-  text-align: left;
-  color: white;
-  user-select: none;
-}
-
-.settings-headline {
-  text-align: center;
-  font-weight: bold;
-  color: white;
+#until {
+  margin-top: 60px;
+  font-size: 55px;
+  max-width: 750px;
 }
 
 .center {
@@ -170,30 +119,88 @@ h1 {
   transform: translate(-50%, -50%);
 }
 
-.settings-menu-items{
-  margin-top: 1rem;
+.content {
+  width: 100vw;
+  height: 100vh;
+  position: fixed;
+  user-select: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+}
+
+.custom-button {
+  display: block;
+  margin: 30px auto;
+  border-width: 0;
+  border-radius: 5px;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, .6);
+  background-color: #0075FF;
+  color: white;
+  font-size: 21px;
+  transition: background-color .3s;
+}
+
+.custom-button:hover, #editor-button:focus {
+  background-color: #005CC8;
+}
+
+.custom-button span {
+  display: block;
+  padding: 12px 24px;
+}
+
+.custom-forms {
+  color: white;
+  background-color: gray;
+}
+
+.custom-forms::placeholder {
+  color: lightgray;
+}
+
+.github {
+  text-align: center;
+  text-decoration: none;
+  color: white;
+  font-weight: bold;
+}
+
+.github:hover {
+  color: dodgerblue;
+}
+
+.hidden-bar {
+  position: fixed;
+  bottom: 0;
+  text-align: center;
+  display: none;
+}
+
+.multiply-bg {
+  background-image: url(resources/dirt.jpg);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.settings-headline {
+  text-align: center;
+  font-weight: bold;
+  color: white;
 }
 
 .settings-label {
   color: white
 }
 
-@-webkit-keyframes fadein {
-  from {bottom: 0; opacity: 0;}
-  to {bottom: 30px; opacity: 1;}
+.settings-menu {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, Helvetica, Arial,
+  sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+  text-align: left;
+  color: white;
+  user-select: none;
 }
 
-@keyframes fadein {
-  from {bottom: 0; opacity: 0;}
-  to {bottom: 30px; opacity: 1;}
-}
-
-@-webkit-keyframes fadeout {
-  from {bottom: 30px; opacity: 1;}
-  to {bottom: 0; opacity: 0;}
-}
-
-@keyframes fadeout {
-  from {bottom: 30px; opacity: 1;}
-  to {bottom: 0; opacity: 0;}
+.settings-menu-items{
+  margin-top: 1rem;
 }
