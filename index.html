@@ -22,20 +22,21 @@
                     <span class="multiply-bg">release<br></span>
                     <div class="multiply-bg" id="until" v-html="untilHtml"></div>
                 </h1>
-
-                <div id="latest-news"></div>
             </div>
             <div id="toast" :class="{ show: toastVisible }" :style="toastStyle">
                 {{ toastMessage }}
             </div>
         </div>
 
-        <div class="hidden-bar" :style="{ display: hiddenBarVisible ? 'block' : 'none', padding: settings.bigTaskbar ? '30px' : '15px', width: settings.bigTaskbar ? '96%' : '97%', opacity: letterStyle.opacity, filter: letterStyle.filter }">
+        <div class="hidden-bar" :style="{ display: hiddenBarVisible ? 'block' : 'none',
+        padding: settings.bigTaskbar ? '30px' : '15px', width: settings.bigTaskbar ? '96%' : '97%',
+        opacity: letterStyle.opacity, filter: letterStyle.filter }">
             <button id="settings-button" class="multiply-bg" @click="settingsClick">settings</button>
             <button id="separator" class="multiply-bg">*</button>
             <button id="latest-news-button" class="multiply-bg"
-                @click="iframeClick('https://www.youtube-nocookie.com/embed/+lastest?list=PLEvjQXUVNXtLaInE60PML5EF49jI8qw9_')">latest
-                news</button>
+                    @click="iframeClick(
+                      'https://www.youtube-nocookie.com/embed/+lastest?list=PLEvjQXUVNXtLaInE60PML5EF49jI8qw9_'
+                      )">latest news</button>
             <button id="separator2" class="multiply-bg">*</button>
             <button id="trailer-button" class="multiply-bg"
                 @click="iframeClick('https://www.youtube-nocookie.com/embed/E3Huy2cdih0')">trailer</button>
