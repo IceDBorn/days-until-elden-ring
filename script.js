@@ -1,26 +1,11 @@
 ;(() => {
   const rand = function (a, b) { return ~~((Math.random() * (b - a + 1)) + a) }
 
-  window.requestAnimFrame = (function () { return window.requestAnimationFrame || window.webkitRequestAnimationFrame || window.mozRequestAnimationFrame || window.oRequestAnimationFrame || window.msRequestAnimationFrame || function (a) { window.setTimeout(a, 1E3 / 60) } }())
-
-  async function setBackground (url, isMobile) {
-    const blobUrl = await window.fetch(url)
-      .then(res => res.blob())
-      .then(blob => URL.createObjectURL(blob))
-
-    document.body.style.background = 'black url(' + blobUrl + ')'
-    document.body.style.backgroundRepeat = 'no-repeat'
-
-    if (isMobile) {
-      document.body.style.backgroundSize = 'auto'
-      document.body.style.backgroundPosition = '50% 0%'
-      document.body.style.backgroundAttachment = 'scroll'
-    } else {
-      document.body.style.backgroundSize = 'cover'
-      document.body.style.backgroundPosition = '50% 50%'
-      document.body.style.backgroundAttachment = 'fixed'
-    }
-  }
+  window.requestAnimFrame = (function () {
+    return window.requestAnimationFrame || window.webkitRequestAnimationFrame ||
+      window.mozRequestAnimationFrame || window.oRequestAnimationFrame || window.msRequestAnimationFrame ||
+      function (a) { window.setTimeout(a, 1E3 / 60) }
+  }())
 
   function calcFPS (opts) {
     const count = opts.count || 60
@@ -45,39 +30,42 @@
     checker()
   }
 
+  async function setBackground (url, isMobile) {
+    const blobUrl = await window.fetch(url)
+      .then(res => res.blob())
+      .then(blob => URL.createObjectURL(blob))
+
+    document.body.style.background = 'black url(' + blobUrl + ')'
+    document.body.style.backgroundRepeat = 'no-repeat'
+
+    if (isMobile) {
+      document.body.style.backgroundSize = 'auto'
+      document.body.style.backgroundPosition = '50% 0%'
+      document.body.style.backgroundAttachment = 'scroll'
+    } else {
+      document.body.style.backgroundSize = 'cover'
+      document.body.style.backgroundPosition = '50% 50%'
+      document.body.style.backgroundAttachment = 'fixed'
+    }
+  }
+
   calcFPS({ count: 144 })
 
   window.app = new window.Vue({
     el: '#app',
     data: {
-      isMobile: /Android|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent),
-      countDownDate: 0,
-      today: new Date().getDay(),
-      isTouch: false,
-      fps: 60,
-
-      lastFrameTime: 0,
-
-      musicPlayer: null,
-
       contentOpacity: 0,
-
-      untilInterval: null,
-      untilHtml: '',
-
-      iframeWidth: 0,
-      iframeHeight: 0,
-
-      menuVisible: true,
-
+      countDownDate: 0,
+      fps: 60,
       hiddenBarVisible: false,
-
-      toastVisible: true,
-      toastStyle: {},
-      toastMessage: null,
-
+      iframeHeight: 0,
+      iframeWidth: 0,
+      isMobile: /Android|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent),
+      isTouch: false,
+      lastFrameTime: 0,
       letterStyle: {},
-
+      menuVisible: true,
+      musicPlayer: null,
       settings: {
         version: 0.4,
         backgroundImage: true,
@@ -98,12 +86,18 @@
         sparksTick: 20,
         uncompressedImages: false,
         volume: 50
-      }
+      },
+      toastMessage: null,
+      toastStyle: {},
+      toastVisible: true,
+      today: new Date().getDay(),
+      untilHtml: '',
+      untilInterval: null
     },
     async mounted () {
       const self = this
-
       const savedSettings = JSON.parse(window.localStorage.getItem('settings'))
+
       if (savedSettings && savedSettings.version === this.settings.version) {
         this.settings = savedSettings
       } else {
@@ -246,6 +240,15 @@
           , 1000
         )
       },
+      initCountDownDate () {
+        if (new Date().getTime() > new Date('Oct 31, 2021 04:00:00').getTime()) {
+          this.countDownDate = new Date('Jan 21, 2022 00:00:00').getTime()
+        } else {
+          this.countDownDate = new Date('Jan 20, 2022 23:00:00').getTime()
+        }
+
+        this.untilInterval = setInterval(this.countdownLoop(), 1000)
+      },
       initHiddenBar () {
         if (this.isTouch) {
           const mc = new window.Hammer.Manager(document.body, {
@@ -279,15 +282,6 @@
             this.hiddenBarVisible = true
           }
         }
-      },
-      initCountDownDate () {
-        if (new Date().getTime() > new Date('Oct 31, 2021 04:00:00').getTime()) {
-          this.countDownDate = new Date('Jan 21, 2022 00:00:00').getTime()
-        } else {
-          this.countDownDate = new Date('Jan 20, 2022 23:00:00').getTime()
-        }
-
-        this.untilInterval = setInterval(this.countdownLoop(), 1000)
       },
       initIframe () {
         this.iframeWidth = window.innerWidth * 0.75
