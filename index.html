@@ -12,7 +12,7 @@
 <body style="background-color: black;">
     <div id="app">
         <div class="content" :style="{ backgroundColor: `rgba(0,0,0,${1 - contentOpacity})` }">
-            <div id="text" class="center" :style="letterStyle">
+            <div class="center mainText" :style="letterStyle">
                 <h1>
                     <span class="multiply-bg">days until<br></span>
                     <picture style="pointer-events: none;">
@@ -20,10 +20,10 @@
                         <img src="resources/logo.png" alt="logo">
                     </picture><br>
                     <span class="multiply-bg">release<br></span>
-                    <div class="multiply-bg" id="until" v-html="untilHtml"></div>
+                    <div class="multiply-bg untilText" v-html="untilHtml"></div>
                 </h1>
             </div>
-            <div class="multiply-bg" id="toast" :class="{ show: toastVisible }" :style="toastStyle">
+            <div class="multiply-bg toast" :class="{ show: toastVisible }" :style="toastStyle">
                 {{ toastMessage }}
             </div>
         </div>
