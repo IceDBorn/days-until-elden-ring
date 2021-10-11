@@ -117,6 +117,7 @@
       this.updateMusic()
       this.fadingLoop()
 
+      // TODO: Change opacity as long as the timer is running
       setTimeout(function () { self.toastStyle.visibility = 'hidden' }, 5000)
     },
     watch: {
@@ -344,6 +345,7 @@
           this.toastMessage = 'move the mouse cursor here for info and settings'
         }
       },
+      // TODO: Add reset button on letters editor
       letterEditorClick () {
         window.Swal.fire({
           html: /* html */ `
@@ -395,6 +397,7 @@
         document.getElementById('sparksTickValue').innerText = formattedValue
         this.settings.formattedSparksTick = formattedValue
       },
+      // TODO: Add top/bottom bar toggle
       settingsClick () {
         window.Swal.fire({
           html: /* html */ `

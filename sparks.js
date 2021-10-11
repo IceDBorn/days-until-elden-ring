@@ -1,3 +1,5 @@
+// TODO: Change amount of sparks without reloading
+
 ;(() => {
   const c = document.getElementById('sparks')
   const ctx = c.getContext('2d')
