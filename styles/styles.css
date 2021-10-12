@@ -53,15 +53,6 @@ h2 {
   -ms-user-select: none;
 }
 
-.custom-forms {
-  color: white;
-  background-color: gray;
-}
-
-.custom-forms::placeholder {
-  color: lightgray;
-}
-
 .github {
   text-align: center;
   text-decoration: none;

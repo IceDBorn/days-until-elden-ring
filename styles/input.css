@@ -6,9 +6,6 @@
 .has-float-label input:hover:not(:disabled):not(:focus) {
     border-bottom:2px solid white !important;
 }
-.has-float-label input[value=""] {
-    border-top:2px solid white !important;
-}
 
 .has-float-label input:hover:invalid:not(:placeholder-shown):not(:focus) {
     border-bottom:2px solid #ff1744 !important;
