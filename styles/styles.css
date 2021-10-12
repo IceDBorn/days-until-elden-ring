@@ -67,10 +67,11 @@ h2 {
   text-decoration: none;
   color: white;
   font-weight: bold;
+  margin-top: 2rem;
 }
 
 .github:hover {
-  color: dodgerblue;
+  color: #2196F3;
 }
 
 .hidden-bar {
