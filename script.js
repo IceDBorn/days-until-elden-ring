@@ -376,29 +376,41 @@
                 <hr />
                 <h3 class="settings-headline">Letters</h3>
                 <div class="settings-menu-items">
-                  <label for="lettersBrightness" class="settings-label">Brightness:</label>
-                  <input class="custom-forms" type="number" id="lettersBrightness" step="0.25" oninput="window.app.settings.lettersBrightness = value" value="${window.app.settings.lettersBrightness}">
+                  <label class="has-float-label">
+                  <div class="label">Brightness</div>
+                  <input id="lettersBrightness" type="number" step="0.25" oninput="window.app.settings.lettersBrightness = value" value="${window.app.settings.lettersBrightness}">
+                  </label>
                 </div>
                 <div class="settings-menu-items">
-                  <label for="letterOpacity" class="settings-label">Opacity:</label>
-                  <input class="custom-forms" type="number" id="letterOpacity" min="0.1" max="1" step="0.1" onkeyup="window.app.enforceMinMax(this)" oninput="window.app.letterOpacity = value" value="${window.app.settings.maxLetterOpacity}">
+                  <label class="has-float-label">
+                  <div class="label">Opacity</div>
+                  <input id="letterOpacity" type="number" min="0.1" max="1" step="0.1" onkeyup="window.app.enforceMinMax(this)" oninput="window.app.letterOpacity = value" value="${window.app.settings.maxLetterOpacity}">
+                  </label>
                 </div>
                 <h3 class="settings-headline">Drop shadow</h3>
                 <div class="settings-menu-items">
-                  <label for="dropShadowBlur" class="settings-label">Blur:</label>
-                  <input class="custom-forms" type="number" id="dropShadowBlur" min="0" max="50" onkeyup="window.app.enforceMinMax(this)" oninput="window.app.settings.dropShadowBlur = value" value="${window.app.settings.dropShadowBlur}">
+                  <label class="has-float-label">
+                  <div class="label">Blur</div>
+                  <input id="dropShadowBlur" type="number" min="0" max="50" onkeyup="window.app.enforceMinMax(this)" oninput="window.app.settings.dropShadowBlur = value" value="${window.app.settings.dropShadowBlur}">
+                  </label>
                 </div>
                 <div class="settings-menu-items">
-                  <label for="dropShadowColor" class="settings-label">Color:</label>
-                  <input class="custom-forms" type="text" id="dropShadowColor" placeholder="Plain english or HEX" oninput="window.app.settings.dropShadowColor = value" value="${window.app.settings.dropShadowColor}">
+                  <label class="has-float-label">
+                  <div class="label">Color</div>
+                  <input id="dropShadowColor" type="text" placeholder="Plain english or HEX" oninput="window.app.settings.dropShadowColor = value" value="${window.app.settings.dropShadowColor}">
+                  </label>
                 </div>
                 <div class="settings-menu-items">
-                  <label for="dropShadowX" class="settings-label">Position X:</label>
-                  <input class="custom-forms" type="number" id="dropShadowX" oninput="window.app.settings.dropShadowX = value" value="${window.app.settings.dropShadowX}">
+                  <label class="has-float-label">
+                  <div class="label">Position X</div>
+                  <input id="dropShadowX" type="number" oninput="window.app.settings.dropShadowX = value" value="${window.app.settings.dropShadowX}">
+                  </label>
                 </div>
                 <div class="settings-menu-items">
-                  <label for="dropShadowY" class="settings-label">Position Y:</label>
-                  <input class="custom-forms" type="number" id="dropShadowY" oninput="window.app.settings.dropShadowY = value" value="${window.app.settings.dropShadowY}">
+                  <label class="has-float-label">
+                  <div class="label">Position Y</div>
+                  <input id="dropShadowY" type="number" oninput="window.app.settings.dropShadowY = value" value="${window.app.settings.dropShadowY}">
+                  </label>
                 </div>
                 <div style="width: 75%; margin: auto;">
                   <button class="pure-material-button-contained" onclick="window.app.applyLettersStylePreset(true)">Default</button>
