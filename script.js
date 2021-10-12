@@ -27,6 +27,7 @@
     checker()
   }
 
+  // TODO: Add option for shuffling between all wallpapers
   async function setBackground (url, isMobile) {
     const blobUrl = await window.fetch(url)
       .then(res => res.blob())
@@ -64,6 +65,8 @@
       textStyle: {},
       textOpacity: 0,
       menuVisible: true,
+      // TODO: Add local file support
+      // TODO: Add spotify integration
       musicPlayer: null,
       settings: {
         version: 0.7,
