@@ -53,40 +53,6 @@ h2 {
   -ms-user-select: none;
 }
 
-.custom-button {
-  display: block;
-  width: 10rem;
-  margin: 30px auto;
-  border-width: 0;
-  border-radius: 5px;
-  box-shadow: 0 1px 4px rgba(0, 0, 0, .6);
-  background-color: #0075FF;
-  color: white;
-  font-size: 21px;
-  transition: background-color .3s;
-}
-
-.custom-button-group {
-  margin: 30px auto;
-  border-width: 0;
-  width: 10rem;
-  border-radius: 5px;
-  box-shadow: 0 1px 4px rgba(0, 0, 0, .6);
-  background-color: #0075FF;
-  color: white;
-  font-size: 21px;
-  transition: background-color .3s;
-}
-
-.custom-button:hover, .custom-button-group:hover {
-  background-color: #005CC8;
-}
-
-.custom-button span, .custom-button-group span {
-  display: block;
-  padding: 12px 0;
-}
-
 .custom-forms {
   color: white;
   background-color: gray;

@@ -401,9 +401,9 @@
                   <input class="custom-forms" type="number" id="dropShadowY" oninput="window.app.settings.dropShadowY = value" value="${window.app.settings.dropShadowY}">
                 </div>
                 <div style="width: 75%; margin: auto;">
-                  <button class="custom-button-group" onclick="window.app.applyLettersStylePreset(true)"><span>Default</span></button>
+                  <button class="pure-material-button-contained" onclick="window.app.applyLettersStylePreset(true)">Default</button>
                   <span style="padding: 0.5rem"></span>
-                  <button class="custom-button-group" onclick="window.app.applyLettersStylePreset(false)"><span>Recommended</span></button>
+                  <button class="pure-material-button-contained" onclick="window.app.applyLettersStylePreset(false)">Recommended</button>
                 </div>
             </div>
         `,
@@ -497,7 +497,7 @@
                   <span class="settings-label">Bold taskbar (Raises bottom bar height)</span>
                 </label>
               </div>
-              <button class="custom-button" onclick="window.app.letterEditorClick()"><span>Letters editor</span></button>
+              <button class="pure-material-button-contained" onclick="window.app.letterEditorClick()">Letters editor</button>
               <hr class="settings-menu-items"/>
               <a class="github" href="https://github.com/IceDBorn/days-until-elden-ring" target="_blank">
                 <h2 class="github">
