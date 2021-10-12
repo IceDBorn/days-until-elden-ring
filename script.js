@@ -61,24 +61,24 @@
       isMobile: /Android|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent),
       isTouch: false,
       lastFrameTime: 0,
-      letterStyle: {},
-      letterOpacity: 0,
+      textStyle: {},
+      textOpacity: 0,
       menuVisible: true,
       musicPlayer: null,
       settings: {
-        version: 0.6,
+        version: 0.7,
         backgroundImage: true,
         bigTaskbar: false,
         bottomBar: true,
         dropShadow: false,
         dropShadowBlur: '0',
-        lettersBrightness: '1.25',
+        textBrightness: '1.25',
         dropShadowColor: '',
         dropShadowX: '0',
         dropShadowY: '0',
         formattedSparksSpeed: '1.00x',
         formattedSparksTick: '1.00x',
-        maxLetterOpacity: 1,
+        maxTextOpacity: 1,
         music: 'none',
         sparksPlaying: true,
         sparksSpeed: 36,
@@ -135,22 +135,22 @@
         }
       },
       'settings.dropShadowBlur' () {
-        this.updateLettersStyle()
+        this.updateTextStyle()
       },
-      'settings.lettersBrightness' () {
-        this.updateLettersStyle()
+      'settings.textBrightness' () {
+        this.updateTextStyle()
       },
       'settings.dropShadowColor' () {
-        this.updateLettersStyle()
+        this.updateTextStyle()
       },
       'settings.dropShadowX' () {
-        this.updateLettersStyle()
+        this.updateTextStyle()
       },
       'settings.dropShadowY' () {
-        this.updateLettersStyle()
+        this.updateTextStyle()
       },
-      'letterOpacity' () {
-        this.updateLettersStyle()
+      'textOpacity' () {
+        this.updateTextStyle()
       },
       'settings.music' () {
         this.updateMusic()
@@ -160,10 +160,10 @@
       }
     },
     methods: {
-      applyLettersStylePreset (defaultPreset) {
-        this.settings.lettersBrightness = 1.25
-        this.settings.maxLetterOpacity = 1
-        this.letterOpacity = 1
+      applyTextStylePreset (defaultPreset) {
+        this.settings.textBrightness = 1.25
+        this.settings.maxTextOpacity = 1
+        this.textOpacity = 1
         if (defaultPreset) {
           this.settings.dropShadowColor = ''
           this.settings.dropShadowX = 0
@@ -176,11 +176,11 @@
           this.settings.dropShadowBlur = 3
         }
 
-        document.getElementById('lettersBrightness').value = this.settings.lettersBrightness
+        document.getElementById('textBrightness').value = this.settings.textBrightness
         document.getElementById('dropShadowColor').value = this.settings.dropShadowColor
         document.getElementById('dropShadowX').value = this.settings.dropShadowX
         document.getElementById('dropShadowY').value = this.settings.dropShadowY
-        document.getElementById('letterOpacity').value = this.settings.maxLetterOpacity
+        document.getElementById('textOpacity').value = this.settings.maxTextOpacity
         document.getElementById('dropShadowBlur').value = this.settings.dropShadowBlur
       },
       countdownLoop () {
@@ -220,12 +220,12 @@
           return
         }
 
-        if (this.letterOpacity >= this.settings.maxLetterOpacity) {
-          this.letterOpacity = this.settings.maxLetterOpacity
-          this.toastStyle.opacity = this.settings.maxLetterOpacity
+        if (this.textOpacity >= this.settings.maxTextOpacity) {
+          this.textOpacity = this.settings.maxTextOpacity
+          this.toastStyle.opacity = this.settings.maxTextOpacity
         } else {
-          this.letterOpacity = parseFloat(this.letterOpacity) + increment
-          this.toastStyle.opacity = parseFloat(this.letterOpacity) + increment
+          this.textOpacity = parseFloat(this.textOpacity) + increment
+          this.toastStyle.opacity = parseFloat(this.textOpacity) + increment
         }
 
         window.requestAnimFrame(this.fadingLoop)
@@ -355,7 +355,7 @@
         })
       },
       initToastStyles () {
-        this.toastStyle.filter = 'brightness(' + this.settings.lettersBrightness + ') drop-shadow(' +
+        this.toastStyle.filter = 'brightness(' + this.settings.textBrightness + ') drop-shadow(' +
           this.settings.dropShadowColor + ' ' + this.settings.dropShadowX + 'px ' +
           this.settings.dropShadowY + 'px ' + this.settings.dropShadowBlur + 'px'
 
@@ -367,66 +367,6 @@
           this.toastStyle.fontSize = '20px'
           this.toastMessage = 'move the mouse cursor here for info and settings'
         }
-      },
-      letterEditorClick (recall) {
-        window.Swal.fire({
-          html: /* html */ `
-            <div class="settings-menu">
-                <h1 class="settings-headline" ">Editor</h1>
-                <hr />
-                <h3 class="settings-headline">Letters</h3>
-                <div class="settings-menu-items">
-                  <label class="has-float-label">
-                  <div class="label">Brightness</div>
-                  <input id="lettersBrightness" type="number" step="0.25" oninput="window.app.settings.lettersBrightness = value" value="${window.app.settings.lettersBrightness}">
-                  </label>
-                </div>
-                <div class="settings-menu-items">
-                  <label class="has-float-label">
-                  <div class="label">Opacity</div>
-                  <input id="letterOpacity" type="number" min="0.1" max="1" step="0.1" onkeyup="window.app.enforceMinMax(this)" oninput="window.app.letterOpacity = value" value="${window.app.settings.maxLetterOpacity}">
-                  </label>
-                </div>
-                <h3 class="settings-headline">Drop shadow</h3>
-                <div class="settings-menu-items">
-                  <label class="has-float-label">
-                  <div class="label">Blur</div>
-                  <input id="dropShadowBlur" type="number" min="0" max="50" onkeyup="window.app.enforceMinMax(this)" oninput="window.app.settings.dropShadowBlur = value" value="${window.app.settings.dropShadowBlur}">
-                  </label>
-                </div>
-                <div class="settings-menu-items">
-                  <label class="has-float-label">
-                  <div class="label">Color</div>
-                  <input id="dropShadowColor" type="text" placeholder="Plain english or HEX" oninput="window.app.settings.dropShadowColor = value" value="${window.app.settings.dropShadowColor}">
-                  </label>
-                </div>
-                <div class="settings-menu-items">
-                  <label class="has-float-label">
-                  <div class="label">Position X</div>
-                  <input id="dropShadowX" type="number" oninput="window.app.settings.dropShadowX = value" value="${window.app.settings.dropShadowX}">
-                  </label>
-                </div>
-                <div class="settings-menu-items">
-                  <label class="has-float-label">
-                  <div class="label">Position Y</div>
-                  <input id="dropShadowY" type="number" oninput="window.app.settings.dropShadowY = value" value="${window.app.settings.dropShadowY}">
-                  </label>
-                </div>
-                <div style="width: 75%; margin: auto;">
-                  <button class="pure-material-button-contained" onclick="window.app.applyLettersStylePreset(true)">Default</button>
-                  <span style="padding: 0.5rem"></span>
-                  <button class="pure-material-button-contained" onclick="window.app.applyLettersStylePreset(false)">Recommended</button>
-                </div>
-            </div>
-        `,
-          showConfirmButton: false,
-          background: 'rgba(50,50,50,1)',
-          position: 'top-end',
-          showClass: {
-            popup: recall ? '' : 'swal2-show',
-            backdrop: ''
-          }
-        }).then(value => { this.menuVisible = value })
       },
       setFormattedSparksSpeed () {
         const formattedValue = parseFloat(2.28262 - 0.0355357 * this.settings.sparksSpeed + '').toFixed(2) + 'x'
@@ -508,7 +448,7 @@
                   <span class="settings-label">Bold taskbar (Raises bottom bar height)</span>
                 </label>
               </div>
-              <button class="pure-material-button-contained" onclick="window.app.letterEditorClick()">Letters editor</button>
+              <button class="pure-material-button-contained" onclick="window.app.textEditorClick()">Text editor</button>
               <hr class="settings-menu-items"/>
               <a class="github" href="https://github.com/IceDBorn/days-until-elden-ring" target="_blank">
                 <h2 class="github">
@@ -529,6 +469,66 @@
         if (this.isTouch) document.getElementById('hiddenBarDiv').hidden = true
         if (this.isTouch) document.getElementById('taskbarToggleDiv').hidden = true
       },
+      textEditorClick (recall) {
+        window.Swal.fire({
+          html: /* html */ `
+            <div class="settings-menu">
+                <h1 class="settings-headline" ">Editor</h1>
+                <hr />
+                <h3 class="settings-headline">Text</h3>
+                <div class="settings-menu-items">
+                  <label class="has-float-label">
+                  <div class="label">Brightness</div>
+                  <input id="textBrightness" type="number" step="0.25" oninput="window.app.settings.textBrightness = value" value="${window.app.settings.textBrightness}">
+                  </label>
+                </div>
+                <div class="settings-menu-items">
+                  <label class="has-float-label">
+                  <div class="label">Opacity</div>
+                  <input id="textOpacity" type="number" min="0.1" max="1" step="0.1" onkeyup="window.app.enforceMinMax(this)" oninput="window.app.textOpacity = value" value="${window.app.settings.maxTextOpacity}">
+                  </label>
+                </div>
+                <h3 class="settings-headline">Drop shadow</h3>
+                <div class="settings-menu-items">
+                  <label class="has-float-label">
+                  <div class="label">Blur</div>
+                  <input id="dropShadowBlur" type="number" min="0" max="50" onkeyup="window.app.enforceMinMax(this)" oninput="window.app.settings.dropShadowBlur = value" value="${window.app.settings.dropShadowBlur}">
+                  </label>
+                </div>
+                <div class="settings-menu-items">
+                  <label class="has-float-label">
+                  <div class="label">Color</div>
+                  <input id="dropShadowColor" type="text" placeholder="Plain english or HEX" oninput="window.app.settings.dropShadowColor = value" value="${window.app.settings.dropShadowColor}">
+                  </label>
+                </div>
+                <div class="settings-menu-items">
+                  <label class="has-float-label">
+                  <div class="label">Position X</div>
+                  <input id="dropShadowX" type="number" oninput="window.app.settings.dropShadowX = value" value="${window.app.settings.dropShadowX}">
+                  </label>
+                </div>
+                <div class="settings-menu-items">
+                  <label class="has-float-label">
+                  <div class="label">Position Y</div>
+                  <input id="dropShadowY" type="number" oninput="window.app.settings.dropShadowY = value" value="${window.app.settings.dropShadowY}">
+                  </label>
+                </div>
+                <div style="width: 75%; margin: auto;">
+                  <button class="pure-material-button-contained" onclick="window.app.applyTextStylePreset(true)">Default</button>
+                  <span style="padding: 0.5rem"></span>
+                  <button class="pure-material-button-contained" onclick="window.app.applyTextStylePreset(false)">Recommended</button>
+                </div>
+            </div>
+        `,
+          showConfirmButton: false,
+          background: 'rgba(50,50,50,1)',
+          position: 'top-end',
+          showClass: {
+            popup: recall ? '' : 'swal2-show',
+            backdrop: ''
+          }
+        }).then(value => { this.menuVisible = value })
+      },
       async updateBackground () {
         if (!this.settings.backgroundImage) return
 
@@ -539,22 +539,22 @@
           .then(res => res.ok ? url : 'resources/backgrounds/' + this.today + '-0' + uncompressed + '.jpg')
           .then(url => setBackground(url, this.isMobile))
       },
-      updateLettersStyle () {
+      updateTextStyle () {
         if (this.settings.dropShadowBlur < 0) {
           this.settings.dropShadowBlur = 0
         } else if (this.settings.dropShadowBlur > 50) {
           this.settings.dropShadowBlur = 50
         }
 
-        if (this.letterOpacity > 1) {
-          this.letterOpacity = 1
-        } else if (!this.fading && this.letterOpacity < 0.1) {
-          this.letterOpacity = 0.1
+        if (this.textOpacity > 1) {
+          this.textOpacity = 1
+        } else if (!this.fading && this.textOpacity < 0.1) {
+          this.textOpacity = 0.1
         }
 
-        if (!this.fading) this.settings.maxLetterOpacity = this.letterOpacity
-        this.letterStyle.opacity = this.letterOpacity
-        this.letterStyle.filter = 'brightness(' + this.settings.lettersBrightness + ') drop-shadow(' +
+        if (!this.fading) this.settings.maxTextOpacity = this.textOpacity
+        this.textStyle.opacity = this.textOpacity
+        this.textStyle.filter = 'brightness(' + this.settings.textBrightness + ') drop-shadow(' +
           this.settings.dropShadowColor + ' ' + this.settings.dropShadowX + 'px ' +
           this.settings.dropShadowY + 'px ' + this.settings.dropShadowBlur + 'px'
       },
