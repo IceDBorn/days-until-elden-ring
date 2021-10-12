@@ -2,7 +2,7 @@
 
 @font-face {
   font-family: Mantinia;
-  src: url(resources/font.otf);
+  src: url(../resources/font.otf);
 }
 
 * {
@@ -19,6 +19,11 @@ body {
 h1 {
   font-size: 50px;
   line-height: 55px;
+}
+
+h2 {
+  margin-top: 0;
+  margin-bottom: 1rem;
 }
 
 #sparks {
@@ -143,7 +148,7 @@ h1 {
 }
 
 .multiply-bg {
-  background-image: url(resources/dirt.jpg);
+  background-image: url(../resources/dirt.jpg);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 }
@@ -161,13 +166,12 @@ h1 {
 .settings-menu {
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, Helvetica, Arial,
   sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
-  text-align: left;
   color: white;
   user-select: none;
 }
 
 .settings-menu-items{
-  margin-top: 1rem;
+  margin-top: 0.3rem;
 }
 
 .toast {

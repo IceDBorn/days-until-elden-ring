@@ -368,7 +368,6 @@
           this.toastMessage = 'move the mouse cursor here for info and settings'
         }
       },
-      // TODO: Add reset button on letters editor
       letterEditorClick (recall) {
         window.Swal.fire({
           html: /* html */ `
@@ -432,31 +431,41 @@
         window.Swal.fire({
           html: /* html */ `
             <div class="settings-menu">
-              <h1 class="settings-headline">Settings</h1>
+              <h2 class="settings-headline">Settings</h2>
               <hr />
               <h3 class="settings-headline">Background</h3>
               <div class="settings-menu-items">
-                <input type="checkbox" ${this.settings.backgroundImage ? 'checked' : ''} id="background" onclick="window.app.settings.backgroundImage = !window.app.settings.backgroundImage">
-                <label for="background" class="settings-label">Enabled</label>
+                <label class="pure-material-checkbox">
+                  <input type="checkbox" ${this.settings.backgroundImage ? 'checked' : ''} id="background" onclick="window.app.settings.backgroundImage = !window.app.settings.backgroundImage">
+                  <span class="settings-label">Enabled</span>
+                </label>
               </div>
               <div class="settings-menu-items">
-                <input type="checkbox" ${this.settings.uncompressedImages ? 'checked' : ''} id="uncompressedToggle" onclick="window.app.settings.uncompressedImages = !window.app.settings.uncompressedImages">
-                <label for="uncompressedToggle" class="settings-label">Uncompressed images</label>
+                <label class="pure-material-checkbox">
+                  <input type="checkbox" ${this.settings.uncompressedImages ? 'checked' : ''} id="uncompressedToggle" onclick="window.app.settings.uncompressedImages = !window.app.settings.uncompressedImages">
+                  <span class="settings-label">Uncompressed images</span>
+                </label>
               </div>
               <h3 class="settings-headline">Sparks</h3>
               <div class="settings-menu-items">
-                <input type="checkbox" ${this.settings.sparksPlaying ? 'checked' : ''} id="sparksToggle" onclick="window.app.settings.sparksPlaying = !window.app.settings.sparksPlaying">
-                <label for="sparksToggle" class="settings-label">Enabled</label>
+                <label class="pure-material-checkbox">
+                  <input type="checkbox" ${this.settings.sparksPlaying ? 'checked' : ''} id="sparksToggle" onclick="window.app.settings.sparksPlaying = !window.app.settings.sparksPlaying">
+                  <span class="settings-label">Enabled</span>
+                </label>
               </div>
               <div class="settings-menu-items">
-                <label for="sparksTick" class="settings-label">Amount:</label>
-                <input type="range" min="-35" max="-5" value="${-window.app.settings.sparksTick}" id="sparksTick" oninput="window.app.updateSparksTick(-value)">
-                <label id="sparksTickValue" class="settings-label">${window.app.settings.formattedSparksTick}</label>
+                <label class="pure-material-slider">
+                  <input type="range" min="-35" max="-5" value="${-window.app.settings.sparksTick}" oninput="window.app.updateSparksTick(-value)">
+                  <span class="settings-label">Amount:</span>
+                  <label id="sparksTickValue" class="settings-label">${window.app.settings.formattedSparksTick}</label>
+                </label>
               </div>
               <div class="settings-menu-items">
-                <label for="sparksSpeed" class="settings-label">Speed:</label>
-                <input type="range" min="-64" max="-8" value="${-window.app.settings.sparksSpeed}" id="sparksSpeed" oninput="window.app.updateSparksSpeed(-value)">
-                <label id="sparksSpeedValue" class="settings-label">${window.app.settings.formattedSparksSpeed}</label>
+                <label class="pure-material-slider">
+                  <input type="range" min="-64" max="-8" value="${-window.app.settings.sparksSpeed}" oninput="window.app.updateSparksSpeed(-value)">
+                  <span class="settings-label">Speed:</span>
+                  <label id="sparksSpeedValue" class="settings-label">${window.app.settings.formattedSparksSpeed}</label>
+                </label>
               </div>
               <h3 class="settings-headline">Music</h3>
               <div class="settings-menu-items">
@@ -469,18 +478,24 @@
                 </select>
               </div>
               <div class="settings-menu-items">
-                <label for="volume" class="settings-label">Volume:</label>
-                <input type="range" min="0" max="100" value="${window.app.settings.volume}" id="volume" oninput="window.app.updateVolume(value)">
-                <label id="volumeValue" class="settings-label">${window.app.settings.volume + '%'}</label>
+                <label class="pure-material-slider">
+                  <input type="range" min="0" max="100" value="${window.app.settings.volume}" oninput="window.app.updateVolume(value)">
+                  <span class="settings-label">Volume:</span>
+                  <label id="volumeValue" class="settings-label">${window.app.settings.volume + '%'}</label>
+                </label>
               </div>
               <h3 class="settings-headline">Misc</h3>
               <div class="settings-menu-items" id="hiddenBarDiv">
-                <input type="checkbox" ${this.settings.bottomBar ? 'checked' : ''} id="bottomBar" onclick="window.app.settings.bottomBar = !window.app.settings.bottomBar">
-                <label for="bottomBar" class="settings-label">Bottom bar (Toggle by pressing ESC)</label>
+                <label class="pure-material-checkbox">
+                  <input type="checkbox" ${this.settings.bottomBar ? 'checked' : ''} onclick="window.app.settings.bottomBar = !window.app.settings.bottomBar">
+                  <span class="settings-label">Bottom bar (Toggle by pressing ESC)</span>
+                </label>
               </div>
               <div class="settings-menu-items" id="taskbarToggleDiv">
-                <input type="checkbox" ${this.settings.bigTaskbar ? 'checked' : ''} id="taskbarToggle" onclick="window.app.settings.bigTaskbar = !window.app.settings.bigTaskbar">
-                <label for="taskbarToggle" class="settings-label">Big taskbar (Raises bottom bar height)</label>
+                <label class="pure-material-checkbox">
+                  <input type="checkbox" ${this.settings.bigTaskbar ? 'checked' : ''} onclick="window.app.settings.bigTaskbar = !window.app.settings.bigTaskbar">
+                  <span class="settings-label">Bold taskbar (Raises bottom bar height)</span>
+                </label>
               </div>
               <button class="custom-button" onclick="window.app.letterEditorClick()"><span>Letters editor</span></button>
               <hr class="settings-menu-items"/>
