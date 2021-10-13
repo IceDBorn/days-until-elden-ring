@@ -8,7 +8,7 @@
     position: absolute;
     right: 0;
     top: 40%;
-    width: 400px;
+    width: 430px;
     left: 0;
     margin: 0 auto;
 }
@@ -24,8 +24,9 @@
 .select-text {
     position: relative;
     font-family: inherit;
-    width: 405px;
+    width: 430px;
     text-align: center;
+    text-indent: 1.3em;
     padding: 10px 10px 10px 0;
     font-size: 18px;
     border-radius: 0;
