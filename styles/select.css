@@ -18,7 +18,7 @@
     font-family:
             'Roboto','Helvetica','Arial',sans-serif;
     position: relative;
-    width: 350px;
+    width: 430px;
 }
 
 .select-text {
@@ -26,8 +26,7 @@
     font-family: inherit;
     width: 430px;
     text-align: center;
-    text-indent: 1.3em;
-    padding: 10px 10px 10px 0;
+    padding: 10px 10px 10px 24px;
     font-size: 18px;
     border-radius: 0;
     border: none;
