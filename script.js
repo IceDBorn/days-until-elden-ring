@@ -365,6 +365,8 @@
         this.toastStyle.filter = 'brightness(' + this.settings.textBrightness + ') drop-shadow(' +
           this.settings.dropShadowColor + ' ' + this.settings.dropShadowX + 'px ' +
           this.settings.dropShadowY + 'px ' + this.settings.dropShadowBlur + 'px'
+        this.toastStyle.bottom = this.settings.topBar ? '' : '30px'
+        this.toastStyle.top = this.settings.topBar ? '30px' : ''
 
         if (this.isTouch) {
           this.toastStyle.left = '48%'
