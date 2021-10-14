@@ -69,13 +69,14 @@
       // TODO: Add spotify integration
       musicPlayer: null,
       settings: {
-        version: 0.7,
+        version: 0.8,
         backgroundImage: true,
         bigTaskbar: false,
         bottomBar: true,
         dropShadow: false,
         dropShadowBlur: '0',
         textBrightness: '1.25',
+        topBar: false,
         dropShadowColor: '',
         dropShadowX: '0',
         dropShadowY: '0',
@@ -444,6 +445,19 @@
                   <input type="checkbox" ${this.settings.bottomBar ? 'checked' : ''} onclick="window.app.settings.bottomBar = !window.app.settings.bottomBar">
                   <span class="settings-label">Bottom bar (Toggle by pressing ESC)</span>
                 </label>
+              </div>
+              <div class="settings-menu-items">
+                <form>
+                  <p>Select the position of the hidden bar:</p>
+                  <div>
+                    <input type="radio" ${this.settings.topBar ? 'checked' : ''} id="topBar"
+                     name="barPosition" onclick="window.app.settings.topBar = true">
+                    <label for="topBar">Top</label>
+                    <input type="radio" ${window.app.settings.topBar ? '' : 'checked'} id="bottomBar"
+                     name="barPosition" onclick="window.app.settings.topBar = false">
+                    <label for="bottomBar">Bottom</label>
+                  </div>
+                </form>
               </div>
               <div class="settings-menu-items" id="taskbarToggleDiv">
                 <label class="pure-material-checkbox">
