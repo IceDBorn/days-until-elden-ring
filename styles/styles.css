@@ -77,7 +77,6 @@ input[type=number] {
 
 .hidden-bar {
   position: fixed;
-  bottom: 0;
   text-align: center;
   display: none;
 }

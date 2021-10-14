@@ -35,7 +35,7 @@
 
         <div class="hidden-bar" :style="{ display: hiddenBarVisible ? 'block' : 'none',
         padding: settings.bigTaskbar ? '30px' : '15px', width: settings.bigTaskbar ? '96%' : '97%',
-        opacity: textStyle.opacity, filter: textStyle.filter }">
+        opacity: textStyle.opacity, filter: textStyle.filter, bottom: settings.topBar ? '' : '0' }">
             <button class="multiply-bg hidden-bar-button" @click="settingsClick">settings</button>
             <button class="multiply-bg hidden-bar-separator">*</button>
             <button class="multiply-bg hidden-bar-button"
