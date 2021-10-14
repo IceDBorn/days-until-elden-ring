@@ -313,7 +313,10 @@
             }
 
             const pos = { x: e.clientX, y: e.clientY }
-            if (pos.y < window.innerHeight - 100) {
+            if (pos.y < window.innerHeight - 100 && !this.settings.topBar) {
+              this.hiddenBarVisible = false
+              return
+            } else if (pos.y > 100 && this.settings.topBar) {
               this.hiddenBarVisible = false
               return
             }
@@ -462,7 +465,7 @@
               <div class="settings-menu-items" id="taskbarToggleDiv">
                 <label class="pure-material-checkbox">
                   <input type="checkbox" ${this.settings.bigTaskbar ? 'checked' : ''} onclick="window.app.settings.bigTaskbar = !window.app.settings.bigTaskbar">
-                  <span class="settings-label">Bold taskbar (Raises bottom bar height)</span>
+                  <span class="settings-label">Bold taskbar (Raises bar height)</span>
                 </label>
               </div>
               <button class="pure-material-button-contained" onclick="window.app.textEditorClick()">Text editor</button>
