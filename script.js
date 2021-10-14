@@ -69,10 +69,10 @@
       // TODO: Add spotify integration
       musicPlayer: null,
       settings: {
-        version: 0.8,
+        version: 0.9,
         backgroundImage: true,
         bigTaskbar: false,
-        bottomBar: true,
+        hiddenBar: true,
         dropShadow: false,
         dropShadowBlur: '0',
         textBrightness: '1.25',
@@ -307,7 +307,7 @@
           })
         } else {
           document.body.onmousemove = e => {
-            if (!(this.menuVisible && window.app.settings.bottomBar)) {
+            if (!(this.menuVisible && window.app.settings.hiddenBar)) {
               this.hiddenBarVisible = false
               return
             }
@@ -336,12 +336,12 @@
         }
       },
       initListeners () {
-        if (!(this.settings.bottomBar || this.isTouch)) this.toastMessage = 'press esc to re-enable the bottom bar'
+        if (!(this.settings.hiddenBar || this.isTouch)) this.toastMessage = 'press esc to re-enable the bottom bar'
 
         // Toggle hidden bar with ESC
         document.addEventListener('keydown', e => {
           if (e.code === 'Escape') {
-            this.settings.bottomBar = !this.settings.bottomBar
+            this.settings.hiddenBar = !this.settings.hiddenBar
           }
         })
 
@@ -445,30 +445,31 @@
                 </label>
               </div>
               <h3 class="settings-headline">Misc</h3>
-              <div class="settings-menu-items" id="hiddenBarDiv">
-                <label class="pure-material-checkbox">
-                  <input type="checkbox" ${this.settings.bottomBar ? 'checked' : ''} onclick="window.app.settings.bottomBar = !window.app.settings.bottomBar">
-                  <span class="settings-label">Bottom bar (Toggle by pressing ESC)</span>
-                </label>
-              </div>
-              <div class="settings-menu-items">
-                <form>
-                  <p>Select the position of the hidden bar:</p>
-                  <div>
-                    <input type="radio" ${this.settings.topBar ? 'checked' : ''} id="topBar"
-                     name="barPosition" onclick="window.app.settings.topBar = true">
-                    <label for="topBar">Top</label>
-                    <input type="radio" ${window.app.settings.topBar ? '' : 'checked'} id="bottomBar"
-                     name="barPosition" onclick="window.app.settings.topBar = false">
-                    <label for="bottomBar">Bottom</label>
-                  </div>
-                </form>
-              </div>
               <div class="settings-menu-items" id="taskbarToggleDiv">
                 <label class="pure-material-checkbox">
                   <input type="checkbox" ${this.settings.bigTaskbar ? 'checked' : ''} onclick="window.app.settings.bigTaskbar = !window.app.settings.bigTaskbar">
                   <span class="settings-label">Bold taskbar (Raises bar height)</span>
                 </label>
+              </div>
+              <div class="settings-menu-items" id="hiddenBarDiv">
+                <label class="pure-material-checkbox">
+                  <input type="checkbox" ${this.settings.hiddenBar ? 'checked' : ''} onclick="window.app.settings.hiddenBar = !window.app.settings.hiddenBar">
+                  <span class="settings-label">Hidden bar (Toggle by pressing ESC)</span>
+                </label>
+              </div>
+              <div class="settings-menu-items">
+                  <p>Select the position of the hidden bar:</p>
+                  <div>
+                    <label class="pure-material-radio">
+                      <input type="radio" ${this.settings.topBar ? 'checked' : ''} name="barPosition" onclick="window.app.settings.topBar = true">
+                      <span>Top</span>
+                    </label>
+                    <span style="padding: 1rem"></span>
+                    <label class="pure-material-radio">
+                      <input type="radio" ${this.settings.topBar ? '' : 'checked'} name="barPosition" onclick="window.app.settings.topBar = false">
+                      <span>Bottom</span>
+                    </label>
+                  </div>
               </div>
               <button class="pure-material-button-contained" onclick="window.app.textEditorClick()">Text editor</button>
               <hr class="settings-menu-items"/>
