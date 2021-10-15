@@ -120,10 +120,17 @@ input[type=number] {
   -webkit-text-fill-color: transparent;
 }
 
-.settings-headline {
+.settings-h2 {
   text-align: center;
   font-weight: bold;
   color: white;
+}
+
+.settings-h3 {
+  text-align: center;
+  font-weight: bold;
+  color: white;
+  font-size: 1.17em;
 }
 
 .settings-label {
@@ -137,8 +144,13 @@ input[type=number] {
   user-select: none;
 }
 
-.settings-menu-items{
+.settings-menu-item{
   margin-top: 0.3rem;
+}
+
+.settings-menu-item-headline {
+  margin-top: 1.2rem;
+  margin-bottom: 1.2rem;
 }
 
 .toast {

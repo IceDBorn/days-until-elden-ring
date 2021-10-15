@@ -387,49 +387,46 @@
         document.getElementById('sparksTickValue').innerText = formattedValue
         this.settings.formattedSparksTick = formattedValue
       },
-      // TODO: Add top/bottom bar toggle
       settingsClick () {
         window.Swal.fire({
           html: /* html */ `
             <div class="settings-menu">
-              <h2 class="settings-headline">Settings</h2>
+              <h2 class="settings-h2">Settings</h2>
               <hr />
-              <h3 class="settings-headline">Background</h3>
-              <div class="settings-menu-items">
+              <div class="settings-menu-item-headline">
                 <label class="pure-material-checkbox">
                   <input type="checkbox" ${this.settings.backgroundImage ? 'checked' : ''} id="background" onclick="window.app.settings.backgroundImage = !window.app.settings.backgroundImage">
-                  <span class="settings-label">Enabled</span>
+                  <span class="settings-h3">Background</span>
                 </label>
               </div>
-              <div class="settings-menu-items">
+              <div class="settings-menu-item">
                 <label class="pure-material-checkbox">
                   <input type="checkbox" ${this.settings.uncompressedImages ? 'checked' : ''} id="uncompressedToggle" onclick="window.app.settings.uncompressedImages = !window.app.settings.uncompressedImages">
                   <span class="settings-label">Uncompressed images</span>
                 </label>
               </div>
-              <h3 class="settings-headline">Sparks</h3>
-              <div class="settings-menu-items">
+              <div class="settings-menu-item-headline">
                 <label class="pure-material-checkbox">
                   <input type="checkbox" ${this.settings.sparksPlaying ? 'checked' : ''} id="sparksToggle" onclick="window.app.settings.sparksPlaying = !window.app.settings.sparksPlaying">
-                  <span class="settings-label">Enabled</span>
+                  <span class="settings-h3">Sparks</span>
                 </label>
               </div>
-              <div class="settings-menu-items">
+              <div class="settings-menu-item">
                 <label class="pure-material-slider">
                   <input type="range" min="-35" max="-5" value="${-window.app.settings.sparksTick}" oninput="window.app.updateSparksTick(-value)">
                   <span class="settings-label">Amount:</span>
                   <label id="sparksTickValue" class="settings-label">${window.app.settings.formattedSparksTick}</label>
                 </label>
               </div>
-              <div class="settings-menu-items">
+              <div class="settings-menu-item">
                 <label class="pure-material-slider">
                   <input type="range" min="-64" max="-8" value="${-window.app.settings.sparksSpeed}" oninput="window.app.updateSparksSpeed(-value)">
                   <span class="settings-label">Speed:</span>
                   <label id="sparksSpeedValue" class="settings-label">${window.app.settings.formattedSparksSpeed}</label>
                 </label>
               </div>
-              <h3 class="settings-headline">Music</h3>
-              <div class="settings-menu-items">
+              <h3 class="settings-h3">Music</h3>
+              <div class="settings-menu-item">
                 <select class="select-text" onchange="window.app.settings.music = value">
                   <option ${this.settings.music === 'none' ? 'selected' : ''} value="none">None</option>
                   <option ${this.settings.music === 'resources/music/alex-roe.mp3' ? 'selected' : ''} value="resources/music/alex-roe.mp3">The Flame of Ambition by Alex Roe</option>
@@ -437,27 +434,27 @@
                   <option ${this.settings.music === 'resources/music/timothy-richards-2.mp3' ? 'selected' : ''} value="resources/music/timothy-richards-2.mp3">Trailer Soundtrack Medley by Timothy Richards</option>
                 </select>
               </div>
-              <div class="settings-menu-items">
+              <div class="settings-menu-item">
                 <label class="pure-material-slider">
                   <input type="range" min="0" max="100" value="${window.app.settings.volume}" oninput="window.app.updateVolume(value)">
                   <span class="settings-label">Volume:</span>
                   <label id="volumeValue" class="settings-label">${window.app.settings.volume + '%'}</label>
                 </label>
               </div>
-              <h3 class="settings-headline">Misc</h3>
-              <div class="settings-menu-items" id="taskbarToggleDiv">
+              <h3 class="settings-h3">Misc</h3>
+              <div class="settings-menu-item" id="taskbarToggleDiv">
                 <label class="pure-material-checkbox">
                   <input type="checkbox" ${this.settings.bigTaskbar ? 'checked' : ''} onclick="window.app.settings.bigTaskbar = !window.app.settings.bigTaskbar">
                   <span class="settings-label">Bold taskbar (Raises bar height)</span>
                 </label>
               </div>
-              <div class="settings-menu-items" id="hiddenBarDiv">
+              <div class="settings-menu-item" id="hiddenBarDiv">
                 <label class="pure-material-checkbox">
                   <input type="checkbox" ${this.settings.hiddenBar ? 'checked' : ''} onclick="window.app.settings.hiddenBar = !window.app.settings.hiddenBar">
                   <span class="settings-label">Hidden bar (Toggle by pressing ESC)</span>
                 </label>
               </div>
-              <div class="settings-menu-items">
+              <div class="settings-menu-item">
                   <p>Select the position of the hidden bar:</p>
                   <div>
                     <label class="pure-material-radio">
@@ -472,7 +469,7 @@
                   </div>
               </div>
               <button class="pure-material-button-contained" onclick="window.app.textEditorClick()">Text editor</button>
-              <hr class="settings-menu-items"/>
+              <hr class="settings-menu-item"/>
               <a class="github" href="https://github.com/IceDBorn/days-until-elden-ring" target="_blank">
                 <h2 class="github">
                   <img src="resources/github.png" alt="github logo" width="20px" height="20px">
@@ -496,41 +493,41 @@
         window.Swal.fire({
           html: /* html */ `
             <div class="settings-menu">
-                <h1 class="settings-headline" ">Editor</h1>
+                <h1 class="settings-h3" ">Editor</h1>
                 <hr />
-                <h3 class="settings-headline">Text</h3>
-                <div class="settings-menu-items">
+                <h3 class="settings-h3">Text</h3>
+                <div class="settings-menu-item">
                   <label class="has-float-label">
                   <div class="label">Brightness</div>
                   <input id="textBrightness" type="number" step="0.25" oninput="window.app.settings.textBrightness = value" value="${window.app.settings.textBrightness}">
                   </label>
                 </div>
-                <div class="settings-menu-items">
+                <div class="settings-menu-item">
                   <label class="has-float-label">
                   <div class="label">Opacity</div>
                   <input id="textOpacity" type="number" min="0.1" max="1" step="0.1" onkeyup="window.app.enforceMinMax(this)" oninput="window.app.textOpacity = value" value="${window.app.settings.maxTextOpacity}">
                   </label>
                 </div>
-                <h3 class="settings-headline">Drop shadow</h3>
-                <div class="settings-menu-items">
+                <h3 class="settings-h3">Drop shadow</h3>
+                <div class="settings-menu-item">
                   <label class="has-float-label">
                   <div class="label">Blur</div>
                   <input id="dropShadowBlur" type="number" min="0" max="50" onkeyup="window.app.enforceMinMax(this)" oninput="window.app.settings.dropShadowBlur = value" value="${window.app.settings.dropShadowBlur}">
                   </label>
                 </div>
-                <div class="settings-menu-items">
+                <div class="settings-menu-item">
                   <label class="has-float-label">
                   <div class="label">Color</div>
                   <input id="dropShadowColor" type="text" placeholder="Plain english or HEX" oninput="window.app.settings.dropShadowColor = value" value="${window.app.settings.dropShadowColor}">
                   </label>
                 </div>
-                <div class="settings-menu-items">
+                <div class="settings-menu-item">
                   <label class="has-float-label">
                   <div class="label">Position X</div>
                   <input id="dropShadowX" type="number" oninput="window.app.settings.dropShadowX = value" value="${window.app.settings.dropShadowX}">
                   </label>
                 </div>
-                <div class="settings-menu-items">
+                <div class="settings-menu-item">
                   <label class="has-float-label">
                   <div class="label">Position Y</div>
                   <input id="dropShadowY" type="number" oninput="window.app.settings.dropShadowY = value" value="${window.app.settings.dropShadowY}">
