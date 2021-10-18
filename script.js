@@ -69,17 +69,17 @@
       // TODO: Add spotify integration
       musicPlayer: null,
       settings: {
-        version: 0.9,
+        version: 1.0,
         backgroundImage: true,
         bigTaskbar: false,
         hiddenBar: true,
         dropShadow: false,
-        dropShadowBlur: '0',
+        dropShadowBlur: '3',
         textBrightness: '1.25',
         topBar: false,
-        dropShadowColor: '',
-        dropShadowX: '0',
-        dropShadowY: '0',
+        dropShadowColor: 'black',
+        dropShadowX: '2',
+        dropShadowY: '2',
         formattedSparksSpeed: '1.00x',
         formattedSparksTick: '1.00x',
         maxTextOpacity: 1,
@@ -534,7 +534,7 @@
                   </label>
                 </div>
                 <div style="width: 75%; margin: auto;">
-                  <button class="pure-material-button-contained" onclick="window.app.applyTextStylePreset(true)">Default</button>
+                  <button class="pure-material-button-contained" onclick="window.app.applyTextStylePreset(true)">Styleless</button>
                   <span style="padding: 0.5rem"></span>
                   <button class="pure-material-button-contained" onclick="window.app.applyTextStylePreset(false)">Recommended</button>
                 </div>

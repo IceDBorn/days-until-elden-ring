@@ -9,17 +9,17 @@ savedSettings = JSON.stringify(savedSettings)
 window.localStorage.setItem('settings', savedSettings)
 } else if (!savedSettings) {
   const settings = {
-        version: 0.9,
+        version: 1.0,
         backgroundImage: true,
         bigTaskbar: false,
         hiddenBar: true,
         dropShadow: false,
-        dropShadowBlur: '0',
+        dropShadowBlur: '3',
         textBrightness: '1.25',
         topBar: false,
-        dropShadowColor: '',
-        dropShadowX: '0',
-        dropShadowY: '0',
+        dropShadowColor: 'black',
+        dropShadowX: '2',
+        dropShadowY: '2',
         formattedSparksSpeed: '1.00x',
         formattedSparksTick: '1.00x',
         maxTextOpacity: 1,
