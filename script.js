@@ -280,9 +280,9 @@
       },
       initCountDownDate () {
         if (new Date().getTime() > new Date('Oct 31, 2021 04:00:00').getTime()) {
-          this.countDownDate = new Date('Jan 21, 2022 00:00:00').getTime()
+          this.countDownDate = new Date('Feb 25, 2022 00:00:00').getTime()
         } else {
-          this.countDownDate = new Date('Jan 20, 2022 23:00:00').getTime()
+          this.countDownDate = new Date('Feb 24, 2022 23:00:00').getTime()
         }
 
         this.untilInterval = setInterval(this.countdownLoop(), 1000)
