@@ -2,19 +2,6 @@
   const rand = function (a, b) { return ~~((Math.random() * (b - a + 1)) + a) }
   let released = false
 
-  // Use this function to get UTC time and then add +9 hours to return JST time
-  // eslint-disable-next-line no-extend-native
-  Date.prototype.getJSTTime = function () {
-    return new Date(
-      this.getUTCFullYear(),
-      this.getUTCMonth(),
-      this.getUTCDate(),
-      this.getUTCHours() + 9,
-      this.getUTCMinutes(),
-      this.getUTCSeconds()
-    ).getTime()
-  }
-
   window.requestAnimFrame = (function () {
     return window.requestAnimationFrame || window.webkitRequestAnimationFrame ||
       window.mozRequestAnimationFrame || window.oRequestAnimationFrame || window.msRequestAnimationFrame ||
@@ -110,7 +97,14 @@
       toastStyle: {},
       today: new Date().getDay(),
       untilHtml: '',
-      untilInterval: null
+      untilInterval: null,
+      countdownUpdate: 0,
+      countdown: {
+        days: 0,
+        hours: 0,
+        minutes: 0,
+        seconds: 0
+      }
     },
     async mounted () {
       const self = this
@@ -177,6 +171,14 @@
       },
       'settings.uncompressedImages' () {
         this.updateBackground()
+      },
+      countdownUpdate () {
+        this.countdown = {
+          days: Math.floor(this.distance() / (1000 * 60 * 60 * 24)),
+          hours: Math.floor((this.distance() % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)),
+          minutes: Math.floor((this.distance() % (1000 * 60 * 60)) / (1000 * 60)),
+          seconds: Math.floor((this.distance() % (1000 * 60)) / 1000)
+        }
       }
     },
     methods: {
@@ -204,46 +206,9 @@
         document.getElementById('dropShadowBlur').value = this.settings.dropShadowBlur
       },
       countdownLoop () {
-        const distance = this.countDownDate - new Date().getJSTTime()
+        this.countdownUpdate++
 
-        const days = Math.floor(distance / (1000 * 60 * 60 * 24))
-        const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60))
-        const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60))
-        const seconds = Math.floor((distance % (1000 * 60)) / 1000)
-
-        const formatValue = (value, name) => `${value}&nbsp;${name}${value === 1 ? '' : 's'}`
-
-        if (days === 0) {
-          if (hours === 0) {
-            if (minutes === 0) {
-              document.getElementById('logo').hidden = true
-              document.getElementById('countdown').style.fontSize = '70px'
-              document.getElementById('topText').hidden = true
-              document.getElementById('bottomText').hidden = true
-              this.untilHtml = `${seconds}`
-            } else {
-              document.getElementById('topText').innerHTML = 'minutes until<br>'
-              this.untilHtml = `${formatValue(minutes, 'minute')} ${formatValue(seconds, 'second')}`
-            }
-          } else {
-            document.getElementById('topText').innerHTML = 'hours until<br>'
-            this.untilHtml = `${formatValue(hours, 'hour')} ${formatValue(minutes, 'minute')} ${formatValue(seconds, 'second')}`
-          }
-        } else {
-          this.untilHtml = `${formatValue(days, 'day')} ${formatValue(hours, 'hour')} ${formatValue(minutes, 'minute')} ${formatValue(seconds, 'second')}`
-        }
-
-        if (distance <= 0) {
-          document.getElementById('logo').hidden = false
-          document.getElementById('bottomText').hidden = false
-          // Disable 'days until' and the countdown text
-          this.untilHtml = ''
-          document.getElementById('topText').hidden = true
-          document.getElementById('countdown').hidden = true
-          // Format 'release' accordingly
-          document.getElementById('bottomText').innerHTML = '<br>has officially released'
-          document.getElementById('bottomText').style.fontSize = '100px'
-          // Switch music player on playing the fan-made main theme
+        if (this.distance() <= 0) {
           if (!released) {
             this.settings.music = 'resources/music/timothy-richards.mp3'
             this.updateMusic()
@@ -650,6 +615,17 @@
         this.settings.volume = value
         document.getElementById('volumeValue').innerText = this.settings.volume + '%'
         if (this.musicPlayer != null) this.musicPlayer.volume = (this.settings.volume / 100)
+      },
+      formatValue (value, name) {
+        return `${value} ${name}${value === 1 ? '' : 's'}`
+      },
+      distance () {
+        return this.countDownDate - new Date().getTime()
+      }
+    },
+    computed: {
+      secondsRemaining () {
+        return this.countdown.days >= 0 && this.countdown.hours >= 0 && this.countdown.minutes > 0
       }
     }
   })

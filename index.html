@@ -20,13 +20,24 @@
         <div class="content" :style="{ backgroundColor: `rgba(0,0,0,${1 - contentOpacity})` }">
             <div class="center mainText" :style="textStyle">
                 <h1>
-                    <span id="topText" class="multiply-bg">days until<br></span>
-                    <picture id="logo" style="pointer-events: none;">
+                    <span v-if="secondsRemaining" class="multiply-bg">{{
+                            (countdown.days > 0) ? 'days until'
+                                    : (countdown.hours > 0) ? 'hours until'
+                                    : 'minutes until'
+                        }}<br></span>
+                    <picture v-if="secondsRemaining || distance() < 0" style="pointer-events: none;">
                         <source srcset="resources/logo.avif" type="image/avif">
                         <img src="resources/logo.png" alt="logo">
                     </picture><br>
-                    <span id="bottomText" class="multiply-bg">release<br></span>
-                    <div id="countdown" class="multiply-bg untilText" v-html="untilHtml"></div>
+                    <span v-if="secondsRemaining" class="multiply-bg">release<br></span>
+                    <span v-else-if="distance() < 0" class="multiply-bg" style="font-size: 100px"><br>has officially released</span>
+                    <div :key="countdownUpdate" class="multiply-bg countdownText">
+                        <span class="nowrap" v-if="countdown.days > 0">{{ formatValue(countdown.days, 'day') }}</span>
+                        <span class="nowrap" v-if="countdown.days >= 0 && countdown.hours > 0">{{ formatValue(countdown.hours, 'hour') }}</span>
+                        <span class="nowrap" v-if="countdown.days >= 0 && countdown.hours >= 0 && countdown.minutes > 0">{{ formatValue(countdown.minutes, 'minute') }}</span>
+                        <span class="nowrap" v-if="countdown.days >= 0 && countdown.hours >= 0 && countdown.minutes > 0">{{ formatValue(countdown.seconds, 'second') }}</span>
+                        <span class="nowrap" v-else-if="distance() >= 0" style="font-size: 70px">{{ countdown.seconds }}</span>
+                    </div>
                 </h1>
             </div>
             <div class="multiply-bg toast" :style="toastStyle">

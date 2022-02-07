@@ -63,6 +63,10 @@ input[type=number] {
   -ms-user-select: none;
 }
 
+.nowrap {
+  white-space: nowrap
+}
+
 .github {
   text-align: center;
   text-decoration: none;
@@ -168,7 +172,7 @@ input[type=number] {
   opacity: 0;
 }
 
-.untilText {
+.countdownText {
   margin-top: 60px;
   font-size: 55px;
   max-width: 750px;
