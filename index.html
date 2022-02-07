@@ -20,13 +20,13 @@
         <div class="content" :style="{ backgroundColor: `rgba(0,0,0,${1 - contentOpacity})` }">
             <div class="center mainText" :style="textStyle">
                 <h1>
-                    <span class="multiply-bg">days until<br></span>
-                    <picture style="pointer-events: none;">
+                    <span id="topText" class="multiply-bg">days until<br></span>
+                    <picture id="logo" style="pointer-events: none;">
                         <source srcset="resources/logo.avif" type="image/avif">
                         <img src="resources/logo.png" alt="logo">
                     </picture><br>
-                    <span class="multiply-bg">release<br></span>
-                    <div class="multiply-bg untilText" v-html="untilHtml"></div>
+                    <span id="bottomText" class="multiply-bg">release<br></span>
+                    <div id="countdown" class="multiply-bg untilText" v-html="untilHtml"></div>
                 </h1>
             </div>
             <div class="multiply-bg toast" :style="toastStyle">

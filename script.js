@@ -1,5 +1,6 @@
 ;(() => {
   const rand = function (a, b) { return ~~((Math.random() * (b - a + 1)) + a) }
+  let released = false
 
   window.requestAnimFrame = (function () {
     return window.requestAnimationFrame || window.webkitRequestAnimationFrame ||
@@ -13,6 +14,7 @@
     // eslint-disable-next-line no-undef
     const start = performance.now()
     if (!window.requestAnimFrame) return true
+
     function checker () {
       if (index--) window.requestAnimFrame(checker)
       else {
@@ -22,6 +24,7 @@
         window.app.fps = Math.round(result)
       }
     }
+
     if (!opts) opts = {}
     index = count
     checker()
@@ -197,11 +200,43 @@
 
         const formatValue = (value, name) => `${value}&nbsp;${name}${value === 1 ? '' : 's'}`
 
-        if (distance < 0) clearInterval(this.countdownLoop)
+        if (days === 0) {
+          if (hours === 0) {
+            if (minutes === 0) {
+              document.getElementById('logo').hidden = true
+              document.getElementById('countdown').style.fontSize = '70px'
+              document.getElementById('topText').hidden = true
+              document.getElementById('bottomText').hidden = true
+              this.untilHtml = `${seconds}`
+            } else {
+              document.getElementById('topText').innerHTML = 'minutes until<br>'
+              this.untilHtml = `${formatValue(minutes, 'minute')} ${formatValue(seconds, 'second')}`
+            }
+          } else {
+            document.getElementById('topText').innerHTML = 'hours until<br>'
+            this.untilHtml = `${formatValue(hours, 'hour')} ${formatValue(minutes, 'minute')} ${formatValue(seconds, 'second')}`
+          }
+        } else {
+          this.untilHtml = `${formatValue(days, 'day')} ${formatValue(hours, 'hour')} ${formatValue(minutes, 'minute')} ${formatValue(seconds, 'second')}`
+        }
 
-        this.untilHtml = `${formatValue(days, 'day')} ${formatValue(hours, 'hour')} ${formatValue(minutes, 'minute')} ${formatValue(seconds, 'second')}`
-
-        return this.countdownLoop
+        if (distance <= 0) {
+          document.getElementById('logo').hidden = false
+          document.getElementById('bottomText').hidden = false
+          // Disable 'days until' and the countdown text
+          this.untilHtml = ''
+          document.getElementById('topText').hidden = true
+          document.getElementById('countdown').hidden = true
+          // Format 'release' accordingly
+          document.getElementById('bottomText').innerHTML = '<br>has officially released'
+          document.getElementById('bottomText').style.fontSize = '100px'
+          // Switch music player on playing the fan-made main theme
+          if (!released) {
+            this.settings.music = 'resources/music/timothy-richards.mp3'
+            this.updateMusic()
+            released = true
+          }
+        } else { return this.countdownLoop }
       },
       enforceMinMax (el) {
         if (el.value !== '') {
