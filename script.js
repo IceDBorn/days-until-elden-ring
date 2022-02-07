@@ -2,6 +2,19 @@
   const rand = function (a, b) { return ~~((Math.random() * (b - a + 1)) + a) }
   let released = false
 
+  // Use this function to get UTC time and then add +9 hours to return JST time
+  // eslint-disable-next-line no-extend-native
+  Date.prototype.getJSTTime = function () {
+    return new Date(
+      this.getUTCFullYear(),
+      this.getUTCMonth(),
+      this.getUTCDate(),
+      this.getUTCHours() + 9,
+      this.getUTCMinutes(),
+      this.getUTCSeconds()
+    ).getTime()
+  }
+
   window.requestAnimFrame = (function () {
     return window.requestAnimationFrame || window.webkitRequestAnimationFrame ||
       window.mozRequestAnimationFrame || window.oRequestAnimationFrame || window.msRequestAnimationFrame ||
@@ -191,7 +204,7 @@
         document.getElementById('dropShadowBlur').value = this.settings.dropShadowBlur
       },
       countdownLoop () {
-        const distance = this.countDownDate - new Date().getTime()
+        const distance = this.countDownDate - new Date().getJSTTime()
 
         const days = Math.floor(distance / (1000 * 60 * 60 * 24))
         const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60))
