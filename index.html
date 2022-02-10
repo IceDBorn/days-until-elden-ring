@@ -30,7 +30,7 @@
                         <img src="resources/logo.png" alt="logo">
                     </picture><br>
                     <span v-if="secondsRemaining" class="multiply-bg">release<br></span>
-                    <span v-else-if="distance() < 0" class="multiply-bg" style="font-size: 100px"><br>has officially released</span>
+                    <span v-else-if="distance() < 0" class="multiply-bg" style="font-size: 100px"><br>has officially been released</span>
                     <div :key="countdownUpdate" class="multiply-bg countdownText">
                         <span class="nowrap" v-if="countdown.days > 0">{{ formatValue(countdown.days, 'day') }}</span>
                         <span class="nowrap" v-if="countdown.days >= 0 && countdown.hours > 0">{{ formatValue(countdown.hours, 'hour') }}</span>
