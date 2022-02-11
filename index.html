@@ -35,7 +35,7 @@
                         <span class="nowrap" v-if="countdown.days > 0">{{ formatValue(countdown.days, 'day') }}</span>
                         <span class="nowrap" v-if="countdown.days >= 0 && countdown.hours > 0">{{ formatValue(countdown.hours, 'hour') }}</span>
                         <span class="nowrap" v-if="countdown.days >= 0 && countdown.hours >= 0 && countdown.minutes > 0">{{ formatValue(countdown.minutes, 'minute') }}</span>
-                        <span class="nowrap" v-if="countdown.days >= 0 && countdown.hours >= 0 && countdown.minutes > 0">{{ formatValue(countdown.seconds, 'second') }}</span>
+                        <span class="nowrap" v-if="countdown.days >= 0 && countdown.hours >= 0 && countdown.minutes >= 0 && countdown.seconds > 0">{{ formatValue(countdown.seconds, 'second') }}</span>
                         <span class="nowrap" v-else-if="distance() >= 0" style="font-size: 70px">{{ countdown.seconds }}</span>
                     </div>
                 </h1>
