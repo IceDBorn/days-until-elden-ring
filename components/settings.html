@@ -1,0 +1,91 @@
+<template>
+    <div id="swal-settings" class="settings-menu">
+        <h2 class="settings-h2">Settings</h2>
+        <hr />
+        <div class="settings-menu-item-headline">
+            <label class="pure-material-checkbox">
+                <input type="checkbox" v-model="settings.backgroundImage" id="background"/>
+                <span class="settings-h3">Background</span>
+            </label>
+        </div>
+        <div class="settings-menu-item">
+            <label class="pure-material-checkbox">
+                <input type="checkbox" v-model="settings.uncompressedImages" id="uncompressedToggle"/>
+                <span class="settings-label">Uncompressed images</span>
+            </label>
+        </div>
+        <div class="settings-menu-item-headline">
+            <label class="pure-material-checkbox">
+                <input type="checkbox" v-model="settings.sparksPlaying" id="sparksToggle"/>
+                <span class="settings-h3">Sparks</span>
+            </label>
+        </div>
+        <div class="settings-menu-item">
+            <label class="pure-material-slider">
+                <input type="range" min="-35" max="-5" v-model="settings.sparksTick">
+                <span class="settings-label">Amount:</span>
+                <label id="sparksTickValue" class="settings-label">{{ formattedSparksTick }}</label>
+            </label>
+        </div>
+        <div class="settings-menu-item">
+            <label class="pure-material-slider">
+                <input type="range" min="-64" max="-8" v-model="settings.sparksSpeed">
+                <span class="settings-label">Speed:</span>
+                <label id="sparksSpeedValue" class="settings-label">{{ formattedSparksSpeed }}</label>
+            </label>
+        </div>
+        <h3 class="settings-h3">Music</h3>
+        <div class="settings-menu-item">
+            <select class="select-text" v-model="settings.music">
+                <option value="none">None</option>
+                <option value="resources/music/alex-roe.mp3">The Flame of Ambition by Alex Roe</option>
+                <option value="resources/music/timothy-richards.mp3">Debut Trailer by Timothy Richards</option>
+                <option value="resources/music/timothy-richards-2.mp3">Trailer Soundtrack Medley by Timothy Richards</option>
+            </select>
+        </div>
+        <div class="settings-menu-item">
+            <label class="pure-material-slider">
+                <input type="range" min="0" max="100" v-model="settings.volume"/>
+                <span class="settings-label">Volume:</span>
+                <label id="volumeValue" class="settings-label">{{ settings.volume + '%' }}</label>
+            </label>
+        </div>
+        <h3 class="settings-h3">Misc</h3>
+        <div class="settings-menu-item" v-if="!isTouch">
+            <label class="pure-material-checkbox">
+                <input type="checkbox" v-model="settings.bigTaskbar"/>
+                <span class="settings-label">Bold taskbar (Raises bar height)</span>
+            </label>
+        </div>
+        <div class="settings-menu-item" v-if="!isTouch">
+            <label class="pure-material-checkbox">
+                <input type="checkbox" v-model="settings.hiddenBar"/>
+                <span class="settings-label">Hidden bar (Toggle by pressing ESC)</span>
+            </label>
+        </div>
+        <div class="settings-menu-item">
+            <p>Select the position of the hidden bar:</p>
+            <div>
+                <label class="pure-material-radio">
+                    <input type="radio" v-model="settings.topBar" name="barPosition" value="true">
+                    <span>Top</span>
+                </label>
+                <span style="padding: 1rem"></span>
+                <label class="pure-material-radio">
+                    <input type="radio" v-model="settings.topBar" name="barPosition" value="false">
+                    <span>Bottom</span>
+                </label>
+            </div>
+        </div>
+        <button class="pure-material-button-contained" onclick="window.app.textEditorClick()">Text editor</button>
+        <hr class="settings-menu-item" style="margin-bottom: 1.5rem"/>
+        <a class="links" style="margin-right: 2rem" href="https://github.com/IceDBorn/days-until-elden-ring" target="_blank">
+            <img src="resources/github.png" alt="github" width="20px" height="20px">
+            Github
+        </a>
+        <a class="links" href="https://www.twitch.tv/daysuntileldenring" target="_blank">
+            <img src="resources/twitch.png" alt="twitch" width="20px" height="20px">
+            Twitch
+        </a>
+    </div>
+</template>

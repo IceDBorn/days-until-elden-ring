@@ -1,22 +1,22 @@
+import store from './store.js'
+import { requestAnimFrame } from './lib.js'
+import sparks from './sparks.js'
+import { html as swalSettingsHtml, mountSwal as swalSettingsMount } from './components/settings.js'
+import { html as swalEditorHtml, mountSwal as swalEditorMount } from './components/text-editor.js'
+
 ;(() => {
   const rand = function (a, b) { return ~~((Math.random() * (b - a + 1)) + a) }
   let released = false
-
-  window.requestAnimFrame = (function () {
-    return window.requestAnimationFrame || window.webkitRequestAnimationFrame ||
-      window.mozRequestAnimationFrame || window.oRequestAnimationFrame || window.msRequestAnimationFrame ||
-      function (a) { window.setTimeout(a, 1E3 / 60) }
-  }())
 
   function calcFPS (opts) {
     const count = opts.count || 60
     let index
     // eslint-disable-next-line no-undef
     const start = performance.now()
-    if (!window.requestAnimFrame) return true
+    if (!requestAnimFrame) return true
 
     function checker () {
-      if (index--) window.requestAnimFrame(checker)
+      if (index--) requestAnimFrame(checker)
       else {
         // eslint-disable-next-line no-undef
         const result = count * 1000 / (performance.now() - start)
@@ -30,7 +30,6 @@
     checker()
   }
 
-  // TODO: Add option for shuffling between all wallpapers
   async function setBackground (url, isMobile) {
     const blobUrl = await window.fetch(url)
       .then(res => res.blob())
@@ -54,58 +53,7 @@
 
   window.app = new window.Vue({
     el: '#app',
-    data: {
-      contentOpacity: 0,
-      countDownDate: 0,
-      fading: true,
-      fps: 60,
-      hiddenBarVisible: false,
-      iframeHeight: 0,
-      iframeWidth: 0,
-      isMobile: /Android|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent),
-      isTouch: false,
-      lastFrameTime: 0,
-      textStyle: {},
-      textOpacity: 0,
-      menuVisible: true,
-      // TODO: Add local file support
-      // TODO: Add spotify integration
-      musicPlayer: null,
-      settings: {
-        version: 1.0,
-        backgroundImage: true,
-        bigTaskbar: false,
-        hiddenBar: true,
-        dropShadow: false,
-        dropShadowBlur: '3',
-        textBrightness: '1.25',
-        topBar: false,
-        dropShadowColor: 'black',
-        dropShadowX: '2',
-        dropShadowY: '2',
-        formattedSparksSpeed: '1.00x',
-        formattedSparksTick: '1.00x',
-        maxTextOpacity: 1,
-        music: 'none',
-        sparksPlaying: true,
-        sparksSpeed: 36,
-        sparksTick: 20,
-        uncompressedImages: false,
-        volume: 50
-      },
-      toastMessage: null,
-      toastStyle: {},
-      today: new Date().getDay(),
-      untilHtml: '',
-      untilInterval: null,
-      countdownUpdate: 0,
-      countdown: {
-        days: 0,
-        hours: 0,
-        minutes: 0,
-        seconds: 0
-      }
-    },
+    data: store,
     async mounted () {
       const self = this
       const savedSettings = JSON.parse(window.localStorage.getItem('settings'))
@@ -131,8 +79,9 @@
       this.updateMusic()
       this.fadingLoop()
 
-      // TODO: Change opacity as long as the timer is running
       setTimeout(function () { self.toastStyle.visibility = 'hidden' }, 5000)
+
+      sparks()
     },
     watch: {
       settings: {
@@ -166,6 +115,9 @@
       'textOpacity' () {
         this.updateTextStyle()
       },
+      'settings.maxTextOpacity' () {
+        this.textOpacity = this.settings.maxTextOpacity
+      },
       'settings.music' () {
         this.updateMusic()
       },
@@ -179,6 +131,9 @@
           minutes: Math.floor((this.distance() % (1000 * 60 * 60)) / (1000 * 60)),
           seconds: Math.floor((this.distance() % (1000 * 60)) / 1000)
         }
+      },
+      'settings.volume' () {
+          if (this.musicPlayer != null) this.musicPlayer.volume = (this.settings.volume / 100)
       }
     },
     methods: {
@@ -197,13 +152,6 @@
           this.settings.dropShadowY = 2
           this.settings.dropShadowBlur = 3
         }
-
-        document.getElementById('textBrightness').value = this.settings.textBrightness
-        document.getElementById('dropShadowColor').value = this.settings.dropShadowColor
-        document.getElementById('dropShadowX').value = this.settings.dropShadowX
-        document.getElementById('dropShadowY').value = this.settings.dropShadowY
-        document.getElementById('textOpacity').value = this.settings.maxTextOpacity
-        document.getElementById('dropShadowBlur').value = this.settings.dropShadowBlur
       },
       countdownLoop () {
         this.countdownUpdate++
@@ -215,16 +163,6 @@
             released = true
           }
         } else { return this.countdownLoop }
-      },
-      enforceMinMax (el) {
-        if (el.value !== '') {
-          if (parseInt(el.value) < parseInt(el.min)) {
-            el.value = el.min
-          }
-          if (parseInt(el.value) > parseInt(el.max)) {
-            el.value = el.max
-          }
-        }
       },
       fadingLoop () {
         if (!this.lastFrameTime) this.lastFrameTime = Date.now()
@@ -245,7 +183,7 @@
           this.toastStyle.opacity = parseFloat(this.textOpacity) + increment
         }
 
-        window.requestAnimFrame(this.fadingLoop)
+        requestAnimFrame(this.fadingLoop)
         this.contentOpacity += increment
         this.lastFrameTime = Date.now()
       },
@@ -326,10 +264,10 @@
             }
 
             const pos = { x: e.clientX, y: e.clientY }
-            if (pos.y < window.innerHeight - 100 && !this.settings.topBar) {
+            if (pos.y < window.innerHeight - 100 && this.settings.topBar !== 'true') {
               this.hiddenBarVisible = false
               return
-            } else if (pos.y > 100 && this.settings.topBar) {
+            } else if (pos.y > 100 && this.settings.topBar === 'true') {
               this.hiddenBarVisible = false
               return
             }
@@ -375,11 +313,13 @@
         })
       },
       initToastStyles () {
-        this.toastStyle.filter = 'brightness(' + this.settings.textBrightness + ') drop-shadow(' +
+        this.toastStyle.filter = (
+          'brightness(' + this.settings.textBrightness + ') drop-shadow(' +
           this.settings.dropShadowColor + ' ' + this.settings.dropShadowX + 'px ' +
           this.settings.dropShadowY + 'px ' + this.settings.dropShadowBlur + 'px'
-        this.toastStyle.bottom = this.settings.topBar ? '' : '30px'
-        this.toastStyle.top = this.settings.topBar ? '30px' : ''
+        )
+        this.toastStyle.bottom = this.settings.topBar === 'true' ? '' : '30px'
+        this.toastStyle.top = this.settings.topBar === 'true' ? '30px' : ''
 
         if (this.isTouch) {
           this.toastStyle.left = '48%'
@@ -390,169 +330,21 @@
           this.toastMessage = 'move the mouse cursor here for info and settings'
         }
       },
-      setFormattedSparksSpeed () {
-        const formattedValue = parseFloat(2.28262 - 0.0355357 * this.settings.sparksSpeed + '').toFixed(2) + 'x'
-        document.getElementById('sparksSpeedValue').innerText = formattedValue
-        this.settings.formattedSparksSpeed = formattedValue
-      },
-      setFormattedSparksTick () {
-        const formattedValue = parseFloat(2.33 - 0.0663333 * this.settings.sparksTick + '').toFixed(2) + 'x'
-        document.getElementById('sparksTickValue').innerText = formattedValue
-        this.settings.formattedSparksTick = formattedValue
-      },
-      settingsClick () {
+      async settingsClick () {
         window.Swal.fire({
-          html: /* html */ `
-            <div class="settings-menu">
-              <h2 class="settings-h2">Settings</h2>
-              <hr />
-              <div class="settings-menu-item-headline">
-                <label class="pure-material-checkbox">
-                  <input type="checkbox" ${this.settings.backgroundImage ? 'checked' : ''} id="background" onclick="window.app.settings.backgroundImage = !window.app.settings.backgroundImage">
-                  <span class="settings-h3">Background</span>
-                </label>
-              </div>
-              <div class="settings-menu-item">
-                <label class="pure-material-checkbox">
-                  <input type="checkbox" ${this.settings.uncompressedImages ? 'checked' : ''} id="uncompressedToggle" onclick="window.app.settings.uncompressedImages = !window.app.settings.uncompressedImages">
-                  <span class="settings-label">Uncompressed images</span>
-                </label>
-              </div>
-              <div class="settings-menu-item-headline">
-                <label class="pure-material-checkbox">
-                  <input type="checkbox" ${this.settings.sparksPlaying ? 'checked' : ''} id="sparksToggle" onclick="window.app.settings.sparksPlaying = !window.app.settings.sparksPlaying">
-                  <span class="settings-h3">Sparks</span>
-                </label>
-              </div>
-              <div class="settings-menu-item">
-                <label class="pure-material-slider">
-                  <input type="range" min="-35" max="-5" value="${-window.app.settings.sparksTick}" oninput="window.app.updateSparksTick(-value)">
-                  <span class="settings-label">Amount:</span>
-                  <label id="sparksTickValue" class="settings-label">${window.app.settings.formattedSparksTick}</label>
-                </label>
-              </div>
-              <div class="settings-menu-item">
-                <label class="pure-material-slider">
-                  <input type="range" min="-64" max="-8" value="${-window.app.settings.sparksSpeed}" oninput="window.app.updateSparksSpeed(-value)">
-                  <span class="settings-label">Speed:</span>
-                  <label id="sparksSpeedValue" class="settings-label">${window.app.settings.formattedSparksSpeed}</label>
-                </label>
-              </div>
-              <h3 class="settings-h3">Music</h3>
-              <div class="settings-menu-item">
-                <select class="select-text" onchange="window.app.settings.music = value">
-                  <option ${this.settings.music === 'none' ? 'selected' : ''} value="none">None</option>
-                  <option ${this.settings.music === 'resources/music/alex-roe.mp3' ? 'selected' : ''} value="resources/music/alex-roe.mp3">The Flame of Ambition by Alex Roe</option>
-                  <option ${this.settings.music === 'resources/music/timothy-richards.mp3' ? 'selected' : ''} value="resources/music/timothy-richards.mp3">Debut Trailer by Timothy Richards</option>
-                  <option ${this.settings.music === 'resources/music/timothy-richards-2.mp3' ? 'selected' : ''} value="resources/music/timothy-richards-2.mp3">Trailer Soundtrack Medley by Timothy Richards</option>
-                </select>
-              </div>
-              <div class="settings-menu-item">
-                <label class="pure-material-slider">
-                  <input type="range" min="0" max="100" value="${window.app.settings.volume}" oninput="window.app.updateVolume(value)">
-                  <span class="settings-label">Volume:</span>
-                  <label id="volumeValue" class="settings-label">${window.app.settings.volume + '%'}</label>
-                </label>
-              </div>
-              <h3 class="settings-h3">Misc</h3>
-              <div class="settings-menu-item" id="taskbarToggleDiv">
-                <label class="pure-material-checkbox">
-                  <input type="checkbox" ${this.settings.bigTaskbar ? 'checked' : ''} onclick="window.app.settings.bigTaskbar = !window.app.settings.bigTaskbar">
-                  <span class="settings-label">Bold taskbar (Raises bar height)</span>
-                </label>
-              </div>
-              <div class="settings-menu-item" id="hiddenBarDiv">
-                <label class="pure-material-checkbox">
-                  <input type="checkbox" ${this.settings.hiddenBar ? 'checked' : ''} onclick="window.app.settings.hiddenBar = !window.app.settings.hiddenBar">
-                  <span class="settings-label">Hidden bar (Toggle by pressing ESC)</span>
-                </label>
-              </div>
-              <div class="settings-menu-item">
-                  <p>Select the position of the hidden bar:</p>
-                  <div>
-                    <label class="pure-material-radio">
-                      <input type="radio" ${this.settings.topBar ? 'checked' : ''} name="barPosition" onclick="window.app.settings.topBar = true">
-                      <span>Top</span>
-                    </label>
-                    <span style="padding: 1rem"></span>
-                    <label class="pure-material-radio">
-                      <input type="radio" ${this.settings.topBar ? '' : 'checked'} name="barPosition" onclick="window.app.settings.topBar = false">
-                      <span>Bottom</span>
-                    </label>
-                  </div>
-              </div>
-              <button class="pure-material-button-contained" onclick="window.app.textEditorClick()">Text editor</button>
-              <hr class="settings-menu-item"/>
-              <a class="github" href="https://github.com/IceDBorn/days-until-elden-ring" target="_blank">
-                <h2 class="github">
-                  <img src="resources/github.png" alt="github logo" width="20px" height="20px">
-                  Github
-                </h2>
-              </a>
-            </div>
-        `,
+          html: await swalSettingsHtml,
           showConfirmButton: false,
           background: 'rgba(50,50,50,1)'
         }).then(value => { this.menuVisible = value })
+        this.$nextTick(swalSettingsMount)
 
         this.toastStyle.visibility = 'hidden'
         if (!this.isTouch) this.hiddenBarVisible = false
         this.menuVisible = false
-
-        if (this.isTouch) document.getElementById('hiddenBarDiv').hidden = true
-        if (this.isTouch) document.getElementById('taskbarToggleDiv').hidden = true
       },
-      textEditorClick (recall) {
+      async textEditorClick (recall) {
         window.Swal.fire({
-          html: /* html */ `
-            <div class="settings-menu">
-                <h1 class="settings-h3" ">Editor</h1>
-                <hr />
-                <h3 class="settings-h3">Text</h3>
-                <div class="settings-menu-item">
-                  <label class="has-float-label">
-                  <div class="label">Brightness</div>
-                  <input id="textBrightness" type="number" step="0.25" oninput="window.app.settings.textBrightness = value" value="${window.app.settings.textBrightness}">
-                  </label>
-                </div>
-                <div class="settings-menu-item">
-                  <label class="has-float-label">
-                  <div class="label">Opacity</div>
-                  <input id="textOpacity" type="number" min="0.1" max="1" step="0.1" onkeyup="window.app.enforceMinMax(this)" oninput="window.app.textOpacity = value" value="${window.app.settings.maxTextOpacity}">
-                  </label>
-                </div>
-                <h3 class="settings-h3">Drop shadow</h3>
-                <div class="settings-menu-item">
-                  <label class="has-float-label">
-                  <div class="label">Blur</div>
-                  <input id="dropShadowBlur" type="number" min="0" max="50" onkeyup="window.app.enforceMinMax(this)" oninput="window.app.settings.dropShadowBlur = value" value="${window.app.settings.dropShadowBlur}">
-                  </label>
-                </div>
-                <div class="settings-menu-item">
-                  <label class="has-float-label">
-                  <div class="label">Color</div>
-                  <input id="dropShadowColor" type="text" placeholder="Plain english or HEX" oninput="window.app.settings.dropShadowColor = value" value="${window.app.settings.dropShadowColor}">
-                  </label>
-                </div>
-                <div class="settings-menu-item">
-                  <label class="has-float-label">
-                  <div class="label">Position X</div>
-                  <input id="dropShadowX" type="number" oninput="window.app.settings.dropShadowX = value" value="${window.app.settings.dropShadowX}">
-                  </label>
-                </div>
-                <div class="settings-menu-item">
-                  <label class="has-float-label">
-                  <div class="label">Position Y</div>
-                  <input id="dropShadowY" type="number" oninput="window.app.settings.dropShadowY = value" value="${window.app.settings.dropShadowY}">
-                  </label>
-                </div>
-                <div style="width: 75%; margin: auto;">
-                  <button class="pure-material-button-contained" onclick="window.app.applyTextStylePreset(true)">Styleless</button>
-                  <span style="padding: 0.5rem"></span>
-                  <button class="pure-material-button-contained" onclick="window.app.applyTextStylePreset(false)">Recommended</button>
-                </div>
-            </div>
-        `,
+          html: await swalEditorHtml,
           showConfirmButton: false,
           background: 'rgba(50,50,50,1)',
           position: 'top-end',
@@ -561,6 +353,7 @@
             backdrop: ''
           }
         }).then(value => { this.menuVisible = value })
+        this.$nextTick(swalEditorMount)
       },
       async updateBackground () {
         if (!this.settings.backgroundImage) return
@@ -603,29 +396,14 @@
           this.musicPlayer.volume = (this.settings.volume / 100)
         } else this.musicPlayer = null
       },
-      updateSparksSpeed (value) {
-        this.settings.sparksSpeed = value
-        this.setFormattedSparksSpeed(value)
-      },
-      updateSparksTick (value) {
-        this.settings.sparksTick = value
-        this.setFormattedSparksTick(value)
-      },
-      updateVolume (value) {
-        this.settings.volume = value
-        document.getElementById('volumeValue').innerText = this.settings.volume + '%'
-        if (this.musicPlayer != null) this.musicPlayer.volume = (this.settings.volume / 100)
-      },
       formatValue (value, name) {
         return `${value} ${name}${value === 1 ? '' : 's'}`
       },
       distance () {
         return this.countDownDate - new Date().getTime()
-      }
-    },
-    computed: {
+      },
       secondsRemaining () {
-        return this.distance() >= 60 * 1000
+        return this.distance() <= 60 * 1000
       }
     }
   })

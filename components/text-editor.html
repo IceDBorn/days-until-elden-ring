@@ -1,0 +1,49 @@
+<template>
+    <div id="swal-editor" class="settings-menu">
+        <h1 class="settings-h3">Editor</h1>
+        <hr />
+        <h3 class="settings-h3">Text</h3>
+        <div class="settings-menu-item">
+            <label class="has-float-label">
+                <div class="label">Brightness</div>
+                <input type="number" step="0.25" v-model="settings.textBrightness">
+            </label>
+        </div>
+        <div class="settings-menu-item">
+            <label class="has-float-label">
+                <div class="label">Opacity</div>
+                <input type="number" min="0.1" max="1" step="0.1" @keyup="setMaxTextOpacity" :value="maxTextOpacity">
+            </label>
+        </div>
+        <h3 class="settings-h3">Drop shadow</h3>
+        <div class="settings-menu-item">
+            <label class="has-float-label">
+                <div class="label">Blur</div>
+                <input type="number" min="0" max="50" @keyup="setDropShadowBlur" :value="dropShadowBlur">
+            </label>
+        </div>
+        <div class="settings-menu-item">
+            <label class="has-float-label">
+                <div class="label">Color</div>
+                <input type="text" placeholder="Plain english or HEX" v-model="settings.dropShadowColor">
+            </label>
+        </div>
+        <div class="settings-menu-item">
+            <label class="has-float-label">
+                <div class="label">Position X</div>
+                <input type="number" v-model="settings.dropShadowX">
+            </label>
+        </div>
+        <div class="settings-menu-item">
+            <label class="has-float-label">
+                <div class="label">Position Y</div>
+                <input type="number" v-model="settings.dropShadowY">
+            </label>
+        </div>
+        <div style="width: 75%; margin: auto;">
+            <button class="pure-material-button-contained" @click="applyTextStylePreset(true)">Styleless</button>
+            <span style="padding: 0.5rem"></span>
+            <button class="pure-material-button-contained" @click="applyTextStylePreset(false)">Recommended</button>
+        </div>
+    </div>
+</template>

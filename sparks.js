@@ -1,6 +1,7 @@
-// TODO: Change amount of sparks without reloading
+import store from './store.js'
+import { requestAnimFrame } from './lib.js'
 
-;(() => {
+export default () => {
   const c = document.getElementById('sparks')
   const ctx = c.getContext('2d')
 
@@ -11,7 +12,6 @@
   const pluses = []
   const count = 300
   let tick = 10
-  const tickMax = window.app.settings.sparksTick
 
   let plusesToCreate = 20
 
@@ -36,7 +36,7 @@
   }
 
   Plus.prototype.update = function () {
-    let deltaTime = (Date.now() - lastFrameTime) / window.app.settings.sparksSpeed
+    let deltaTime = (Date.now() - lastFrameTime) / (-store.settings.sparksSpeed)
     if (window.app.fps) {
       if (window.app.fps > 240) {
         deltaTime = deltaTime / 6
@@ -81,7 +81,7 @@
 
   const createPluses = function () {
     if (plusesToCreate > 1 || pluses.length < count) {
-      if (tick >= tickMax) {
+      if (tick >= -store.settings.sparksTick) {
         pluses.push(...[...Array(plusesToCreate)].map(_ => new Plus()))
         tick = 0
       } else {
@@ -105,8 +105,8 @@
   }
 
   const loop = function () {
-    window.requestAnimFrame(loop)
-    if (!c.getAttribute('data-sparks-playing')) return
+    requestAnimFrame(loop)
+    if (!store.settings.sparksPlaying) return
 
     ctx.clearRect(0, 0, cw, ch)
 
@@ -128,4 +128,4 @@
   }
 
   loop()
-})()
+}

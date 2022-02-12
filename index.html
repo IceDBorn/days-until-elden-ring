@@ -17,26 +17,27 @@
 
 <body style="background-color: black;">
     <div id="app">
+        <canvas id="sparks" v-show="settings.sparksPlaying"></canvas>
         <div class="content" :style="{ backgroundColor: `rgba(0,0,0,${1 - contentOpacity})` }">
             <div class="center mainText" :style="textStyle">
                 <h1>
-                    <span v-if="secondsRemaining" class="multiply-bg">{{
+                    <span v-if="!secondsRemaining()" class="multiply-bg">{{
                             (countdown.days > 0) ? 'days until'
                                     : (countdown.hours > 0) ? 'hours until'
                                     : 'minutes until'
                         }}<br></span>
-                    <picture v-if="secondsRemaining || distance() < 0" style="pointer-events: none;">
+                    <picture v-if="!secondsRemaining() || distance() < 0" style="pointer-events: none;">
                         <source srcset="resources/logo.avif" type="image/avif">
                         <img src="resources/logo.png" alt="logo">
                     </picture><br>
-                    <span v-if="secondsRemaining" class="multiply-bg">release<br></span>
+                    <span v-if="!secondsRemaining()" class="multiply-bg">release<br></span>
                     <span v-else-if="distance() < 0" class="multiply-bg" style="font-size: 100px"><br>has officially been released</span>
                     <div :key="countdownUpdate" class="multiply-bg countdownText">
                         <span class="nowrap" v-if="distance() >= 24 * 3600 * 1000">{{ formatValue(countdown.days, 'day') }}</span>
-                        <span class="nowrap" v-if="distance() >= 3600 * 1000">{{ formatValue(countdown.hours, 'hour') }}</span>
-                        <span class="nowrap" v-if="distance() >= 60 * 1000">{{ formatValue(countdown.minutes, 'minute') }}</span>
+                        <span class="nowrap" v-if="distance() >= 3600 * 1000 && countdown.hours > 0">{{ formatValue(countdown.hours, 'hour') }}</span>
+                        <span class="nowrap" v-if="distance() >= 60 * 1000 && countdown.minutes > 0">{{ formatValue(countdown.minutes, 'minute') }}</span>
                         <span class="nowrap" v-if="distance() >= 60 * 1000">{{ formatValue(countdown.seconds, 'second') }}</span>
-                        <span class="nowrap" v-else-if="distance() >= 0" style="font-size: 70px">{{ countdown.seconds }}</span>
+                        <span class="nowrap" v-else-if="distance() >= 0  && distance() <= 60 * 1000" style="font-size: 70px">{{ countdown.seconds }}</span>
                     </div>
                 </h1>
             </div>
@@ -47,7 +48,7 @@
 
         <div class="hidden-bar" :style="{ display: hiddenBarVisible ? 'block' : 'none',
         padding: settings.bigTaskbar ? '30px' : '15px', width: settings.bigTaskbar ? '96%' : '97%',
-        opacity: textStyle.opacity, filter: textStyle.filter, bottom: settings.topBar ? '' : '0' }">
+        opacity: textStyle.opacity, filter: textStyle.filter, bottom: settings.topBar === 'true' ? '' : '0' }">
             <button class="multiply-bg hidden-bar-button" @click="settingsClick">settings</button>
             <button class="multiply-bg hidden-bar-separator">*</button>
             <button class="multiply-bg hidden-bar-button"
@@ -58,9 +59,6 @@
             <button class="multiply-bg hidden-bar-button"
                 @click="iframeClick('https://www.youtube-nocookie.com/embed/E3Huy2cdih0')">trailer</button>
         </div>
-
-        <canvas id="sparks" :style="{ zIndex: -1, display: settings.sparksPlaying ? 'unset' : 'none' }"
-            :data-sparks-playing="settings.sparksPlaying"></canvas>
     </div>
 
     <template id="iframe">
@@ -74,8 +72,7 @@
         crossorigin='anonymous'></script>
     <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src='https://cdnjs.cloudflare.com/ajax/libs/vue/2.6.9/vue.js'></script>
-    <script src="/script.js"></script>
-    <script src="/sparks.js"></script>
+    <script src="/script.js" type="module"></script>
 </body>
 
 </html>

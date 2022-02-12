@@ -67,15 +67,14 @@ input[type=number] {
   white-space: nowrap
 }
 
-.github {
+.links {
   text-align: center;
   text-decoration: none;
   color: white;
   font-weight: bold;
-  margin-top: 2rem;
 }
 
-.github:hover {
+.links:hover {
   color: #2196F3;
 }
 
@@ -175,5 +174,5 @@ input[type=number] {
 .countdownText {
   margin-top: 60px;
   font-size: 55px;
-  max-width: 800px;
+  max-width: 850px;
 }
