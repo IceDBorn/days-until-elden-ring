@@ -116,6 +116,7 @@ import { html as swalEditorHtml, mountSwal as swalEditorMount } from './componen
         this.updateTextStyle()
       },
       'settings.maxTextOpacity' () {
+        if (this.fading) return
         this.textOpacity = this.settings.maxTextOpacity
       },
       'settings.music' () {
