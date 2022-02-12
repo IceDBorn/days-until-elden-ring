@@ -32,10 +32,10 @@
                     <span v-if="secondsRemaining" class="multiply-bg">release<br></span>
                     <span v-else-if="distance() < 0" class="multiply-bg" style="font-size: 100px"><br>has officially been released</span>
                     <div :key="countdownUpdate" class="multiply-bg countdownText">
-                        <span class="nowrap" v-if="countdown.days > 0">{{ formatValue(countdown.days, 'day') }}</span>
-                        <span class="nowrap" v-if="countdown.days >= 0 && countdown.hours > 0">{{ formatValue(countdown.hours, 'hour') }}</span>
-                        <span class="nowrap" v-if="countdown.days >= 0 && countdown.hours >= 0 && countdown.minutes > 0">{{ formatValue(countdown.minutes, 'minute') }}</span>
-                        <span class="nowrap" v-if="countdown.days >= 0 && countdown.hours >= 0 && countdown.minutes >= 0 && countdown.seconds > 0">{{ formatValue(countdown.seconds, 'second') }}</span>
+                        <span class="nowrap" v-if="distance() >= 24 * 3600 * 1000">{{ formatValue(countdown.days, 'day') }}</span>
+                        <span class="nowrap" v-if="distance() >= 3600 * 1000">{{ formatValue(countdown.hours, 'hour') }}</span>
+                        <span class="nowrap" v-if="distance() >= 60 * 1000">{{ formatValue(countdown.minutes, 'minute') }}</span>
+                        <span class="nowrap" v-if="distance() >= 60 * 1000">{{ formatValue(countdown.seconds, 'second') }}</span>
                         <span class="nowrap" v-else-if="distance() >= 0" style="font-size: 70px">{{ countdown.seconds }}</span>
                     </div>
                 </h1>

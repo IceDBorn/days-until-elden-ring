@@ -625,7 +625,7 @@
     },
     computed: {
       secondsRemaining () {
-        return this.countdown.days >= 0 && this.countdown.hours >= 0 && this.countdown.minutes >= 0 && this.countdown.seconds > 0
+        return this.distance() >= 60 * 1000
       }
     }
   })
