@@ -14,7 +14,7 @@ export default {
   menuVisible: true,
   musicPlayer: null,
   settings: {
-    version: 1.0,
+    version: 1.1,
     backgroundImage: true,
     bigTaskbar: false,
     hiddenBar: true,
