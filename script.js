@@ -3,6 +3,7 @@ import { requestAnimFrame } from './lib.js'
 import sparks from './sparks.js'
 import { html as swalSettingsHtml, mountSwal as swalSettingsMount } from './components/settings.js'
 import { html as swalEditorHtml, mountSwal as swalEditorMount } from './components/text-editor.js'
+import { html as iframeHtml, mountSwal as swalIframeMount } from './components/iframe.js'
 
 ;(() => {
   const rand = function (a, b) { return ~~((Math.random() * (b - a + 1)) + a) }
@@ -188,31 +189,24 @@ import { html as swalEditorHtml, mountSwal as swalEditorMount } from './componen
         this.contentOpacity += increment
         this.lastFrameTime = Date.now()
       },
-      iframeClick (src) {
+      async iframeClick (src) {
         if (this.musicPlayer !== null) this.musicPlayer.pause()
 
         if (this.isTouch) {
           window.open(src)
         } else {
+          this.iframeUrl = src
           this.initIframe()
 
-          const html = document.createElement('div')
-          html.innerHTML = document.getElementById('iframe').innerHTML
-
-          const iframe = html.querySelector('iframe')
-          iframe.setAttribute('width', this.iframeWidth)
-          iframe.setAttribute('height', this.iframeHeight)
-          iframe.setAttribute('src', src)
-          iframe.setAttribute('id', 'lastIframe')
-
           window.Swal.fire({
-            html: iframe.outerHTML,
+            html: await iframeHtml,
             showConfirmButton: false,
             background: 'rgba(0,0,0,0)'
           }).then(value => {
             this.menuVisible = value
             if (this.musicPlayer !== null) this.musicPlayer.play()
           })
+          this.$nextTick(swalIframeMount)
 
           this.toastStyle.visibility = 'hidden'
           this.hiddenBarVisible = false
@@ -308,9 +302,6 @@ import { html as swalEditorHtml, mountSwal as swalEditorMount } from './componen
         // Resize iframes based on window resize
         window.addEventListener('resize', () => {
           this.initIframe()
-          const iframe = document.getElementById('lastIframe')
-          iframe?.setAttribute('width', this.iframeWidth)
-          iframe?.setAttribute('height', this.iframeHeight)
         })
       },
       initToastStyles () {

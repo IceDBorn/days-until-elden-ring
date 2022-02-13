@@ -13,6 +13,7 @@ export default {
   textOpacity: 0,
   menuVisible: true,
   musicPlayer: null,
+  iframeUrl: "",
   settings: {
     version: 1.1,
     backgroundImage: true,

@@ -6,8 +6,7 @@ export const html = await window.fetch('/components/text-editor.html')
   .then(res => {
     const html = document.createElement('body')
     html.innerHTML = res
-    const component = html.querySelector('template').innerHTML
-    return component
+    return html.querySelector('template').innerHTML
   })
 
 // Declare component
