@@ -343,7 +343,7 @@ import { html as iframeHtml, mountSwal as swalIframeMount } from './components/i
       updateTextStyle () {
         this.textStyle.filter = 'brightness(' + this.settings.textBrightness + ') drop-shadow(' +
           this.settings.dropShadowColor + ' ' + this.settings.dropShadowX + 'px ' +
-          this.settings.dropShadowY + 'px ' + this.settings.dropShadowBlur + 'px'
+          this.settings.dropShadowY + 'px ' + this.settings.dropShadowBlur + 'px)'
       },
       updateMusic () {
         try {

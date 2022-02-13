@@ -9,7 +9,7 @@ export default {
   isMobile: /Android|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent),
   isTouch: false,
   lastFrameTime: 0,
-  textStyle: {opacity: 0, filter: 0},
+  textStyle: {opacity: 0, filter: 'brightness(1.25) drop-shadow(black 2px 2px 3px)'},
   menuVisible: true,
   musicPlayer: null,
   iframeUrl: "",
