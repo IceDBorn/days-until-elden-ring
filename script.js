@@ -87,6 +87,7 @@ import { html as iframeHtml, mountSwal as swalIframeMount } from './components/i
     watch: {
       settings: {
         handler () {
+          this.updateTextStyle()
           window.localStorage.setItem('settings', JSON.stringify(this.settings))
         },
         deep: true
@@ -98,27 +99,9 @@ import { html as iframeHtml, mountSwal as swalIframeMount } from './components/i
           document.body.style.background = 'black'
         }
       },
-      'settings.dropShadowBlur' () {
-        this.updateTextStyle()
-      },
-      'settings.textBrightness' () {
-        this.updateTextStyle()
-      },
-      'settings.dropShadowColor' () {
-        this.updateTextStyle()
-      },
-      'settings.dropShadowX' () {
-        this.updateTextStyle()
-      },
-      'settings.dropShadowY' () {
-        this.updateTextStyle()
-      },
-      'textOpacity' () {
-        this.updateTextStyle()
-      },
       'settings.maxTextOpacity' () {
         if (this.fading) return
-        this.textOpacity = this.settings.maxTextOpacity
+        this.textStyle.opacity = this.settings.maxTextOpacity
       },
       'settings.music' () {
         this.updateMusic()
@@ -142,7 +125,7 @@ import { html as iframeHtml, mountSwal as swalIframeMount } from './components/i
       applyTextStylePreset (defaultPreset) {
         this.settings.textBrightness = 1.25
         this.settings.maxTextOpacity = 1
-        this.textOpacity = 1
+        this.textStyle.opacity = 1
         if (defaultPreset) {
           this.settings.dropShadowColor = ''
           this.settings.dropShadowX = 0
@@ -177,12 +160,12 @@ import { html as iframeHtml, mountSwal as swalIframeMount } from './components/i
           return
         }
 
-        if (this.textOpacity >= this.settings.maxTextOpacity) {
-          this.textOpacity = this.settings.maxTextOpacity
+        if (this.textStyle.opacity >= this.settings.maxTextOpacity) {
+          this.textStyle.opacity = this.settings.maxTextOpacity
           this.toastStyle.opacity = this.settings.maxTextOpacity
         } else {
-          this.textOpacity = parseFloat(this.textOpacity) + increment
-          this.toastStyle.opacity = parseFloat(this.textOpacity) + increment
+          this.textStyle.opacity = parseFloat(this.textStyle.opacity) + increment
+          this.toastStyle.opacity = parseFloat(this.textStyle.opacity) + increment
         }
 
         requestAnimFrame(this.fadingLoop)
@@ -358,20 +341,6 @@ import { html as iframeHtml, mountSwal as swalIframeMount } from './components/i
           .then(url => setBackground(url, this.isMobile))
       },
       updateTextStyle () {
-        if (this.settings.dropShadowBlur < 0) {
-          this.settings.dropShadowBlur = 0
-        } else if (this.settings.dropShadowBlur > 50) {
-          this.settings.dropShadowBlur = 50
-        }
-
-        if (this.textOpacity > 1) {
-          this.textOpacity = 1
-        } else if (!this.fading && this.textOpacity < 0.1) {
-          this.textOpacity = 0.1
-        }
-
-        if (!this.fading) this.settings.maxTextOpacity = this.textOpacity
-        this.textStyle.opacity = this.textOpacity
         this.textStyle.filter = 'brightness(' + this.settings.textBrightness + ') drop-shadow(' +
           this.settings.dropShadowColor + ' ' + this.settings.dropShadowX + 'px ' +
           this.settings.dropShadowY + 'px ' + this.settings.dropShadowBlur + 'px'

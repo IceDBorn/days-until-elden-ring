@@ -26,7 +26,6 @@ const SwalPopup = window.Vue.extend({
       this.dropShadowBlur = this.settings.dropShadowBlur
     },
     normalizeMinMax (event) {
-      console.log(event.code)
 
       if (['Backspace','Delete','Period','Comma'].includes(event.code)) {
         return false
