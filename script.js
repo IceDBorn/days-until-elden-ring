@@ -9,6 +9,18 @@ import { html as iframeHtml, mountSwal as swalIframeMount } from './components/i
   const rand = function (a, b) { return ~~((Math.random() * (b - a + 1)) + a) }
   let released = false
 
+  //Use this function to get UTC time
+  Date.prototype.getUTCTime = function () {
+    return new Date(
+      this.getUTCFullYear(),
+      this.getUTCMonth(),
+      this.getUTCDate(),
+      this.getUTCHours(),
+      this.getUTCMinutes(),
+      this.getUTCSeconds()
+    ).getTime()
+  }
+
   function calcFPS (opts) {
     const count = opts.count || 60
     let index
@@ -119,6 +131,9 @@ import { html as iframeHtml, mountSwal as swalIframeMount } from './components/i
       },
       'settings.volume' () {
           if (this.musicPlayer != null) this.musicPlayer.volume = (this.settings.volume / 100)
+      },
+      'settings.console' () {
+        this.initCountDownDate()
       }
     },
     methods: {
@@ -208,10 +223,22 @@ import { html as iframeHtml, mountSwal as swalIframeMount } from './components/i
         )
       },
       initCountDownDate () {
+        // Set release time according to daylight saving
         if (new Date().getTime() > new Date('Oct 31, 2021 04:00:00').getTime()) {
-          this.countDownDate = new Date('Feb 25, 2022 00:00:00').getTime()
+          // Change between local release time (consoles) and global UTC release time (steam)
+          if (this.settings.console === 'true') {
+            // Local time
+            this.countDownDate = new Date('Feb 25, 2022 00:00:00').getTime()
+          } else {
+            // Global UTC
+            this.countDownDate = new Date('Feb 24, 2022 23:00:00').getTime()
+          }
         } else {
-          this.countDownDate = new Date('Feb 24, 2022 23:00:00').getTime()
+          if (this.settings.console === 'true') {
+            this.countDownDate = new Date('Feb 24, 2022 23:00:00').getTime()
+          } else {
+            this.countDownDate = new Date('Feb 24, 2022 22:00:00').getTime()
+          }
         }
 
         this.untilInterval = setInterval(this.countdownLoop(), 1000)
@@ -361,7 +388,12 @@ import { html as iframeHtml, mountSwal as swalIframeMount } from './components/i
         return `${value} ${name}${value === 1 ? '' : 's'}`
       },
       distance () {
-        return this.countDownDate - new Date().getTime()
+        if (this.settings.console === 'true') {
+          return this.countDownDate - new Date().getTime()
+        } else {
+          return this.countDownDate - new Date().getUTCTime()
+        }
+
       },
       secondsRemaining () {
         return this.distance() <= 60 * 1000

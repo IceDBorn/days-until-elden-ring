@@ -77,6 +77,20 @@
                 </label>
             </div>
         </div>
+        <div class="settings-menu-item">
+            <p>Select your platform:</p>
+            <div>
+                <label class="pure-material-radio">
+                    <input type="radio" v-model="settings.console" name="platform" value="true">
+                    <span>Console</span>
+                </label>
+                <span style="padding: 1rem"></span>
+                <label class="pure-material-radio">
+                    <input type="radio" v-model="settings.console" name="platform" value="false">
+                    <span>PC</span>
+                </label>
+            </div>
+        </div>
         <button class="pure-material-button-contained" onclick="window.app.textEditorClick()">Text editor</button>
         <hr class="settings-menu-item" style="margin-bottom: 1.5rem"/>
         <a class="links" style="margin-right: 2rem" href="https://github.com/IceDBorn/days-until-elden-ring" target="_blank">

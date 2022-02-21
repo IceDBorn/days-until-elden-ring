@@ -9,26 +9,25 @@ savedSettings = JSON.stringify(savedSettings)
 window.localStorage.setItem('settings', savedSettings)
 } else if (!savedSettings) {
   const settings = {
-        version: 1.1,
+        version: 1.2,
         backgroundImage: true,
         bigTaskbar: false,
         hiddenBar: true,
         dropShadow: false,
         dropShadowBlur: '3',
         textBrightness: '1.25',
-        topBar: false,
+        topBar: 'false',
         dropShadowColor: 'black',
         dropShadowX: '2',
         dropShadowY: '2',
-        formattedSparksSpeed: '1.00x',
-        formattedSparksTick: '1.00x',
         maxTextOpacity: 1,
         music: 'none',
         sparksPlaying: true,
-        sparksSpeed: 36,
-        sparksTick: 20,
+        sparksSpeed: -36,
+        sparksTick: -20,
         uncompressedImages: false,
-        volume: 50
+        volume: 50,
+        console: 'true'
       }
 
   window.localStorage.setItem('settings', JSON.stringify(settings))
