@@ -14,7 +14,7 @@ export default {
   musicPlayer: null,
   iframeUrl: "",
   settings: {
-    version: 1.2,
+    version: 1.3,
     backgroundImage: true,
     bigTaskbar: false,
     hiddenBar: true,
@@ -32,7 +32,7 @@ export default {
     sparksTick: -20,
     uncompressedImages: false,
     volume: 50,
-    console: 'true'
+    console: ''
   },
   toastMessage: null,
   toastStyle: {},

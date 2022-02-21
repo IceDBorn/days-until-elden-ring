@@ -1,0 +1,16 @@
+<template>
+    <div id="platform" class="settings-menu">
+        <p>Select your platform:</p>
+        <div>
+            <label class="pure-material-radio">
+                <input type="radio" v-model="settings.console" name="platform" value="true">
+                <span>Console</span>
+            </label>
+            <span style="padding: 1rem"></span>
+            <label class="pure-material-radio">
+                <input type="radio" v-model="settings.console" name="platform" value="false">
+                <span>PC</span>
+            </label>
+        </div>
+    </div>
+</template>

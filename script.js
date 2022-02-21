@@ -4,6 +4,7 @@ import sparks from './sparks.js'
 import { html as swalSettingsHtml, mountSwal as swalSettingsMount } from './components/settings.js'
 import { html as swalEditorHtml, mountSwal as swalEditorMount } from './components/text-editor.js'
 import { html as iframeHtml, mountSwal as swalIframeMount } from './components/iframe.js'
+import { html as swalPlatformHtml, mountSwal as swalPlatformMount } from './components/platform.js'
 
 ;(() => {
   const rand = function (a, b) { return ~~((Math.random() * (b - a + 1)) + a) }
@@ -95,6 +96,12 @@ import { html as iframeHtml, mountSwal as swalIframeMount } from './components/i
       setTimeout(function () { self.toastStyle.visibility = 'hidden' }, 5000)
 
       sparks()
+
+      // Select platform on first visit to correctly calculate the release time
+      if (this.settings.console === '') {
+        this.settings.console = 'true'
+        await this.platformChooser()
+      }
     },
     watch: {
       settings: {
@@ -397,6 +404,16 @@ import { html as iframeHtml, mountSwal as swalIframeMount } from './components/i
       },
       secondsRemaining () {
         return this.distance() <= 60 * 1000
+      },
+      async platformChooser() {
+        window.Swal.fire({
+          html: await swalPlatformHtml,
+          showConfirmButton: true,
+          background: 'rgba(50,50,50,1)',
+          allowOutsideClick: false,
+          confirmButtonColor: 'rgb(var(--pure-material-primary-rgb, 33, 150, 243))'
+        }).then(value => { this.menuVisible = value })
+        this.$nextTick(swalPlatformMount)
       }
     }
   })
