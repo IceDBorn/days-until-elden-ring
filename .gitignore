@@ -124,3 +124,6 @@ dist
 /.idea/vcs.xml
 /.idea/.gitignore
 /.idea/jsLibraryMappings.xml
+
+# Custom
+/.history/
