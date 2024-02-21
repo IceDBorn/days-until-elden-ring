@@ -32,8 +32,12 @@ input::-webkit-inner-spin-button {
 }
 
 /* Firefox */
-input[type=number] {
+input[type="number"] {
   -moz-appearance: textfield;
+}
+
+iframe {
+  border-radius: 15px;
 }
 
 #sparks {
@@ -64,7 +68,7 @@ input[type=number] {
 }
 
 .nowrap {
-  white-space: nowrap
+  white-space: nowrap;
 }
 
 .links {
@@ -75,7 +79,7 @@ input[type=number] {
 }
 
 .links:hover {
-  color: #2196F3;
+  color: #2196f3;
 }
 
 .hidden-bar {
@@ -137,17 +141,18 @@ input[type=number] {
 }
 
 .settings-label {
-  color: white
+  color: white;
 }
 
 .settings-menu {
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, Helvetica, Arial,
-  sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+    Oxygen-Sans, Ubuntu, Cantarell, Helvetica, Arial, sans-serif,
+    "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
   color: white;
   user-select: none;
 }
 
-.settings-menu-item{
+.settings-menu-item {
   margin-top: 0.3rem;
 }
 
