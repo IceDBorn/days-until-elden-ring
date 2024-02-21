@@ -49,15 +49,12 @@
         <div class="hidden-bar" :style="{ display: hiddenBarVisible ? 'block' : 'none',
         padding: settings.bigTaskbar ? '30px' : '15px', width: settings.bigTaskbar ? '96%' : '97%',
         opacity: textStyle.opacity, filter: textStyle.filter, bottom: settings.topBar === 'true' ? '' : '0' }">
+            <button class="multiply-bg hidden-bar-separator">*</button>
             <button class="multiply-bg hidden-bar-button" @click="settingsClick">settings</button>
             <button class="multiply-bg hidden-bar-separator">*</button>
             <button class="multiply-bg hidden-bar-button"
-                    @click="iframeClick(
-                      'https://www.youtube-nocookie.com/embed/+lastest?list=PLEvjQXUVNXtLaInE60PML5EF49jI8qw9_'
-                      )">latest news</button>
+                @click="iframeClick('https://www.youtube-nocookie.com/embed/a8k8R0Q2ubY')">trailer</button>
             <button class="multiply-bg hidden-bar-separator">*</button>
-            <button class="multiply-bg hidden-bar-button"
-                @click="iframeClick('https://www.youtube-nocookie.com/embed/E3Huy2cdih0')">trailer</button>
         </div>
     </div>
 
