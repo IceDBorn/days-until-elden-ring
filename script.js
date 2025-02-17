@@ -264,16 +264,16 @@ import {
           // Change between local release time (consoles) and global UTC release time (steam)
           if (this.settings.console === "true") {
             // Local time
-            this.countDownDate = new Date("Jun 21, 2024 00:00:00").getTime();
+            this.countDownDate = new Date("May 30, 2025 00:00:00").getTime();
           } else {
             // Global UTC
-            this.countDownDate = new Date("Jun 20, 2024 23:00:00").getTime();
+            this.countDownDate = new Date("May 29, 2025 23:00:00").getTime();
           }
         } else {
           if (this.settings.console === "true") {
-            this.countDownDate = new Date("Jun 20, 2024 23:00:00").getTime();
+            this.countDownDate = new Date("May 29, 2025 23:00:00").getTime();
           } else {
-            this.countDownDate = new Date("Jun 20, 2024 22:00:00").getTime();
+            this.countDownDate = new Date("May 29, 2025 22:00:00").getTime();
           }
         }
 
@@ -421,12 +421,12 @@ import {
         if (!this.settings.backgroundImage) return;
 
         const uncompressed = this.settings.uncompressedImages ? "-u" : "";
-        const url = "resources/backgrounds/dlc/" + rand(1, 12) + ".jpg";
+        const url = "resources/backgrounds/nightreign/" + rand(1, 12) + ".jpg";
 
         await window
           .fetch(url, { method: "HEAD" })
           .then((res) =>
-            res.ok ? url : "resources/backgrounds/dlc/" + rand(1, 12) + ".jpg"
+            res.ok ? url : "resources/backgrounds/nightreign/" + rand(1, 12) + ".jpg"
           )
           .then((url) => setBackground(url, this.isMobile));
       },
