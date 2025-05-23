@@ -421,12 +421,12 @@ import {
         if (!this.settings.backgroundImage) return;
 
         const uncompressed = this.settings.uncompressedImages ? "-u" : "";
-        const url = "resources/backgrounds/nightreign/" + rand(1, 12) + ".jpg";
+        const url = "resources/backgrounds/nightreign/" + rand(1, 10) + ".jpg";
 
         await window
           .fetch(url, { method: "HEAD" })
           .then((res) =>
-            res.ok ? url : "resources/backgrounds/nightreign/" + rand(1, 12) + ".jpg"
+            res.ok ? url : "resources/backgrounds/nightreign/" + rand(1, 10) + ".jpg"
           )
           .then((url) => setBackground(url, this.isMobile));
       },
