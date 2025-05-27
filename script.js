@@ -267,13 +267,13 @@ import {
             this.countDownDate = new Date("May 30, 2025 00:00:00").getTime();
           } else {
             // Global UTC
-            this.countDownDate = new Date("May 29, 2025 23:00:00").getTime();
+            this.countDownDate = new Date("May 29, 2025 22:00:00").getTime();
           }
         } else {
           if (this.settings.console === "true") {
             this.countDownDate = new Date("May 29, 2025 23:00:00").getTime();
           } else {
-            this.countDownDate = new Date("May 29, 2025 22:00:00").getTime();
+            this.countDownDate = new Date("May 29, 2025 21:00:00").getTime();
           }
         }
 
